@@ -19,8 +19,14 @@
         ".local"
         ".zen"
         ".password-store"
-        { directory = ".gnupg"; mode = "0700"; }
-        { directory = ".ssh"; mode = "0700"; }
+        {
+          directory = ".gnupg";
+          mode = "0700";
+        }
+        {
+          directory = ".ssh";
+          mode = "0700";
+        }
         "Desktop"
         "Documents"
         "Downloads"
