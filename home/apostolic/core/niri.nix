@@ -8,6 +8,7 @@
   imports = [
     inputs.niri.homeModules.niri
     inputs.niri.homeModules.stylix
+    ./waybar.nix
   ];
 
   home.sessionVariables = {
@@ -94,6 +95,9 @@
             "Mod+P".action = spawn "pwvucontrol";
             "Mod+Q".action = close-window;
             "Mod+Shift+Slash".action = show-hotkey-overlay;
+
+            "Print".action = screenshot;
+            "Shift+Print".action = screenshot-window;
 
             "Mod+V".action = switch-focus-between-floating-and-tiling;
             "Mod+Shift+V".action = toggle-window-floating;
