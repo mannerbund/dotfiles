@@ -101,21 +101,6 @@ in {
     };
   };
 
-  #fonts = {
-  #  fontconfig = {
-  #    enable = true;
-  #    defaultFonts = {
-  #      serif = [
-  #        "Noto Serif"
-  #        "Liberation Serif"
-  #      ];
-  ##      sansSerif = ["Ubuntu"];
-  ##      monospace = ["Iosevka"];
-  ##      emoji = ["Noto Color Emoji"];
-  #    };
-  #  };
-  #};
-
   services = {
     gpg-agent = {
       enable = true;
@@ -185,15 +170,7 @@ in {
         }
       );
     };
-    foot = {
-      enable = true;
-      settings = {
-        main = {
-          #font = "Iosevka Comfy:size=17";
-          #include = "${pkgs.foot.themes}/share/foot/themes/iterm";
-        };
-      };
-    };
+    foot.enable = true;
     lf = {
       enable = true;
       settings = {
@@ -396,17 +373,17 @@ in {
         progressbar_look = "━■";
         titles_visibility = "yes";
         # Colors;
-        discard_colors_if_item_is_selected = "yes";
-        header_window_color = "default";
-        volume_color = "default";
-        state_line_color = "default";
-        state_flags_color = "default";
-        main_window_color = "default";
-        color1 = "default";
-        color2 = "default";
-        progressbar_color = "default";
-        statusbar_color = "default";
-        visualizer_color = "default";
+        #discard_colors_if_item_is_selected = "yes";
+        #header_window_color = "default";
+        #volume_color = "default";
+        #state_line_color = "default";
+        #state_flags_color = "default";
+        #main_window_color = "default";
+        #color1 = "default";
+        #color2 = "default";
+        #progressbar_color = "default";
+        #statusbar_color = "default";
+        #visualizer_color = "default";
       };
     };
     fish = {

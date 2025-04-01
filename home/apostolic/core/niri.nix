@@ -4,8 +4,7 @@
   inputs,
   lib,
   ...
-}:
-{
+}: {
   imports = [
     inputs.niri.homeModules.niri
   ];
@@ -33,7 +32,7 @@
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-gnome
     ];
-    configPackages = [ pkgs.niri-unstable ];
+    configPackages = [pkgs.niri-unstable];
   };
 
   services = {
@@ -43,11 +42,11 @@
       ignoreTimeout = true;
     };
   };
-  
+
   programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
-   settings = {
+    settings = {
       outputs = {
         "eDP-1" = {
           scale = 1.0;
@@ -75,7 +74,7 @@
       clipboard.disable-primary = true;
       layout = {
         gaps = 8;
-        default-column-width = { proportion = 1.0; };
+        default-column-width = {proportion = 1.0;};
       };
       binds = with config.lib.niri.actions; let
         sh = spawn "sh" "-c";
@@ -83,7 +82,7 @@
         lib.attrsets.mergeAttrsList [
           {
             "Mod+Return".action = spawn "foot";
-            "Mod+D".action = spawn "dmenu-wl_run";     
+            "Mod+D".action = spawn "dmenu-wl_run";
             "Mod+Shift+D".action = spawn "passmenu" "-i";
             "Mod+S".action = spawn "emacsclient" "-c";
             "Mod+T".action = spawn "telegram-desktop";
