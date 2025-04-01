@@ -25,7 +25,10 @@ in {
     base16Scheme = theme;
     image = wallpaper;
     polarity = "dark";
-    fonts.sizes.terminal = 16;
+    fonts.sizes = {
+      terminal = 16;
+      desktop = 12;
+    };
     fonts = {
       serif = {
         package = pkgs.dejavu_fonts;
