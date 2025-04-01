@@ -7,6 +7,7 @@
 }: {
   imports = [
     inputs.niri.homeModules.niri
+    inputs.niri.homeModules.stylix
   ];
 
   home.sessionVariables = {
@@ -43,6 +44,8 @@
     };
   };
 
+  stylix.targets.niri.enable = true;
+  
   programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
