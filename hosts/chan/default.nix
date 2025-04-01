@@ -40,10 +40,12 @@
       "10-wireless" = {
         name = "wlan0";
         DHCP = "yes";
+        linkConfig.RequiredForOnline = "routable";
       };
       "20-ethernet" = {
         name = "enp0s31f6";
         DHCP = "yes";
+        linkConfig.RequiredForOnline = "no";
       };
     };
   };
