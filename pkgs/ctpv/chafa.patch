@@ -1,0 +1,25 @@
+diff --git a/sh/helpers.sh b/sh/helpers.sh
+index fef8691..78a4868 100644
+--- a/sh/helpers.sh
++++ b/sh/helpers.sh
+@@ -26,6 +26,10 @@ chafasixel() {
+ 	[ -n "$chafasixel" ]
+ }
+ 
++sixel() {
++	[ -n "$sixel" ]
++}
++
+ is_kitty() {
+ 	[ -n "$KITTY_PID" ] && return 0
+ 
+@@ -74,7 +78,8 @@ chafa_run() {
+ 	format='-f symbols'
+ 	autochafa && format=
+ 	chafasixel && format='-f sixels'
+-	chafa -s "${w}x${h}" $format "$1" | sed 's/#/\n#/g'
++	sixel && format='-f sixel --animate off'
++	chafa $format -s "${w}x${h}" "$1" | sed 's/#/\n#/g'
+ }
+ 
+ setup_fifo() {
