@@ -32,6 +32,7 @@
       defaultTimeout = 7000;
       ignoreTimeout = true;
     };
+    swww.enable = true;
   };
 
   stylix.targets.niri.enable = true;
@@ -73,6 +74,9 @@
         gaps = 8;
         default-column-width = {proportion = 1.0;};
       };
+      spawn-at-startup = [
+        {command = [(lib.getExe pkgs.swww) "img" "${config.home.homeDirectory}/Pictures/Wallpapers/gruvbox_city.png"];}
+      ];
       binds = with config.lib.niri.actions; let
         sh = spawn "sh" "-c";
       in
