@@ -82,6 +82,10 @@ in {
           spacing = 10;
         };
 
+        mpd = {
+          unknown-tag = "";
+        };
+
         "niri/language" = {
           format = "{shortDescription} ";
         };
