@@ -8,7 +8,7 @@ in
 
   programs.waybar = {
     enable = true;
-  	systemd.target = "niri-session";
+  	systemd.enable = true;
     settings = {
       mainBar = {
         layer = "top";
