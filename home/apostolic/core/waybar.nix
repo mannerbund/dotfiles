@@ -1,14 +1,16 @@
-{pkgs, config, ... }:
-let
+{
+  pkgs,
+  config,
+  ...
+}: let
   mkSpan = abbr: "<span color='#${abbr}'><b>{}</b></span>";
   mkSpanWorkspace = abbr: "<span color='#${abbr}'><b>{icon}</b></span>";
-in
-{
+in {
   stylix.targets.waybar.enable = true;
 
   programs.waybar = {
     enable = true;
-  	systemd.enable = true;
+    systemd.enable = true;
     settings = {
       mainBar = {
         layer = "top";
@@ -93,7 +95,7 @@ in
 
         battery = {
           states = {
-            warning= 30;
+            warning = 30;
             critical = 15;
           };
           format = "{capacity}% {icon}";

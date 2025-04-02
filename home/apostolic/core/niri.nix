@@ -15,8 +15,6 @@
     TERMINAL = "footclient";
     MOZ_USE_XINPUT2 = 1; # Mozilla smooth scrolling/touchpads.
     XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
-    XDG_SESSION_TYPE = "wayland";
-    NIXOS_OZONE_WL = "1";
   };
 
   home.packages = with pkgs; [
@@ -28,15 +26,6 @@
     font-awesome
   ];
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-gnome
-    ];
-    configPackages = [pkgs.niri-unstable];
-  };
-
   services = {
     mako = {
       enable = true;
@@ -46,11 +35,15 @@
   };
 
   stylix.targets.niri.enable = true;
-  
+
   programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
     settings = {
+      environment = {
+        NIXOS_OZONE_WL = "1";
+        DISPLAY = ":0";
+      };
       outputs = {
         "eDP-1" = {
           scale = 1.0;
@@ -92,6 +85,7 @@
             "Mod+T".action = spawn "telegram-desktop";
             "Mod+W".action = spawn "zen-beta";
             "Mod+A".action = spawn "foot" "htop";
+            "Mod+M".action = spawn "foot" "lf";
             "Mod+P".action = spawn "pwvucontrol";
             "Mod+Q".action = close-window;
             "Mod+Shift+Slash".action = show-hotkey-overlay;
