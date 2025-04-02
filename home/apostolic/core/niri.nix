@@ -105,6 +105,8 @@
             "Mod+Shift+F".action = fullscreen-window;
             "Mod+C".action = center-column;
 
+            "Mod+Space".action = toggle-column-tabbed-display;
+
             "Mod+L".action = focus-column-right;
             "Mod+H".action = focus-column-left;
             "Mod+Ctrl+L".action = move-column-right;
@@ -117,8 +119,8 @@
 
             "Mod+Shift+H".action = set-column-width "-10%";
             "Mod+Shift+L".action = set-column-width "+10%";
-            "Mod+Shift+J".action = set-window-height "-10%";
-            "Mod+Shift+K".action = set-window-height "+10%";
+            "Mod+Shift+K".action = set-window-height "-10%";
+            "Mod+Shift+J".action = set-window-height "+10%";
 
             "Mod+1".action.focus-workspace = 1;
             "Mod+2".action.focus-workspace = 2;
