@@ -28,8 +28,8 @@ in {
   home-manager.users.apostolic = import ../../../../home/apostolic/${config.networking.hostName}.nix;
 
   # For sway
-  security.polkit.enable = true;
-  security.pam.services.swaylock = {};
+  # security.polkit.enable = true;
+  # security.pam.services.swaylock = {};
 
   # niri
   services.greetd = {
