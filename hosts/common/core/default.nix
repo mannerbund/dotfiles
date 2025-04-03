@@ -24,13 +24,11 @@
   ];
 
   nixpkgs.overlays = [
-    inputs.emacs-overlay.overlays.default
-    inputs.niri.overlays.niri
     self.overlays.default
   ];
   nixpkgs.config.allowUnfree = true;
 
-  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = {
     inherit inputs self;
   };
