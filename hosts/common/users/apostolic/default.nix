@@ -27,15 +27,11 @@ in {
 
   home-manager.users.apostolic = import ../../../../home/apostolic/${config.networking.hostName}.nix;
 
-  # For sway
-  # security.polkit.enable = true;
-  # security.pam.services.swaylock = {};
-
-  # niri
   services.greetd = {
     enable = true;
     settings = {
-      default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --cmd niri-session";
+      default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --time --cmd niri-session";
+      user = "apostolic";
     };
   };
 
