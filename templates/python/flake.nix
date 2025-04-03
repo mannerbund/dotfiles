@@ -13,13 +13,15 @@
     devShells.x86_64-linux.default = with pkgs;
       mkShell {
         packages = [
+          pkgs.qt6.full
+          pkgs.qt6.qtwayland
           (pkgs.python313.withPackages (python-pkgs:
             with python-pkgs; [
               ruff
               python-lsp-server
               python-lsp-ruff
               numpy
-              tkinter
+	            pyqt6
               matplotlib
               ipython
               pandas
