@@ -11,6 +11,12 @@ in {
     ./niri.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [
+    inputs.emacs-overlay.overlays.default
+    inputs.niri.overlays.niri
+  ];
+
   home = {
     username = lib.mkDefault "apostolic";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";

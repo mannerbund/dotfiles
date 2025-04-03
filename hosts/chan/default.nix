@@ -21,7 +21,6 @@
     ../common/optional/light.nix
     ../common/optional/gamemode.nix
     ../common/optional/scx.nix
-    ../common/optional/stylix.nix
   ];
 
   networking = {
