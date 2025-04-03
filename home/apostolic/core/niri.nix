@@ -23,7 +23,6 @@
     wl-mirror
     wayland-utils
     wdisplays
-    font-awesome
   ];
 
   services = {
