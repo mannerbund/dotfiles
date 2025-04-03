@@ -18,12 +18,15 @@
   };
 
   home.packages = with pkgs; [
-    dmenu-wayland
+    wofi-pass
     wl-clipboard
     wl-mirror
     wayland-utils
     wdisplays
   ];
+
+  stylix.targets.wofi.enable = true;
+  stylix.targets.niri.enable = true;
 
   services = {
     mako = {
@@ -33,8 +36,24 @@
     };
     swww.enable = true;
   };
-
-  stylix.targets.niri.enable = true;
+  programs = {
+    wofi = {
+      enable = true;
+      settings = {
+        term = "${pkgs.foot}/bin/foot";
+        allow_images = true;
+        width = 500;
+        key_up="Ctrl-p";
+        key_down="Ctrl-n";
+      };
+      style = ''
+        #outer-box {
+          border: 3px solid #${config.lib.stylix.colors.base0A};
+          border-radius: 10px; 
+        }
+      '';
+    };
+  };
 
   programs.niri = {
     enable = true;
@@ -43,6 +62,8 @@
       environment = {
         NIXOS_OZONE_WL = "1";
         DISPLAY = ":0";
+        PASSWORD_STORE_ENABLE_EXTENSIONS="true";
+        PASSWORD_STORE_EXTENSIONS_DIR="${pkgs.passExtensions.pass-otp}/lib/password-store/extensions";
       };
       outputs = {
         "eDP-1" = {
@@ -82,8 +103,8 @@
         lib.attrsets.mergeAttrsList [
           {
             "Mod+Return".action = spawn "foot";
-            "Mod+D".action = spawn "dmenu-wl_run";
-            "Mod+Shift+D".action = spawn "passmenu" "-i";
+            "Mod+D".action = spawn "wofi" "--show" "drun";
+            "Mod+Shift+D".action = spawn "wofi-pass";
             "Mod+S".action = spawn "emacsclient" "-c";
             "Mod+T".action = spawn "telegram-desktop";
             "Mod+W".action = spawn "zen-beta";
