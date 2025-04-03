@@ -7,6 +7,7 @@
   mkSpanWorkspace = abbr: "<span color='#${abbr}'><b>{icon}</b></span>";
 in {
   stylix.targets.waybar.enable = true;
+  stylix.targets.waybar.font = "sansSerif";
 
   programs.waybar = {
     enable = true;
@@ -18,18 +19,15 @@ in {
         exclusive = true;
         fixed-center = true;
         gtk-layer-shell = true;
-        spacing = 0;
+        spacing = 10;
         margin-top = 0;
         margin-bottom = 0;
         margin-left = 0;
         margin-right = 0;
         modules-left = [
-          "niri/workspaces"
           "idle_inhibitor"
+          "niri/workspaces"
           "niri/window"
-        ];
-        modules-center = [
-          "clock"
         ];
         modules-right = [
           "tray"
@@ -37,6 +35,7 @@ in {
           "mpd"
           "wireplumber"
           "battery"
+          "clock"
         ];
 
         "niri/workspaces" = {
@@ -74,7 +73,7 @@ in {
             mode = "month";
             on-scroll = 1;
           };
-          format = "{:%I:%M %p}";
+          format = "{:%H:%M}";
           tooltip-format = "{calendar}";
         };
 
@@ -83,6 +82,7 @@ in {
         };
 
         mpd = {
+          format = "{stateIcon} {randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})";
           unknown-tag = "";
         };
 
@@ -102,20 +102,24 @@ in {
             warning = 30;
             critical = 15;
           };
-          format = "{capacity}% {icon}";
-          format-charging = "{capacity}% {icon}";
-          format-plugged = "{time} {icon}";
-          format-alt = "{time} {icon}";
+          format = "{icon}";
+          format-alt = "{capacity}% {icon}";
           format-icons = ["" "" "" "" ""];
           max-length = 25;
         };
       };
     };
     style = ''
-      #language {
-        margin-left: 15px;
-        margin-right: 15px;
+      #waybar {
+          font-weight: bold;
+      }
+      #idle_inhibitor {
+        padding: 0 10px;
+      }
+      .modules-right {
+        padding: 0 10px;
       }
     '';
   };
 }
+
