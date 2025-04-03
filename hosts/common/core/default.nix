@@ -20,6 +20,7 @@
     ./sudo.nix
     ./persistence.nix
     ./zram-generator.nix
+    ./stylix.nix
   ];
 
   nixpkgs.overlays = [
