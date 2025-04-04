@@ -27,6 +27,7 @@
 
   stylix.targets.wofi.enable = true;
   stylix.targets.niri.enable = true;
+  stylix.targets.swaylock.enable = true;
 
   services = {
     mako = {
@@ -35,7 +36,27 @@
       ignoreTimeout = true;
     };
     swww.enable = true;
+    swayidle = {
+      enable = true;
+      timeouts = [
+        {
+          timeout = 900;
+          command = "/run/current-system/systemd/bin/systemctl suspend";
+        }
+      ];
+      events = [
+        {
+          event = "lock";
+          command = "${pkgs.swaylock}/bin/swaylock";
+        }
+        {
+          event = "before-sleep";
+          command = "/run/current-system/systemd/bin/loginctl lock-session";
+        }
+      ];
+    };
   };
+
   programs = {
     wofi = {
       enable = true;
@@ -43,16 +64,17 @@
         term = "${pkgs.foot}/bin/foot";
         allow_images = true;
         width = 500;
-        key_up="Ctrl-p";
-        key_down="Ctrl-n";
+        key_up = "Ctrl-p";
+        key_down = "Ctrl-n";
       };
       style = ''
         #outer-box {
           border: 3px solid #${config.lib.stylix.colors.base0A};
-          border-radius: 10px; 
+          border-radius: 10px;
         }
       '';
     };
+    swaylock.enable = true;
   };
 
   programs.niri = {
@@ -62,8 +84,8 @@
       environment = {
         NIXOS_OZONE_WL = "1";
         DISPLAY = ":0";
-        PASSWORD_STORE_ENABLE_EXTENSIONS="true";
-        PASSWORD_STORE_EXTENSIONS_DIR="${pkgs.passExtensions.pass-otp}/lib/password-store/extensions";
+        PASSWORD_STORE_ENABLE_EXTENSIONS = "true";
+        PASSWORD_STORE_EXTENSIONS_DIR = "${pkgs.passExtensions.pass-otp}/lib/password-store/extensions";
       };
       outputs = {
         "eDP-1" = {

@@ -4,6 +4,10 @@
   ...
 }: let
   theme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  wallpaper = pkgs.runCommand "image.png" {} ''
+    COLOR=$(${pkgs.yq}/bin/yq -r .palette.base00 ${theme})
+    ${pkgs.imagemagick}/bin/magick -size 1920x1080 xc:$COLOR $out
+  '';
 in {
   imports = [inputs.stylix.nixosModules.stylix];
 
@@ -18,6 +22,7 @@ in {
   stylix = {
     enable = true;
     homeManagerIntegration.followSystem = true;
+    image = wallpaper;
     base16Scheme = theme;
     polarity = "dark";
     fonts.sizes = {
