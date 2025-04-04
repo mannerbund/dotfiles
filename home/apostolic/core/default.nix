@@ -37,8 +37,8 @@ in {
     qbittorrent-enhanced
     p7zip
     unrar
-    xz
     unzip
+    xz
     python3
     lm_sensors
     ffmpeg
@@ -57,6 +57,7 @@ in {
     ffmpegthumbnailer
     chafa
     file
+    poppler_utils
   ];
 
   home.sessionVariables = {
@@ -186,8 +187,10 @@ in {
         tabstop = 4;
       };
       extraConfig = ''
+        # make sure cache folder exists
+        %mkdir -p ${config.home.homeDirectory}/.cache/lf
         # make sure trash folder exists
-        %mkdir -p ~/.local/share/Trash
+        %mkdir -p ${config.home.homeDirectory}/.local/share/Trash
         # move current file or selected files to trash folder
         # (also see 'man mv' for backup/overwrite options)
         cmd trash %set -f; mv -t ~/.local/share/Trash $fx
@@ -223,22 +226,54 @@ in {
         keybinding = "i";
         source = pkgs.writeShellScript "pv.sh" ''
           #!/bin/sh
-          case "$(file -Lb --mime-type -- "$1")" in
-           *.tgz|*.tar.gz) tar tzf "$1" ;;
-           *.tar.bz2|*.tbz2) tar tjf "$1" ;;
-           *.tar.txz|*.txz) xz --list "$1" ;;
-           *.tar) tar tf "$1" ;;
-           *.zip|*.jar|*.war|*.ear|*.oxt) unzip -l "$1" ;;
-           *.gz) gzip -l "$1" ;;
-           *.rar) unrar l "$1" ;;
-           *.pdf) pdftotext "$1" -;;
-           *.7z) 7z l "$1" ;;
-            image/*)
-              chafa -f sixel -s "$2x$3" --animate off --polite on "$1"
-              exit 1
-              ;;
-            text/*)
-              bat --color=always --style=plain --pager=never "$1" "$@"
+          CACHE="${config.home.homeDirectory}/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' \
+          	-- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
+
+          image() {
+            chafa -f sixel -s "$2x$3" --animate off --polite on "$1"
+          }
+
+          case "$(readlink -f "$1" | awk '{print tolower($0)}')" in
+            *.tgz|*.tar.gz) tar tzf "$1" ;;
+            *.tar.bz2|*.tbz2) tar tjf "$1" ;;
+            *.tar.xz|*.txz) tar tf "$1" ;;
+            *.tar) tar tf "$1" ;;
+            *.zip|*.jar|*.war|*.ear|*.oxt) unzip -l "$1" ;;
+            *.gz) gzip -l "$1" ;;
+            *.rar) unrar l "$1" ;;
+            *.7z) 7z l "$1" ;;
+	          *.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.og[agx]|*.spx|*.opus|*.as[fx]|*.mka)
+	          	exiftool "$1"
+	          	;;
+	          *.pdf)
+	          	[ ! -f "''${CACHE}.jpg" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
+              image "''${CACHE}.jpg" "$2" "$3"
+	          	;;
+	          *.epub)
+	          	[ ! -f "$CACHE" ] && epub-thumbnailer "$1" "$CACHE" 1024
+              image "$CACHE" "$2" "$3"
+	          	;;
+	          *.cbz|*.cbr|*.cbt)
+	          	[ ! -f "$CACHE" ] && comicthumb "$1" "$CACHE" 1024
+              image "$CACHE" "$2" "$3"
+	          	;;
+	          *.avi|*.mp4|*.wmv|*.dat|*.3gp|*.ogv|*.mkv|*.mpg|*.mpeg|*.vob|*.fl[icv]|*.m2v|*.mov|*.webm|*.ts|*.mts|*.m4v|*.r[am]|*.qt|*.divx)
+	          	[ ! -f "''${CACHE}.jpg" ] && \
+	          		ffmpegthumbnailer -i "$1" -o "''${CACHE}.jpg" -s 0 -q 5
+                image "''${CACHE}.jpg" "$2" "$3"
+	          	;;
+
+            *)
+              case "$(file -Lb --mime-type -- "$1")" in
+                image/*)
+                  image "$1" "$2" "$3"
+                  exit 0
+                  ;;
+                text/*)
+                  bat --color=always --style=plain --pager=never "$1"
+                  exit 0
+                  ;;
+              esac
               ;;
           esac
         '';
