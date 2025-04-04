@@ -21,7 +21,7 @@
               python-lsp-server
               python-lsp-ruff
               numpy
-	            pyqt6
+              pyqt6
               matplotlib
               ipython
               pandas
