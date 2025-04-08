@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }: let
@@ -9,6 +10,7 @@ in {
   stylix.targets.waybar.enable = true;
   stylix.targets.waybar.font = "sansSerif";
 
+  home.packages = [ pkgs.mpc ];
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -83,7 +85,21 @@ in {
 
         mpd = {
           format = "{stateIcon} {randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})";
+          on-click = "${lib.getExe pkgs.mpc} toggle";
           unknown-tag = "";
+            random-icons = {
+              on = " ";
+            };
+            repeat-icons = {
+              on = " ";
+            };
+            single-icons = {
+              on = "1 ";
+            };
+            state-icons = {
+              paused = "";
+              playing = "";
+            };
         };
 
         "niri/language" = {
