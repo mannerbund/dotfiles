@@ -58,6 +58,7 @@ in {
     chafa
     file
     poppler_utils
+    epub-thumbnailer
   ];
 
   home.sessionVariables = {
@@ -243,7 +244,7 @@ in {
             *.rar) unrar l "$1" ;;
             *.7z) 7z l "$1" ;;
 	          *.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.og[agx]|*.spx|*.opus|*.as[fx]|*.mka)
-	          	exiftool "$1"
+	          	mediainfo "$1"
 	          	;;
 	          *.pdf)
 	          	[ ! -f "''${CACHE}.jpg" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
@@ -572,6 +573,7 @@ in {
     mpv = {
       enable = true;
       config = {
+        sub-scale = 3;
         sub-auto = "fuzzy";
         sub-bold = true;
         volume = 50;

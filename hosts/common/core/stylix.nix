@@ -26,8 +26,10 @@ in {
     base16Scheme = theme;
     polarity = "dark";
     fonts.sizes = {
+      applications = 14;
+      desktop = 14;
+      popups = 14;
       terminal = 16;
-      desktop = 12;
     };
     fonts = {
       serif = {
