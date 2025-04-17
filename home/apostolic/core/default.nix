@@ -45,7 +45,7 @@ in {
     anki-bin
     clang
     xdg-utils
-    wineWowPackages.waylandFull
+    wine-wayland
     winetricks
     nicotine-plus
     telegram-desktop
@@ -243,26 +243,26 @@ in {
             *.gz) gzip -l "$1" ;;
             *.rar) unrar l "$1" ;;
             *.7z) 7z l "$1" ;;
-	          *.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.og[agx]|*.spx|*.opus|*.as[fx]|*.mka)
-	          	mediainfo "$1"
-	          	;;
-	          *.pdf)
-	          	[ ! -f "''${CACHE}.jpg" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
+           *.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.og[agx]|*.spx|*.opus|*.as[fx]|*.mka)
+           	mediainfo "$1"
+           	;;
+           *.pdf)
+           	[ ! -f "''${CACHE}.jpg" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
               image "''${CACHE}.jpg" "$2" "$3"
-	          	;;
-	          *.epub)
-	          	[ ! -f "$CACHE" ] && epub-thumbnailer "$1" "$CACHE" 1024
+           	;;
+           *.epub)
+           	[ ! -f "$CACHE" ] && epub-thumbnailer "$1" "$CACHE" 1024
               image "$CACHE" "$2" "$3"
-	          	;;
-	          *.cbz|*.cbr|*.cbt)
-	          	[ ! -f "$CACHE" ] && comicthumb "$1" "$CACHE" 1024
+           	;;
+           *.cbz|*.cbr|*.cbt)
+           	[ ! -f "$CACHE" ] && comicthumb "$1" "$CACHE" 1024
               image "$CACHE" "$2" "$3"
-	          	;;
-	          *.avi|*.mp4|*.wmv|*.dat|*.3gp|*.ogv|*.mkv|*.mpg|*.mpeg|*.vob|*.fl[icv]|*.m2v|*.mov|*.webm|*.ts|*.mts|*.m4v|*.r[am]|*.qt|*.divx)
-	          	[ ! -f "''${CACHE}.jpg" ] && \
-	          		ffmpegthumbnailer -i "$1" -o "''${CACHE}.jpg" -s 0 -q 5
+           	;;
+           *.avi|*.mp4|*.wmv|*.dat|*.3gp|*.ogv|*.mkv|*.mpg|*.mpeg|*.vob|*.fl[icv]|*.m2v|*.mov|*.webm|*.ts|*.mts|*.m4v|*.r[am]|*.qt|*.divx)
+           	[ ! -f "''${CACHE}.jpg" ] && \
+           		ffmpegthumbnailer -i "$1" -o "''${CACHE}.jpg" -s 0 -q 5
                 image "''${CACHE}.jpg" "$2" "$3"
-	          	;;
+           	;;
 
             *)
               case "$(file -Lb --mime-type -- "$1")" in
