@@ -297,6 +297,7 @@ in {
           minted
           upquote
           polynom
+          pgf
           collection-fontsrecommended
           ;
       };
