@@ -391,6 +391,10 @@ in {
           command = "show_lyrics";
         }
         {
+          key = "F";
+          command = "toggle_crossfade";
+        }
+        {
           key = "X";
           command = "clear_main_playlist";
         }
