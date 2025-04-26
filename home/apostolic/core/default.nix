@@ -45,7 +45,7 @@ in {
     anki-bin
     clang
     xdg-utils
-    wine-wayland
+    wineWowPackages.waylandFull
     winetricks
     nicotine-plus
     telegram-desktop
@@ -578,7 +578,7 @@ in {
     mpv = {
       enable = true;
       config = {
-        sub-scale = 3;
+        sub-scale = 1.5;
         sub-auto = "fuzzy";
         sub-bold = true;
         volume = 50;
