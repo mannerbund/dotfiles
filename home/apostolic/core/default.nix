@@ -113,7 +113,8 @@ in {
     gpg-agent = {
       enable = true;
       enableFishIntegration = true;
-      pinentryPackage = pkgs.pinentry-qt;
+      pinentry.package = pkgs.wayprompt;
+      pinentry.program = "pinentry-wayprompt";
       defaultCacheTtl = 86400;
     };
     mpd = {
@@ -466,8 +467,8 @@ in {
         mkd = "mkdir -pv";
         yta = "yt-dlp -xf bestaudio/best";
         ip = "ip -c=auto";
-        enru = "trans -t ru --shell";
-        ruen = "trans -t en --shell";
+        enru = "trans -t ru -e google --shell";
+        ruen = "trans -t en -e google --shell";
         ls = "eza";
         l = "eza --git-ignore $eza_params";
         ll = "eza --all --header --long";
@@ -476,7 +477,7 @@ in {
         lx = "eza -lbhHigUmuSa@";
         tree = "eza --tree --level=2";
         e = "emacsclient -c";
-        z = "zathura";
+        z = "zathura-sandbox";
         sct = "systemctl";
       };
       shellAbbrs = {
