@@ -20,7 +20,7 @@
     #../common/optional/wireguard.nix
     ../common/optional/light.nix
     ../common/optional/gamemode.nix
-    ../common/optional/scx.nix
+    #../common/optional/scx.nix
   ];
 
   networking = {
