@@ -33,8 +33,11 @@ in {
   services.greetd = {
     enable = true;
     settings = {
+      initial_session = {
+        command = "niri-session";
+        user = "apostolic";
+      };
       default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --time --remember --cmd niri-session";
-      user = "apostolic";
     };
   };
 
