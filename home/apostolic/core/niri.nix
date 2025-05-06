@@ -32,8 +32,10 @@
   services = {
     mako = {
       enable = true;
-      defaultTimeout = 7000;
-      ignoreTimeout = true;
+      settings = {
+        defaultTimeout = 7000;
+        ignoreTimeout = true;
+      };
     };
     swww.enable = true;
     swayidle = {
