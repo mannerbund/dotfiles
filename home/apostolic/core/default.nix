@@ -9,6 +9,7 @@
 in {
   imports = [
     ./niri.nix
+    ./emacs
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -59,6 +60,8 @@ in {
     file
     poppler_utils
     epub-thumbnailer
+    imagemagick
+    ghostscript
   ];
 
   home.sessionVariables = {
@@ -71,6 +74,7 @@ in {
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
     NPM_CONFIG_USERCONFIG = "${config.xdg.dataHome}/npm";
     XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
+    ANKI_WAYLAND="1";
   };
 
   home.pointerCursor = {
@@ -165,20 +169,20 @@ in {
       nix-direnv.enable = true;
       silent = true;
     };
-    emacs = {
-      enable = true;
-      package = (
-        pkgs.emacsWithPackagesFromUsePackage {
-          package = pkgs.emacs30-pgtk;
-          config = ./emacs.el;
-          defaultInitFile = true;
-          extraEmacsPackages = epkgs: [
-            pkgs.graphviz
-            epkgs.manualPackages.treesit-grammars.with-all-grammars
-          ];
-        }
-      );
-    };
+    #emacs = {
+    #  enable = true;
+    #  package = (
+    #    pkgs.emacsWithPackagesFromUsePackage {
+    #      package = pkgs.emacs30-pgtk;
+    #      config = ./emacs.el;
+    #      defaultInitFile = true;
+    #      extraEmacsPackages = epkgs: [
+    #        pkgs.graphviz
+    #        epkgs.manualPackages.treesit-grammars.with-all-grammars
+    #      ];
+    #    }
+    #  );
+    #};
     foot.enable = true;
     lf = {
       enable = true;
@@ -287,6 +291,7 @@ in {
         inherit
           (texlive)
           scheme-basic
+          standalone
           dvisvgm
           dvipng
           wrapfig
@@ -447,6 +452,7 @@ in {
 
         function fish_user_key_bindings
           fish_vi_key_bindings
+          bind -M insert '`' accept-autosuggestion
           bind f accept-autosuggestion
         end
 

@@ -16,8 +16,7 @@
  confirm-kill-emacs 'y-or-n-p ;; Ask before exiting Emacs
 
  scroll-conservatively 101 ; Never recenter the window NEW
- scroll-margin 8
- scroll-preserve-screen-position 1 ; Scrolling back and forth
+ scroll-preserve-screen-position t ; Scrolling back and forth
 
  mouse-wheel-progressive-speed nil ; don't accelerate scrolling
  mouse-wheel-follow-mouse 't ; scroll window under mouse
@@ -99,7 +98,6 @@
   :hook
   (prog-mode . hl-line-mode)
   (text-mode . hl-line-mode))
-
 
 (use-package vertico
   :ensure t
@@ -339,16 +337,6 @@
 (show-paren-mode 1)
 (setq show-paren-context-when-offscreen t)
 
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1)
-  :config
-  (setq doom-modeline-height 32)
-  (setq doom-modeline-buffer-file-name-style 'relative-to-project)
-  (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-buffer-state-icon t)
-  (setq doom-modeline-major-mode-color-icon t))
-
 (add-to-list 'default-frame-alist '(font . "Iosevka Comfy-16"))
 (use-package ef-themes
   :ensure t
@@ -447,7 +435,8 @@
 
 (use-package org
   :ensure t
-  :hook (org-mode . visual-line-mode)
+  :hook ((org-mode . visual-line-mode)
+         (org-babel-after-execute . org-redisplay-inline-images))
   :bind ("C-c a" . org-agenda)
   :config
   (evil-define-key 'normal org-mode-map
@@ -483,6 +472,7 @@
   ;; Org
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
   (setq org-startup-folded 'content)
+  (setq org-startup-with-inline-images t)
   (setq org-startup-indented t)
   (setq org-hide-emphasis-markers t)
   (setq org-directory "~/Documents/Vault")
@@ -531,11 +521,36 @@
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:25}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
 
+(use-package org-limit-image-size
+  :after org
+  :config
+  (org-limit-image-size-activate))
+
+(use-package auctex
+  :ensure t
+  :hook ((LaTeX-mode . LaTeX-preview-setup)
+         (LaTeX-mode . LaTeX-math-mode)
+         (LaTeX-mode . flyspell-mode)
+         (LaTeX-mode . turn-on-reftex))
+  :mode ("\\.tex\\'" . latex-mode)
+  :config (setq TeX-view-program-selection '((output-pdf "Zathura"))
+                TeX-view-program-list
+                '(("Zathura" "zathura %o"))
+                TeX-auto-save
+                TeX-electric-escape
+                TeX-parse-self
+                TeX-save-query nil
+                TeX-PDF-mode
+                TeX-view-program-list
+                TeX-view-program-selection
+                TeX-source-correlate-method))
+
 (use-package magit
   :ensure t)
 
 (use-package envrc
   :ensure t
+  :defer t
   :hook (after-init . envrc-global-mode))
 
 (use-package eldoc
