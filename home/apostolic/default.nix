@@ -12,12 +12,6 @@ in {
     ./emacs
   ];
 
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [
-    inputs.emacs-overlay.overlays.default
-    inputs.niri.overlays.niri
-  ];
-
   home = {
     username = lib.mkDefault "apostolic";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
@@ -74,7 +68,7 @@ in {
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
     NPM_CONFIG_USERCONFIG = "${config.xdg.dataHome}/npm";
     XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
-    ANKI_WAYLAND="1";
+    ANKI_WAYLAND = "1";
   };
 
   home.pointerCursor = {
@@ -117,8 +111,8 @@ in {
     gpg-agent = {
       enable = true;
       enableFishIntegration = true;
-      pinentry.package = pkgs.wayprompt;
-      pinentry.program = "pinentry-wayprompt";
+      pinentry.package = pkgs.pinentry-gnome3;
+      pinentry.program = "pinentry-gnome3";
       defaultCacheTtl = 86400;
     };
     mpd = {
@@ -169,20 +163,6 @@ in {
       nix-direnv.enable = true;
       silent = true;
     };
-    #emacs = {
-    #  enable = true;
-    #  package = (
-    #    pkgs.emacsWithPackagesFromUsePackage {
-    #      package = pkgs.emacs30-pgtk;
-    #      config = ./emacs.el;
-    #      defaultInitFile = true;
-    #      extraEmacsPackages = epkgs: [
-    #        pkgs.graphviz
-    #        epkgs.manualPackages.treesit-grammars.with-all-grammars
-    #      ];
-    #    }
-    #  );
-    #};
     foot.enable = true;
     lf = {
       enable = true;
@@ -554,13 +534,14 @@ in {
     };
     git = {
       enable = true;
-      userName = "apostolic";
-      userEmail = "sedativechan@gmail.com";
+      userName = "mannerbund";
+      userEmail = "apostalimus@gmail.com";
       extraConfig = {
-        init = {
-          defaultBranch = "main";
-        };
+        init.defaultBranch = "main";
       };
+      ignores = [
+        ".direnv"
+      ];
     };
     password-store = {
       enable = true;
@@ -641,6 +622,8 @@ in {
   stylix.targets.emacs.enable = false;
 
   programs.home-manager.enable = true;
+
+  nixpkgs.config.allowUnfree = true;
 
   home.stateVersion = "24.11";
 }

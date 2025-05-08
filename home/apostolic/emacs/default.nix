@@ -1,9 +1,14 @@
 {
   pkgs,
   confg,
+  inputs,
   lib,
   ...
 }: {
+  nixpkgs.overlays = [
+    inputs.emacs-overlay.overlays.default
+  ];
+
   programs.emacs = {
     enable = true;
     package = (
