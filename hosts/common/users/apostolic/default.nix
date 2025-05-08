@@ -23,9 +23,7 @@ in {
     ];
   };
 
-  services.getty.autologinUser = "apostolic";
-
-  home-manager.users.apostolic = import ../../../../home/apostolic/${config.networking.hostName}.nix;
+  home-manager.users.apostolic = import ../../../../home/apostolic;
 
   security.pam.services.swaylock = {};
   security.polkit.enable = true;
@@ -40,6 +38,8 @@ in {
       default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --time --remember --cmd niri-session";
     };
   };
+
+  services.dbus.packages = [ pkgs.gcr ];  # for pinentry-gnome3
 
   services.upower.enable = true;
 }
