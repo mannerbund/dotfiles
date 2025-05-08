@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     impermanence.url = "github:nix-community/impermanence";
     niri.url = "github:sodiboo/niri-flake";
     stylix.url = "github:danth/stylix";
@@ -31,29 +31,34 @@
   };
 
   outputs = inputs @ {
-    self,
+    flake-parts,
     nixpkgs,
     home-manager,
-    flake-utils,
     ...
-  }: let
-    lib = nixpkgs.lib // home-manager.lib;
-  in
-    flake-utils.lib.eachSystem
-    [
-      "x86_64-linux"
-    ]
-    (
-      system: let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [
-            self.overlays.default
-          ];
-        };
+  }:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+      ];
+      flake = let
+        lib = nixpkgs.lib // home-manager.lib;
       in {
+        nixosConfigurations = {
+          chan = lib.nixosSystem {
+            modules = [./hosts/chan];
+            specialArgs = {
+              inherit inputs;
+            };
+          };
+        };
+      };
+      systems = ["x86_64-linux"];
+      perSystem = {
+        config,
+        pkgs,
+        system,
+        ...
+      }: {
         formatter = pkgs.alejandra;
-        legacyPackages = pkgs;
         devShells.default = with pkgs;
           mkShell {
             nativeBuildInputs = [
@@ -61,24 +66,6 @@
               age
             ];
           };
-      }
-    )
-    // {
-      #nixosModules = import ./modules/nixos;
-      #homeModules = import ./modules/home;
-      overlays.default = final: prev:
-        prev.lib.packagesFromDirectoryRecursive {
-          inherit (prev) callPackage;
-          directory = ./pkgs;
-        };
-      nixosConfigurations = {
-        chan = lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [./hosts/chan];
-          specialArgs = {
-            inherit inputs self;
-          };
-        };
       };
     };
 }
