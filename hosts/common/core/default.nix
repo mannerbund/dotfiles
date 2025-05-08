@@ -1,6 +1,5 @@
 {
   inputs,
-  self,
   lib,
   system,
   ...
@@ -23,14 +22,11 @@
     ./stylix.nix
   ];
 
-  nixpkgs.overlays = [
-    self.overlays.default
-  ];
   nixpkgs.config.allowUnfree = true;
 
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = {
-    inherit inputs self;
+    inherit inputs;
   };
 
   services.speechd.enable = lib.mkForce false;
