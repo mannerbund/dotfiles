@@ -4,7 +4,7 @@
 }:
 trivialBuild rec {
   pname = "org-inline-image-fix";
-  version = "231018";
+  version = "101823";
   src = fetchFromGitHub {
     owner = "misohena";
     repo = "org-inline-image-fix";
