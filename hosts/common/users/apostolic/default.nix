@@ -39,7 +39,7 @@ in {
     };
   };
 
-  services.dbus.packages = [ pkgs.gcr ];  # for pinentry-gnome3
+  services.dbus.packages = [pkgs.gcr]; # for pinentry-gnome3
 
   services.upower.enable = true;
 }
