@@ -8,6 +8,10 @@
     impermanence.url = "github:nix-community/impermanence";
     niri.url = "github:sodiboo/niri-flake";
     stylix.url = "github:danth/stylix";
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,10 +22,6 @@
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
@@ -55,7 +55,7 @@
       perSystem = {
         config,
         pkgs,
-        system,
+        inputs',
         ...
       }: {
         formatter = pkgs.alejandra;
