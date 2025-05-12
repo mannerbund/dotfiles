@@ -107,7 +107,7 @@
          ("C-c m" . consult-man)
          ;; M-g bindings in `goto-map'
          ("M-g e" . consult-compile-error)
-         ("M-g f" . consult-flycheck)               ;; Alternative: consult-flycheck
+         ("M-g f" . consult-flymake)
          ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
          ("M-g m" . consult-mark)
          ("M-g k" . consult-global-mark)
@@ -436,6 +436,9 @@
 
 (use-package eglot
   :defer t
+  :init
+  (setq eglot-autoshutdown t)
+  (setq eglot-sync-connect nil)
   :bind (:map eglot-mode-map
               ("C-c l a" . eglot-code-actions)
               ("C-c l f" . eglot-format-buffer)
@@ -457,18 +460,47 @@
   :after eglot
   :config (eglot-booster-mode))
 
-(use-package flycheck
-  :ensure t
-  :custom
-  (setq flycheck-check-syntax-automatically '(save mode-enable))
+(use-package flymake
   :hook
-  (after-init . global-flycheck-mode))
-
-(use-package flycheck-eglot
-  :ensure t
-  :after (flycheck eglot)
+  (flymake-mode-hook . flymake-setup-next-error-function)
+  :bind
+  ((:map flymake-mode-map
+         ("C-. !" . flymake-show-buffer-diagnostics)
+         ("M-] E" . flymake-goto-next-error)
+         ("M-[ E" . flymake-goto-prev-error))
+   (:map flymake-diagnostics-buffer-mode-map
+         ("n" . flymake-diagnostics-next-error)
+         ("p" . flymake-diagnostics-prev-error)
+         ("j" . flymake-diagnostics-next-error)
+         ("k" . flymake-diagnostics-prev-error)
+         ("TAB" . flymake-show-diagnostic))
+   (:repeat-map flymake-mode-repeat-map
+               ("e" . flymake-goto-next-error)
+               ("E" . flymake-goto-prev-error)
+               ("[" . flymake-goto-prev-error)
+               ("]" . flymake-goto-next-error)))
   :config
-  (global-flycheck-eglot-mode 1))
+  (defun flymake-setup-next-error-function ()
+    (setq next-error-function 'flymake-next-error-compat))
+
+  (defun flymake-next-error-compat (&optional n _)
+    (flymake-goto-next-error n))
+
+  (defun flymake-diagnostics-next-error ()
+    (interactive)
+    (forward-line)
+    (when (eobp) (forward-line -1))
+    (flymake-show-diagnostic (point)))
+
+  (defun flymake-diagnostics-prev-error ()
+    (interactive)
+    (forward-line -1)
+    (flymake-show-diagnostic (point))))
+
+(use-package flymake-proc
+  :config
+  (setq flymake-proc-ignored-file-name-regexps '("\\.l?hs\\'"))
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
 (use-package python
   :custom
