@@ -382,7 +382,7 @@
 ;; Enable indentation+completion using the TAB key.
 ;; `completion-at-point' is often bound to M-TAB.
 (setq tab-always-indent 'complete)
-;;Disable Ispell completion function.
+;; Disable Ispell completion function.
 (setq text-mode-ispell-word-completion nil)
 ;; Hide commands in M-x which do not apply to the current mode.
 (setq read-extended-command-predicate #'command-completion-default-include-p)
@@ -452,7 +452,7 @@
 
 (use-package eglot-booster
   :after eglot
-  :config	(eglot-booster-mode))
+  :config (eglot-booster-mode))
 
 (use-package flycheck
   :ensure t
@@ -468,7 +468,8 @@
   (global-flycheck-eglot-mode 1))
 
 (use-package python
-  :custom (python-indent-guess-indent-offset-verbose nil))
+  :custom
+  (python-indent-guess-indent-offset-verbose nil))
 
 (use-package nix-mode
   :ensure t

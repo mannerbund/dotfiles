@@ -402,21 +402,8 @@ in {
         clock_display_seconds = "yes";
         # Bars;
         song_status_format = "$7%t » %a » %b";
-        #progressbar_look = "|] ";
         progressbar_look = "━■";
         titles_visibility = "yes";
-        # Colors;
-        #discard_colors_if_item_is_selected = "yes";
-        #header_window_color = "default";
-        #volume_color = "default";
-        #state_line_color = "default";
-        #state_flags_color = "default";
-        #main_window_color = "default";
-        #color1 = "default";
-        #color2 = "default";
-        #progressbar_color = "default";
-        #statusbar_color = "default";
-        #visualizer_color = "default";
       };
     };
     fish = {
