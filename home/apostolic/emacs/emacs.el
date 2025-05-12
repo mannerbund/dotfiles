@@ -440,8 +440,11 @@
               ("C-c l a" . eglot-code-actions)
               ("C-c l f" . eglot-format-buffer)
               ("C-c l d" . eldoc))
-  :hook (python-mode . eglot-ensure)
+  :hook
+  (python-mode . eglot-ensure)
+  (nix-mode . eglot-ensure)
   :config
+  (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
   (setq-default eglot-workspace-configuration
                 '((:pylsp
                    (:plugins
