@@ -77,7 +77,6 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-want-Y-yank-to-eol t)
   (setq evil-want-minibuffer t)
-  ;(setq evil-want-abbrev-expand-on-insert-exit nil)
   (setq evil-respect-visual-line-mode t)
   (setq evil-want-keybinding nil)
   :config
@@ -98,6 +97,7 @@
   :config
   (global-evil-surround-mode 1))
 
+;; Add orderless support
 (use-package consult
   :ensure t
   ;; Replace bindings. Lazily loaded by `use-package'.
@@ -217,10 +217,11 @@
 (use-package gruvbox-theme
   :ensure t
   :config
-  (load-theme 'gruvbox-dark-medium t))
+  (load-theme 'gruvbox-dark-hard t))
 
 (add-to-list 'default-frame-alist '(font . "Iosevka Comfy-16"))
 
+;; Fix magit/transient problems
 (use-package shackle
   :ensure t
   :custom (shackle-default-rule '(:same t :inhibit-window-quit t))
