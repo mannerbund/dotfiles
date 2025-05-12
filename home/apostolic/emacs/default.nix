@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     graphviz
     emacs-lsp-booster
+    nil
   ];
 
   programs.emacs = {
