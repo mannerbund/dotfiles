@@ -400,9 +400,8 @@
 (use-package kind-icon
   :ensure t
   :after corfu
-  ;:custom
-  ; (kind-icon-blend-background t)
-  ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
+  :custom
+  (kind-icon-default-style `(:padding -0.5 :scale 1.0 :height 0.85))
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
