@@ -362,18 +362,18 @@
   :defer t
   :hook (after-init . envrc-global-mode))
 
+;; Add orderless support
 (use-package corfu
   :ensure t
   :custom
   (corfu-auto t)
-  (corfu-auto-prefix 2)
-  (corfu-auto-delay 0)
-  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
-  (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
-  (corfu-preview-current nil)    ;; Disable current candidate preview
-  (corfu-preselect 'prompt)      ;; Preselect the prompt
-  (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  (corfu-auto-prefix 4)
+  (corfu-auto-delay 0.07)
+  (corfu-count 8)
+  (corfu-cycle t)
+  (corfu-quit-no-match 'separator)
+  (corfu-preselect 'prompt)
+  (keymap-unset corfu-map "RET")
   :init
   (global-corfu-mode)
   (corfu-history-mode)
