@@ -264,6 +264,8 @@
 (use-package org
   :ensure t
   :hook ((org-mode . visual-line-mode)
+         (org-mode . auto-fill-mode)
+         (org-mode . flyspell-mode)
          (org-babel-after-execute . org-redisplay-inline-images))
   :bind ("C-c a" . org-agenda)
   :config
@@ -286,17 +288,24 @@
   (setq org-babel-python-command "python3")
   ;; Org
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-  (setq org-startup-folded 'content)
-  (setq org-startup-with-inline-images t)
-  (setq org-startup-indented t)
-  (setq org-hide-emphasis-markers t)
   (setq org-directory "~/Documents/Vault")
   (setq org-agenda-files '("~/Documents/Vault/agenda/work/work.org"
                            "~/Documents/Vault/agenda/todo/read.org"
                            "~/Documents/Vault/WIKI/notes/"
                            "~/Documents/Vault/agenda/todo/todo.org"))
   (setq org-log-done 'time)
-  ;; TODO & colors
+  ;; Appearance
+  (setq org-pretty-entities t)
+  (setq org-startup-indented t)
+  (setq org-startup-folded 'content)
+  (setq org-startup-with-inline-images t)
+  (setq org-hide-emphasis-markers t)
+  (setq org-ellipsis " ┅ ")
+  (setq org-fontify-quote-and-verse-blocks t)
+  (setq org-src-fontify-natively t)
+  (setq org-fontify-whole-heading-line t)
+  (setq org-fontify-todo-headline t)
+  (setq org-fontify-done-headline t)
   (setq org-todo-keywords
         '((sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(n)"
           		    "|" "DONE(d)" "HOLD(h)" "OPTIONAL(o)" "IRRELEVANT(i)")))
@@ -312,7 +321,7 @@
   (advice-add #'org-make-tags-matcher :around #'vertico-enforce-basic-completion)
   (advice-add #'org-agenda-filter :around #'vertico-enforce-basic-completion)
   ;; LaTeX
-  (setq org-startup-with-latex-preview t) ; Automatically preview LaTeX on startup
+  (setq org-startup-with-latex-preview t)
   (setq org-latex-compiler "pdflatex")
   (setq org-preview-latex-default-process 'dvisvgm)
   (setq org-highlight-latex-and-related '(native))
@@ -332,9 +341,17 @@
          ("C-c n a" . org-roam-alias-add)
          ("C-c n d" . org-id-get-create))
   :config
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  ;; Vertico
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
+
+(use-package org-modern
+  :ensure t
+  :hook
+  (org-mode-hook . org-modern-mode)
+  :init
+  (setq org-modern-hide-stars t)
+  (setq org-modern-table nil))
 
 (use-package auctex
   :ensure t
