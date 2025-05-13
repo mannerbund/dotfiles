@@ -228,16 +228,16 @@
 
 (add-to-list 'default-frame-alist '(font . "Iosevka Comfy-16"))
 
-;; Fix magit/transient problems
 (use-package shackle
   :ensure t
   :custom (shackle-default-rule '(:same t :inhibit-window-quit t))
   :config
   (setq shackle-rules
-        '((inferior-python-mode :select t :align right :size 0.42)
-          ("\\*Messages\\*" :regexp t :select nil :align below :size 0.33)
-          ("\\*eldoc\\*" :regexp t :select nil :align right)
+        '((inferior-python-mode :select t :align 'right :size 0.42)
+          ("\\*Messages\\*" :regexp t :select nil :align 'below :size 0.33)
+          ("\\*eldoc\\*" :regexp t :select nil :align 'right)
           ("\\*envrc\\*" :regexp t :ignore t)
+          (magit-diff-mode :select nil)
           (" *transient*" :popup t :align 'below)))
   (shackle-mode 1))
 
