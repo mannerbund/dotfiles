@@ -83,6 +83,13 @@
   (setq evil-visual-update-x-selection-p nil)
   (evil-mode 1))
 
+(use-package evil-surround
+  :ensure t
+  :init
+  (setq evil-want-keybinding nil)
+  :config
+  (global-evil-surround-mode 1))
+
 (use-package evil-collection
   :ensure t
   :after evil
@@ -92,10 +99,10 @@
   :config
   (evil-collection-init))
 
-(use-package evil-surround
-  :ensure t
-  :config
-  (global-evil-surround-mode 1))
+(use-package calc
+  :preface
+  (evil-collection-define-key 'normal 'calc-mode-map
+    (kbd "C-r") 'calc-redo))
 
 ;; Add orderless support
 (use-package consult
