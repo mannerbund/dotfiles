@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  config,
   ...
 }: {
   imports = [
@@ -49,7 +48,7 @@
     };
   };
 
-  # Need fix
+  # Fix needed
   #systemd.tmpfiles.settings = {
   #  "10-iwd" = {
   #    "/var/lib/iwd/nevada.psk".C.argument = config.sops.secrets."wireless/home".path;

@@ -363,8 +363,8 @@
 (use-package anki-editor
   :ensure t
   :defer t
-  :hook (org-mode . anki-editor-mode)
   :bind (:map anki-editor-mode-map
+         ("C-c a m" . anki-editor-insert-note)
          ("C-c a i" . anki-editor-insert-note)
          ("C-c a p" . anki-editor-push-note-at-point)
          ("C-c a d" . anki-editor-delete-note-at-point)))
