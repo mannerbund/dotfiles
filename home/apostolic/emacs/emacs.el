@@ -274,7 +274,7 @@
          (org-mode . auto-fill-mode)
          (org-mode . flyspell-mode)
          (org-babel-after-execute . org-redisplay-inline-images))
-  :bind ("C-c a" . org-agenda)
+  :bind ("C-c a a" . org-agenda)
   :config
   (setq org-link-frame-setup
         '((vm . vm-visit-folder-other-frame)
@@ -359,6 +359,15 @@
   :init
   (setq org-modern-hide-stars t)
   (setq org-modern-table nil))
+
+(use-package anki-editor
+  :ensure t
+  :defer t
+  :hook (org-mode . anki-editor-mode)
+  :bind (:map anki-editor-mode-map
+         ("C-c a i" . anki-editor-insert-note)
+         ("C-c a p" . anki-editor-push-note-at-point)
+         ("C-c a d" . anki-editor-delete-note-at-point)))
 
 (use-package auctex
   :ensure t
