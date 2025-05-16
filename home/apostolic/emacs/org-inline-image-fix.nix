@@ -2,7 +2,7 @@
   trivialBuild,
   fetchFromGitHub,
 }:
-trivialBuild rec {
+trivialBuild {
   pname = "org-inline-image-fix";
   version = "101823";
   src = fetchFromGitHub {

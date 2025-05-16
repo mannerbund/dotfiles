@@ -50,10 +50,7 @@
         };
       };
       systems = ["x86_64-linux"];
-      perSystem = {
-        pkgs,
-        ...
-      }: {
+      perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;
         devShells.default = with pkgs;
           mkShell {

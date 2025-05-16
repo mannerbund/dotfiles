@@ -2,7 +2,7 @@
   trivialBuild,
   fetchFromGitHub,
 }:
-trivialBuild rec {
+trivialBuild {
   pname = "eglot-booster";
   version = "042825";
   src = fetchFromGitHub {
