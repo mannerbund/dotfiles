@@ -71,11 +71,27 @@ in {
     ANKI_WAYLAND = "1";
   };
 
-  home.pointerCursor = {
-    package = pkgs.adwaita-icon-theme;
-    name = "Adwaita";
-    size = 24;
-    gtk.enable = true;
+  stylix = {
+    enable = true;
+    autoEnable = false;
+    cursor = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+      size = 24;
+    };
+    targets = {
+      mpv.enable = true;
+      fzf.enable = true;
+      foot.enable = true;
+      firefox.enable = true;
+      bat.enable = true;
+      zathura.enable = true;
+      vim.enable = true;
+      emacs.enable = false;
+      gnome.enable = true;
+      qt.enable = true;
+      gtk.enable = true;
+    };
   };
 
   xdg = {
@@ -605,8 +621,6 @@ in {
         );
     };
   };
-
-  stylix.targets.emacs.enable = false;
 
   programs.home-manager.enable = true;
 
