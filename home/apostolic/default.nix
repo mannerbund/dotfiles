@@ -168,12 +168,6 @@ in {
         };
       };
     };
-    aria2 = {
-      enable = true;
-      settings = {
-        continue = true;
-      };
-    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;
@@ -289,7 +283,6 @@ in {
           scheme-basic
           standalone
           dvisvgm
-          dvipng
           wrapfig
           amsmath
           amsfonts
