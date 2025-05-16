@@ -28,7 +28,6 @@
   home.sessionVariables = {
     TERMINAL = "footclient";
     MOZ_USE_XINPUT2 = 1; # Mozilla smooth scrolling/touchpads.
-    XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
   };
 
   home.packages = with pkgs; [
@@ -96,8 +95,6 @@
       environment = {
         NIXOS_OZONE_WL = "1";
         DISPLAY = ":0";
-        PASSWORD_STORE_ENABLE_EXTENSIONS = "true";
-        PASSWORD_STORE_EXTENSIONS_DIR = "${pkgs.passExtensions.pass-otp}/lib/password-store/extensions";
       };
       outputs = {
         "eDP-1" = {
