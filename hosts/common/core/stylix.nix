@@ -16,7 +16,7 @@
 
   stylix = {
     enable = true;
-    homeManagerIntegration.followSystem = true;
+    autoEnable = false;
     image = config.lib.stylix.pixel "base00";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";
@@ -46,6 +46,12 @@
         package = pkgs.nerd-fonts.symbols-only;
         name = "Noto Sans Symbols";
       };
+    };
+
+    targets = {
+      console.enable = true;
+      fish.enable = true;
+      nixos-icons.enable = true;
     };
   };
 }

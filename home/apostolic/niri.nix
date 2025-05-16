@@ -15,6 +15,16 @@
     ./waybar.nix
   ];
 
+  stylix.targets = {
+    mako.enable = true;
+    wofi.enable = true;
+    niri.enable = true;
+    swaylock = {
+      enable = true;
+      useWallpaper = true;
+    };
+  };
+
   home.sessionVariables = {
     TERMINAL = "footclient";
     MOZ_USE_XINPUT2 = 1; # Mozilla smooth scrolling/touchpads.
@@ -28,10 +38,6 @@
     wayland-utils
     wdisplays
   ];
-
-  stylix.targets.wofi.enable = true;
-  stylix.targets.niri.enable = true;
-  stylix.targets.swaylock.enable = true;
 
   services = {
     mako = {
