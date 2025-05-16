@@ -37,8 +37,6 @@
     ...
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      imports = [
-      ];
       flake = let
         lib = nixpkgs.lib // home-manager.lib;
       in {
@@ -53,9 +51,7 @@
       };
       systems = ["x86_64-linux"];
       perSystem = {
-        config,
         pkgs,
-        inputs',
         ...
       }: {
         formatter = pkgs.alejandra;
