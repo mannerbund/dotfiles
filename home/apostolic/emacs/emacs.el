@@ -331,7 +331,8 @@
   (setq org-startup-with-latex-preview t)
   (setq org-latex-compiler "pdflatex")
   (setq org-preview-latex-default-process 'dvisvgm)
-  (setq org-highlight-latex-and-related '(native))
+  (setq preview-transparent-color t)
+  ;(setq org-highlight-latex-and-related '(native))
   (add-hook 'org-mode-hook 'org-preview-latex-fragment))
 
 (use-package org-roam
@@ -364,7 +365,6 @@
   :ensure t
   :defer t
   :bind (:map anki-editor-mode-map
-         ("C-c a m" . anki-editor-insert-note)
          ("C-c a i" . anki-editor-insert-note)
          ("C-c a p" . anki-editor-push-note-at-point)
          ("C-c a d" . anki-editor-delete-note-at-point)))

@@ -1,8 +1,6 @@
 {
   pkgs,
-  confg,
   inputs,
-  lib,
   ...
 }: {
   nixpkgs.overlays = [
