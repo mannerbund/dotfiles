@@ -68,8 +68,6 @@ in {
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
     NPM_CONFIG_USERCONFIG = "${config.xdg.dataHome}/npm";
     XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
-    PASSWORD_STORE_ENABLE_EXTENSIONS = "true";
-    PASSWORD_STORE_EXTENSIONS_DIR = "${pkgs.passExtensions.pass-otp}/lib/password-store/extensions";
     ANKI_WAYLAND = "1";
   };
 
@@ -547,6 +545,8 @@ in {
       settings = {
         PASSWORD_STORE_CLIP_TIME = "30";
         PASSWORD_STORE_DIR = "$HOME/.password-store";
+        PASSWORD_STORE_ENABLE_EXTENSIONS = "true";
+        PASSWORD_STORE_EXTENSIONS_DIR = "${pkgs.passExtensions.pass-otp}/lib/password-store/extensions";
       };
     };
     translate-shell = {
