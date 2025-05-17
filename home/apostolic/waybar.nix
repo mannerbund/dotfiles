@@ -84,6 +84,8 @@ in {
         };
 
         mpd = {
+          server = "127.0.0.1";
+          port = 6601;
           format = "{stateIcon} {randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})";
           on-click = "${lib.getExe pkgs.mpc} toggle";
           unknown-tag = "";
