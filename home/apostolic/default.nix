@@ -133,10 +133,13 @@ in {
     };
     mpd = {
       enable = true;
-      package = pkgs.mpd;
+      network = {
+        listenAddress = "127.0.0.1";
+        port = 6601;
+      };
       musicDirectory = "${config.home.homeDirectory}/Music";
       dataDir = "${config.home.homeDirectory}/.local/share/mpd";
-      dbFile = "${config.home.homeDirectory}/.local/share/mpd/database";
+      dbFile = "${config.home.homeDirectory}/.local/share/mpd/database.db";
       extraConfig = ''
         audio_output {
           type "pipewire"
@@ -297,6 +300,17 @@ in {
           ;
       };
     };
+    beets = {
+      enable = true;
+      mpdIntegration.enableStats = true;
+      mpdIntegration.enableUpdate = true;
+      mpdIntegration.host = "127.0.0.1";
+      mpdIntegration.port = 6601;
+      settings = {
+        directory = "${config.home.homeDirectory}/Music/Albums";
+        library = "${config.home.homeDirectory}/.local/share/beets/musiclibrary.db";
+      };
+    };
     ncmpcpp = {
       enable = true;
       package = pkgs.ncmpcpp.override {visualizerSupport = true;};
@@ -399,6 +413,8 @@ in {
         }
       ];
       settings = {
+        mpd_host = "127.0.0.1";
+        mpd_port = "6601";
         song_columns_list_format = "(6f)[default]{l} (30)[default]{t|f} (25)[default]{a} (40)[default]{b}";
         now_playing_prefix = "$b";
         now_playing_suffix = "$/b";
