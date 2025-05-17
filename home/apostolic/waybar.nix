@@ -6,6 +6,8 @@
 }: let
   mkSpan = abbr: "<span color='#${abbr}'><b>{}</b></span>";
   mkSpanWorkspace = abbr: "<span color='#${abbr}'><b>{icon}</b></span>";
+  server = "127.0.0.1";
+  port = 6601;
 in {
   stylix.targets.waybar.enable = true;
   stylix.targets.waybar.font = "sansSerif";
@@ -84,10 +86,9 @@ in {
         };
 
         mpd = {
-          server = "127.0.0.1";
-          port = 6601;
+          inherit server port;
           format = "{stateIcon} {randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})";
-          on-click = "${lib.getExe pkgs.mpc} toggle";
+          on-click = "${lib.getExe pkgs.mpc} --host ${server} -p ${toString port} toggle";
           unknown-tag = "";
           random-icons = {
             on = " ";
