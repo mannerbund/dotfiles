@@ -17,7 +17,7 @@
     enable = true;
     package = (
       pkgs.emacsWithPackagesFromUsePackage {
-        package = pkgs.emacs30-pgtk;
+        package = pkgs.emacs-pgtk;
         config = ./emacs.el;
         defaultInitFile = true;
         extraEmacsPackages = epkgs: [
