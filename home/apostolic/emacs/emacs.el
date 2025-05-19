@@ -176,7 +176,7 @@
   ;; Optionally make narrowing help available in the minibuffer.
   ;; You may want to use `embark-prefix-help-command' or which-key instead.
   ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
-)
+  )
 
 (use-package vertico
   :ensure t
@@ -250,7 +250,7 @@
   (("C-`" . popper-toggle)
    ("C-M-`" . popper-cycle)
    (:map window-prefix-map
-        ("p" . popper-toggle-type)))
+         ("p" . popper-toggle-type)))
   :init
   (setq popper-reference-buffers
         '("Output\\*$"
@@ -271,7 +271,6 @@
 (use-package org
   :ensure t
   :hook ((org-mode . visual-line-mode)
-         (org-mode . auto-fill-mode)
          (org-mode . flyspell-mode)
          (org-babel-after-execute . org-redisplay-inline-images))
   :bind ("C-c a a" . org-agenda)
@@ -332,7 +331,7 @@
   (setq org-latex-compiler "pdflatex")
   (setq org-preview-latex-default-process 'dvisvgm)
   (setq preview-transparent-color t)
-  ;(setq org-highlight-latex-and-related '(native))
+                                        ;(setq org-highlight-latex-and-related '(native))
   (add-hook 'org-mode-hook 'org-preview-latex-fragment))
 
 (use-package org-roam
@@ -365,9 +364,9 @@
   :ensure t
   :defer t
   :bind (:map anki-editor-mode-map
-         ("C-c a i" . anki-editor-insert-note)
-         ("C-c a p" . anki-editor-push-note-at-point)
-         ("C-c a d" . anki-editor-delete-note-at-point)))
+              ("C-c a i" . anki-editor-insert-note)
+              ("C-c a p" . anki-editor-push-note-at-point)
+              ("C-c a d" . anki-editor-delete-note-at-point)))
 
 (use-package auctex
   :ensure t
@@ -422,8 +421,6 @@
 (setq read-extended-command-predicate #'command-completion-default-include-p)
 
 (use-package dabbrev
-  :bind (("M-/" . dabbrev-completion)
-         ("C-M-/" . dabbrev-expand))
   :config
   (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
   (add-to-list 'dabbrev-ignored-buffer-modes 'authinfo-mode)
