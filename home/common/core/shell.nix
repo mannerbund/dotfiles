@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   tide = pkgs.fishPlugins.tide.src;
 in {
   programs.fish = {
