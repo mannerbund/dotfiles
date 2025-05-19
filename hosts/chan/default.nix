@@ -13,13 +13,13 @@
     ../common/core
     ../common/users/apostolic
 
-    ../common/optional/bluetooth.nix
-    ../common/optional/dnscrypt-proxy2.nix
-    ../common/optional/zapret.nix
-    #../common/optional/wireguard.nix
-    ../common/optional/light.nix
-    ../common/optional/gamemode.nix
-    #../common/optional/scx.nix
+    ../common/misc/bluetooth.nix
+    ../common/misc/dnscrypt-proxy2.nix
+    ../common/misc/zapret.nix
+    ../common/misc/wireguard.nix
+    ../common/misc/light.nix
+    ../common/misc/gamemode.nix
+    #../common/misc/scx.nix
   ];
 
   networking = {

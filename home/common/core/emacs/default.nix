@@ -7,17 +7,27 @@
     inputs.emacs-overlay.overlays.default
   ];
 
+  home.sessionVariables = {
+    ALTERNATE_EDITOR = "";
+    EDITOR = "emacsclient -c"; # $EDITOR opens in terminal
+    VISUAL = "emacsclient -c -a emacs"; # $VISUAL opens in GUI mode
+  };
+
   home.packages = with pkgs; [
     graphviz
     emacs-lsp-booster
     nil
   ];
 
+  stylix.targets.emacs.enable = false;
+
+  services.emacs.enable = true;
+
   programs.emacs = {
     enable = true;
     package = (
       pkgs.emacsWithPackagesFromUsePackage {
-        package = pkgs.emacs-pgtk;
+        package = pkgs.emacs-git-pgtk;
         config = ./emacs.el;
         defaultInitFile = true;
         extraEmacsPackages = epkgs: [

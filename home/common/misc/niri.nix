@@ -36,6 +36,7 @@
     wl-mirror
     wayland-utils
     wdisplays
+    pwvucontrol
   ];
 
   services = {
@@ -68,6 +69,8 @@
     };
   };
 
+  stylix.targets.foot.enable = true;
+
   programs = {
     wofi = {
       enable = true;
@@ -86,6 +89,7 @@
       '';
     };
     swaylock.enable = true;
+    foot.enable = true;
   };
 
   programs.niri = {
@@ -138,7 +142,7 @@
             "Mod+Shift+D".action = spawn "wofi-pass";
             "Mod+S".action = spawn "emacsclient" "-c";
             "Mod+T".action = spawn "telegram-desktop";
-            "Mod+W".action = spawn "zen-beta";
+            "Mod+W".action = spawn "zen";
             "Mod+A".action = spawn "foot" "htop";
             "Mod+M".action = spawn "foot" "lf";
             "Mod+P".action = spawn "pwvucontrol";

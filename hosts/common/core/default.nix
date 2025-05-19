@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  system,
   ...
 }: {
   imports = [
@@ -29,6 +28,5 @@
     inherit inputs;
   };
 
-  services.speechd.enable = lib.mkForce false;
   documentation.nixos.enable = lib.mkForce false;
 }
