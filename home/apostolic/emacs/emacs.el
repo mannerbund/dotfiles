@@ -390,6 +390,10 @@
 (use-package magit
   :ensure t)
 
+(use-package git-commit
+  :after magit
+  :hook (git-commit-setup . flyspell-mode))
+
 (use-package envrc
   :ensure t
   :defer t
