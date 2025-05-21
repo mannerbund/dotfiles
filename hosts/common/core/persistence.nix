@@ -10,6 +10,12 @@
         group = "keys";
         mode = "u=rwx,g=,o=";
       }
+      {
+        directory = "/var/lib/wireguard";
+        user = "root";
+        group = "keys";
+        mode = "u=rwx,g=,o=";
+      }
     ];
     files = ["/etc/machine-id"];
     users.apostolic = {
