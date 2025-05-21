@@ -16,9 +16,9 @@
     ../common/misc/bluetooth.nix
     ../common/misc/dnscrypt-proxy2.nix
     ../common/misc/zapret.nix
-    ../common/misc/wireguard.nix
     ../common/misc/light.nix
     ../common/misc/gamemode.nix
+    #../common/misc/wireguard.nix
     #../common/misc/scx.nix
   ];
 
@@ -27,6 +27,10 @@
     useNetworkd = true;
     nameservers = ["127.0.0.1" "::1"];
     dhcpcd.extraConfig = "nohook resolv.conf";
+    firewall = {
+      allowedTCPPorts = [ 22 ];
+      allowedUDPPorts = [ ];
+    };
     useDHCP = false;
     wireless.iwd.enable = true;
   };
