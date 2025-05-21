@@ -38,11 +38,24 @@
   programs.zen-browser = {
     enable = true;
     policies = {
+      EnableTrackingProtection = {
+        Value = true;
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+      };
+      DNSOverHTTPS = {
+        Enabled = true;
+        Locked = true;
+        Fallback = false;
+      };
       AutofillAddressEnabled = true;
       AutofillCreditCardEnabled = false;
+      PasswordManagerEnabled = false;
       DisableAppUpdate = true;
-      DisableFeedbackCommands = true;
+      DisableFirefoxAcounts = true;
       DisableFirefoxStudies = true;
+      DisableFeedbackCommands = true;
       DisablePocket = true;
       DisableTelemetry = true;
       DontCheckDefaultBrowser = true;
