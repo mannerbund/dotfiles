@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  inputs,
   lib,
   ...
 }: {
@@ -47,7 +46,6 @@
     winetricks
     nicotine-plus
     telegram-desktop
-    syncthing
   ];
 
   home.sessionVariables = {
