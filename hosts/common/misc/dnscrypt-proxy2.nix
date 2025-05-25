@@ -1,11 +1,10 @@
 let
   StateDirectory = "dnscrypt-proxy";
-in
-{
+in {
   services.dnscrypt-proxy2 = {
     enable = true;
     settings = {
-      listen_addresses = [ "127.0.0.1:53" ];
+      listen_addresses = ["127.0.0.1:53"];
       require_dnssec = true;
       require_nofilter = true;
       require_nolog = false;
