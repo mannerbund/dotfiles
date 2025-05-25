@@ -28,8 +28,8 @@
     nameservers = ["127.0.0.1" "::1"];
     dhcpcd.extraConfig = "nohook resolv.conf";
     firewall = {
-      allowedTCPPorts = [ 22 ];
-      allowedUDPPorts = [ ];
+      allowedTCPPorts = [];
+      allowedUDPPorts = [];
     };
     useDHCP = false;
     wireless.iwd.enable = true;
