@@ -226,7 +226,8 @@
   :config
   (load-theme 'gruvbox-dark-hard t))
 
-(add-to-list 'default-frame-alist '(font . "Iosevka Comfy-16"))
+(set-face-attribute 'default nil :family "Iosevka" :height 160)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Aile" :height 160)
 
 (use-package shackle
   :ensure t
