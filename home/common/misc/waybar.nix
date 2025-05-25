@@ -10,7 +10,6 @@
   port = 6601;
 in {
   stylix.targets.waybar.enable = true;
-  stylix.targets.waybar.font = "sansSerif";
 
   home.packages = [pkgs.mpc];
   programs.waybar = {

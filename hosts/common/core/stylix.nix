@@ -6,12 +6,12 @@
 }: {
   imports = [inputs.stylix.nixosModules.stylix];
 
-  environment.systemPackages = with pkgs; [
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-    noto-fonts
+  fonts.packages = with pkgs; [
+    dejavu_fonts
+    nerd-fonts.symbols-only
     iosevka
-    font-awesome
+    aporetic
+    noto-fonts-emoji
   ];
 
   stylix = {
@@ -20,32 +20,30 @@
     image = config.lib.stylix.pixel "base00";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";
-    fonts.sizes = {
-      applications = 14;
-      desktop = 14;
-      popups = 14;
-      terminal = 16;
-    };
     fonts = {
+      sizes = {
+        applications = 14;
+        desktop = 14;
+        popups = 14;
+        terminal = 16;
+      };
       serif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Serif";
+        name = "Dejavu Serif";
       };
-
       sansSerif = {
-        package = pkgs.ubuntu_font_family;
-        name = "Ubuntu";
+        name = "Dejavu Sans";
       };
-
       monospace = {
-        package = pkgs.iosevka-comfy.comfy;
-        name = "Iosevka Comfy";
+        name = "Aporetic Sans Mono";
       };
-
       emoji = {
-        package = pkgs.nerd-fonts.symbols-only;
-        name = "Noto Sans Symbols";
+        name = "Noto Color Emoji";
       };
+    };
+    cursor = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+      size = 24;
     };
 
     targets = {
