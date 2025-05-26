@@ -361,6 +361,11 @@
   (setq org-modern-hide-stars t)
   (setq org-modern-table nil))
 
+(use-package org-appear
+  :ensure t
+  :hook
+  (org-mode-hook . org-appear-mode))
+
 (use-package anki-editor
   :ensure t
   :defer t
