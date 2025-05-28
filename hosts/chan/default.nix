@@ -18,14 +18,15 @@
     ../common/misc/zapret.nix
     ../common/misc/light.nix
     ../common/misc/gamemode.nix
-    #../common/misc/wireguard.nix
+    #../common/misc/i2pd.nix
+    ../common/misc/wireguard.nix
     #../common/misc/scx.nix
   ];
 
   networking = {
     hostName = "chan";
     useNetworkd = true;
-    nameservers = ["127.0.0.1" "::1"];
+    nameservers = ["127.0.0.1"];
     dhcpcd.extraConfig = "nohook resolv.conf";
     firewall = {
       allowedTCPPorts = [];
@@ -42,7 +43,6 @@
       "10-wireless" = {
         name = "wlan0";
         DHCP = "yes";
-        linkConfig.RequiredForOnline = "routable";
       };
       "20-ethernet" = {
         name = "enp0s31f6";
