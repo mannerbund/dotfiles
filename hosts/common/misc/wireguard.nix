@@ -1,37 +1,20 @@
+{lib, ...}:
 {
-  systemd.network = {
-    enable = true;
-    netdevs = {
-      "5-wg0" = {
-        netdevConfig = {
-          Kind = "wireguard";
-          Name = "wg0";
-          MTUBytes = "1300";
-        };
-        wireguardConfig = {
-          PrivateKeyFile = "/var/lib/wireguard/wireguard-privkey";
-        };
-        wireguardPeers = [
-          {
-            PublicKey = "";
-            AllowedIPs = [ "0.0.0.0/0" "::/0" ];
-            Endpoint = "";
-            PersistentKeepalive = 25;
-          }
-        ];
-      };
-    };
-    networks."wg0" = {
-      matchConfig.Name = "wg0";
-      address = [ "" ];
-      dns = [
-        "1.1.1.1"
-        "8.8.8.8"
+  networking.wg-quick.interfaces = {
+    wg0 = {
+      address = ["192.168.6.252/32"];
+      dns = ["127.0.0.1"];
+      privateKeyFile = "/var/lib/wireguard/wireguard-privkey";
+      
+      peers = [
+        {
+          publicKey = "OxuczEDPtabvj+hACzXuUpvRIs0IVWyrHzT4j0qcHj8=";
+          allowedIPs = [ "0.0.0.0/0"];
+          endpoint = "92.118.170.240:1024";
+          persistentKeepalive = 25;
+        }
       ];
-      DHCP = "no";
-      networkConfig = {
-        IPv6AcceptRA = false;  # Disable IPv6 autoconfig
-      };
     };
   };
+  systemd.services.wg-quick-wg0.wantedBy = lib.mkForce [];
 }
