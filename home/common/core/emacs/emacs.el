@@ -44,6 +44,7 @@
 (tool-bar-mode -1) ;; Don't display tool bar
 (scroll-bar-mode -1) ;; Don't display scroll bar
 (blink-cursor-mode -1) ;; Don't blink the cursor
+(setq cursor-in-non-selected-windows nil)
 (column-number-mode) ;; Display column number in the mode line
 (setq tooltip-mode -1) ;; Don't display tooltips as popups, use the echo area instead
 (setq fringe-mode '(0 . 0)) ;; Don't display fringe
@@ -112,6 +113,8 @@
          ("C-c M-x" . consult-mode-command)
          ("C-c h" . consult-history)
          ("C-c m" . consult-man)
+         ;; C-x bindings in `ctl-x-map'
+         ("C-x b" . consult-buffer)            
          ;; M-g bindings in `goto-map'
          ("M-g e" . consult-compile-error)
          ("M-g f" . consult-flymake)
@@ -229,48 +232,13 @@
 (set-face-attribute 'default nil :family "Iosevka" :height 160)
 (set-face-attribute 'variable-pitch nil :family "Iosevka Aile" :height 160)
 
-(use-package shackle
+(use-package eyebrowse
   :ensure t
-  :custom (shackle-default-rule '(:same t :inhibit-window-quit t))
   :config
-  (setq shackle-rules
-        '((inferior-python-mode :select t :align 'right :size 0.42)
-          ("\\*Messages\\*" :regexp t :select nil :align 'below :size 0.33)
-          ("\\*eldoc\\*" :regexp t :select nil :align 'right)
-          ("\\*envrc\\*" :regexp t :ignore t)
-          (magit-diff-mode :select nil)
-          (" *transient*" :popup t :align 'below)))
-  (shackle-mode 1))
-
-(use-package popper
-  :ensure t
-  :hook
-  (after-init-hook . popper-mode)
-  (popper-mode-hook . popper-echo-mode)
-  :bind
-  (("C-`" . popper-toggle)
-   ("C-M-`" . popper-cycle)
-   (:map window-prefix-map
-         ("p" . popper-toggle-type)))
-  :init
-  (setq popper-reference-buffers
-        '("Output\\*$"
-          "\\*Messages\\*"
-          "\\*Warnings\\*"
-          "\\*devdocs\\*"
-          elisp-refs-mode
-          ghelp-page-mode
-          (lambda (buf)
-            (with-current-buffer buf
-              (derived-mode-p '(compilation-mode
-                                comint-mode
-                                help-mode))))))
-  :config
-  (setq popper-mode-line nil
-        popper-display-control nil))
+  (setq eyebrowse-new-workspace t)
+  (eyebrowse-mode t))
 
 (use-package org
-  :ensure t
   :hook ((org-mode . visual-line-mode)
          (org-mode . flyspell-mode)
          (org-babel-after-execute . org-redisplay-inline-images))
@@ -545,7 +513,16 @@
 
 (use-package python
   :custom
-  (python-indent-guess-indent-offset-verbose nil))
+  (python-indent-guess-indent-offset-verbose nil)
+  :config
+  (setq comint-move-point-for-output 'all)
+  (evil-set-initial-state 'inferior-python-mode 'normal)
+  (add-to-list 'display-buffer-alist
+               '("\\*Python\\*"
+                 (display-buffer-in-side-window)
+                 (side . right)
+                 (window-width . 0.42)
+                 (no-select . t))))
 
 (use-package nix-mode
   :ensure t
