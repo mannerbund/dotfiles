@@ -23,6 +23,33 @@ in {
     ];
   };
 
+  environment.persistence."/persist" = {
+    users.apostolic = {
+      directories = [
+        ".cache"
+        ".emacs.d"
+        ".local"
+        ".zen"
+        ".password-store"
+        {
+          directory = ".gnupg";
+          mode = "0700";
+        }
+        {
+          directory = ".ssh";
+          mode = "0700";
+        }
+        "Desktop"
+        "Documents"
+        "Downloads"
+        "Library"
+        "Music"
+        "Pictures"
+        "Videos"
+      ];
+    };
+  };
+
   home-manager.users.apostolic = import ../../../../home/apostolic;
 
   security.pam.services.swaylock = {};
