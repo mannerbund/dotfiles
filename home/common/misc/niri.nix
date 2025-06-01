@@ -94,7 +94,7 @@
 
   programs.niri = {
     enable = true;
-    package = pkgs.niri-unstable;
+    package = pkgs.niri-stable;
     settings = {
       environment = {
         NIXOS_OZONE_WL = "1";
