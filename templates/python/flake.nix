@@ -1,7 +1,7 @@
 {
   description = "Python";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05-small";
 
   outputs = {
     self,
