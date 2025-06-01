@@ -12,4 +12,13 @@
     };
     gnupg.sshKeyPaths = [];
   };
+
+  environment.persistence."/persist".directories = [
+    {
+      directory = "/var/lib/sops-nix";
+      user = "root";
+      group = "keys";
+      mode = "u=rwx,g=,o=";
+    }
+  ];
 }

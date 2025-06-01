@@ -14,12 +14,11 @@
     ../common/users/apostolic
 
     ../common/misc/bluetooth.nix
-    ../common/misc/dnscrypt-proxy2.nix
-    ../common/misc/zapret.nix
     ../common/misc/light.nix
     ../common/misc/gamemode.nix
-    #../common/misc/i2pd.nix
     ../common/misc/wireguard.nix
+    ../common/misc/zapret.nix
+    ../common/misc/dnscrypt-proxy2.nix
     #../common/misc/scx.nix
   ];
 
@@ -27,11 +26,10 @@
     hostName = "chan";
     useNetworkd = true;
     nameservers = ["127.0.0.1"];
-    dhcpcd.extraConfig = "nohook resolv.conf";
-    firewall = {
-      allowedTCPPorts = [];
-      allowedUDPPorts = [];
-    };
+    #firewall = {
+    #  allowedTCPPorts = [53 443];
+    #  allowedUDPPorts = [53 443];
+    #};
     useDHCP = false;
     wireless.iwd.enable = true;
   };
@@ -43,10 +41,12 @@
       "10-wireless" = {
         name = "wlan0";
         DHCP = "yes";
+        dhcpConfig.UseDNS = false;
       };
       "20-ethernet" = {
         name = "enp0s31f6";
         DHCP = "yes";
+        dhcpConfig.UseDNS = false;
         linkConfig.RequiredForOnline = "no";
       };
     };
