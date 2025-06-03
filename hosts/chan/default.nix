@@ -26,10 +26,10 @@
     hostName = "chan";
     useNetworkd = true;
     nameservers = ["127.0.0.1"];
-    #firewall = {
-    #  allowedTCPPorts = [53 443];
-    #  allowedUDPPorts = [53 443];
-    #};
+    firewall = {
+      allowedTCPPorts = [53317 22000];
+      allowedUDPPorts = [53317 22000];
+    };
     useDHCP = false;
     wireless.iwd.enable = true;
   };
