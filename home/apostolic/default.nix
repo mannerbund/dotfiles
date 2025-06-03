@@ -38,7 +38,7 @@
     libreoffice-qt
     qbittorrent-enhanced
     xz
-    python3
+    python3Full
     anki-bin
     clang
     xdg-utils
@@ -46,6 +46,7 @@
     winetricks
     nicotine-plus
     telegram-desktop
+    syncthing
   ];
 
   home.sessionVariables = {
