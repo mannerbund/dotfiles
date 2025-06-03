@@ -25,17 +25,13 @@
     };
   };
 
-  home.sessionVariables = {
-    TERMINAL = "footclient";
-    MOZ_USE_XINPUT2 = 1; # Mozilla smooth scrolling/touchpads.
-  };
-
   home.packages = with pkgs; [
     wofi-pass
     wl-clipboard
     wl-mirror
     wayland-utils
     wdisplays
+    xwayland-satellite
     pwvucontrol
   ];
 
@@ -94,11 +90,13 @@
 
   programs.niri = {
     enable = true;
-    package = pkgs.niri-stable;
+    package = pkgs.niri-unstable;
     settings = {
       environment = {
         NIXOS_OZONE_WL = "1";
         DISPLAY = ":0";
+        TERMINAL = "footclient";
+        MOZ_USE_XINPUT2 = "1"; # Mozilla smooth scrolling/touchpads.
       };
       outputs = {
         "eDP-1" = {
@@ -131,6 +129,7 @@
       };
       spawn-at-startup = [
         {command = [(lib.getExe pkgs.swww) "img" "${config.home.homeDirectory}/Pictures/Wallpapers/gruvbox_city.png"];}
+        {command = [(lib.getExe pkgs.xwayland-satellite)];}
       ];
       binds = with config.lib.niri.actions; let
         sh = spawn "sh" "-c";
