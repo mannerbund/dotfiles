@@ -1,7 +1,7 @@
 {
   description = "Python";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05-small";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
   outputs = {
     self,
@@ -13,16 +13,14 @@
     devShells.x86_64-linux.default = with pkgs;
       mkShell {
         packages = [
-          pkgs.qt6.full
-          pkgs.qt6.qtwayland
           (pkgs.python313.withPackages (python-pkgs:
             with python-pkgs; [
               ruff
               python-lsp-server
               python-lsp-ruff
               numpy
-              pyqt6
               matplotlib
+              tkinter
               ipython
               pandas
               requests
