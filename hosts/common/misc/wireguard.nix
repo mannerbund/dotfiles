@@ -1,7 +1,7 @@
 {lib, ...}: {
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = ["192.168.6.55/32"];
+      address = ["192.168.6.104/32"];
       dns = ["127.0.0.1"];
       privateKeyFile = "/var/lib/wireguard/wireguard-privkey";
 
