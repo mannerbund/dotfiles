@@ -46,16 +46,21 @@
     swww.enable = true;
     swayidle = {
       enable = true;
+      extraArgs = ["-w"];
       timeouts = [
         {
           timeout = 900;
+          command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
+        }
+        {
+          timeout = 1200;
           command = "/run/current-system/systemd/bin/systemctl suspend";
         }
       ];
       events = [
         {
           event = "lock";
-          command = "${pkgs.swaylock}/bin/swaylock";
+          command = "${pkgs.swaylock}/bin/swaylock --show-keyboard-layout";
         }
         {
           event = "before-sleep";
