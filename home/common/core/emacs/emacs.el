@@ -241,6 +241,7 @@
 (use-package org
   :hook ((org-mode . visual-line-mode)
          (org-mode . flyspell-mode)
+         (org-mode . turn-on-org-cdlatex)
          (org-babel-after-execute . org-redisplay-inline-images))
   :bind ("C-c a a" . org-agenda)
   :config
@@ -263,6 +264,7 @@
   (setq org-babel-python-command "python3")
   ;; Org
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+  (setq org-use-sub-superscripts '{})
   (setq org-directory "~/Documents/Vault")
   (setq org-agenda-files '("~/Documents/Vault/agenda/work/work.org"
                            "~/Documents/Vault/agenda/todo/read.org"
@@ -270,7 +272,6 @@
                            "~/Documents/Vault/agenda/todo/todo.org"))
   (setq org-log-done 'time)
   ;; Appearance
-  (setq org-pretty-entities t)
   (setq org-startup-indented t)
   (setq org-startup-folded 'content)
   (setq org-startup-with-inline-images t)
@@ -299,8 +300,7 @@
   (setq org-startup-with-latex-preview t)
   (setq org-latex-compiler "pdflatex")
   (setq org-preview-latex-default-process 'dvisvgm)
-  (setq preview-transparent-color t)
-                                        ;(setq org-highlight-latex-and-related '(native))
+  (setq org-highlight-latex-and-related '(latex script entities))
   (add-hook 'org-mode-hook 'org-preview-latex-fragment))
 
 (use-package org-roam
@@ -342,24 +342,57 @@
               ("C-c a p" . anki-editor-push-note-at-point)
               ("C-c a d" . anki-editor-delete-note-at-point)))
 
+(defun apostolic/latex-prettify-symbols ()
+(setq prettify-symbols-alist
+      '(("\\alpha"     . #x03B1)    
+        ("\\beta"      . #x03B2)    
+        ("\\gamma"     . #x03B3)    
+        ("\\delta"     . #x03B4)    
+        ("\\epsilon"   . #x03B5)    
+        ("\\zeta"      . #x03B6)    
+        ("\\eta"       . #x03B7)    
+        ("\\theta"     . #x03B8)    
+        ("\\lambda"    . #x03BB)    
+        ("\\mu"        . #x03BC)    
+        ("\\pi"        . #x03C0)    
+        ("\\phi"       . #x03C6)    
+        ("\\psi"       . #x03C8)    
+        ("\\Omega"     . #x03A9)    
+        ("\\infty"     . #x221E)    
+        ("\\rightarrow". #x2192)    
+        ("\\leftarrow" . #x2190)    
+        ("\\leq"       . #x2264)    
+        ("\\geq"       . #x2265)    
+        ("\\neq"       . #x2260)    
+        ("\\times"     . #x00D7)    
+        ("\\cdot"      . #x22C5)    
+        ("\\sum"       . #x2211)    
+        ("\\int"       . #x222B)    
+        ("\\to"        . #x2192)))  
+  (prettify-symbols-mode 1))
+
 (use-package auctex
   :ensure t
   :hook ((LaTeX-mode . LaTeX-preview-setup)
-         (LaTeX-mode . LaTeX-math-mode)
-         (LaTeX-mode . flyspell-mode)
-         (LaTeX-mode . turn-on-reftex))
+         (LaTeX-mode . apostolic/latex-prettify-symbols)
+         (LaTeX-mode . flyspell-mode))
   :mode ("\\.tex\\'" . LaTeX-mode)
   :config
   (setq TeX-auto-save t
         TeX-parse-self t
         TeX-save-query nil
         TeX-PDF-mode t
-        TeX-electric-escape t
         TeX-source-correlate-method 'synctex
         TeX-source-correlate-start-server t)
 
   (setq TeX-view-program-selection '((output-pdf "Zathura"))
         TeX-view-program-list '(("Zathura" "zathura %o"))))
+
+(use-package cdlatex
+  :ensure t
+  :after latex
+  :hook ((LaTeX-mode . cdlatex-mode)
+         (LaTeX-mode . cdlatex-electricindex-mode)))
 
 (use-package magit
   :ensure t)
