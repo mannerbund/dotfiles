@@ -38,7 +38,6 @@
     libreoffice-qt
     qbittorrent-enhanced
     xz
-    python3Full
     anki-bin
     clang
     xdg-utils
