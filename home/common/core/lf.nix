@@ -29,9 +29,6 @@ in {
       %mkdir -p ${config.home.homeDirectory}/.cache/lf
       # make sure trash folder exists
       %mkdir -p ${config.home.homeDirectory}/.local/share/Trash
-      # move current file or selected files to trash folder
-      # (also see 'man mv' for backup/overwrite options)
-      cmd trash %set -f; mv -t ~/.local/share/Trash $fx
 
       # define a custom 'delete' command
       cmd delete ''${{
@@ -55,10 +52,15 @@ in {
     keybindings = {
       "." = "set hidden!";
       U = "glob-unselect";
-      x = "trash";
-      X = "delete";
+      x = "delete";
       gL = "follow-link";
+      gd = "cd ~/Desktop";
+      go = "cd ~/Documents";
+      gw = "cd ~/Downloads";
       gl = "cd ~/Library";
+      gm = "cd ~/Music";
+      gp = "cd ~/Pictures";
+      gv = "cd ~/Videos";
     };
     previewer = {
       keybinding = "i";
