@@ -39,8 +39,8 @@
     mako = {
       enable = true;
       settings = {
-        defaultTimeout = 7000;
-        ignoreTimeout = true;
+        default-timeout = 7000;
+        ignore-timeout = true;
       };
     };
     swww.enable = true;
