@@ -21,8 +21,6 @@
 
   stylix.targets.emacs.enable = false;
 
-  services.emacs.enable = true;
-
   programs.emacs = {
     enable = true;
     package = (

@@ -135,6 +135,7 @@
       spawn-at-startup = [
         {command = [(lib.getExe pkgs.swww) "img" "${config.home.homeDirectory}/Pictures/Wallpapers/gruvbox_city.png"];}
         {command = [(lib.getExe pkgs.xwayland-satellite)];}
+        {command = ["emacs --fg-daemon"];}
       ];
       binds = with config.lib.niri.actions; let
         sh = spawn "sh" "-c";
