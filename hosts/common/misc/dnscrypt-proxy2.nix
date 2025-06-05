@@ -33,6 +33,8 @@ in {
         refresh_delay = 73;
       };
 
+      server_names = [ "cloudflare" "quad9" ];
+
       disabled_server_names = ["google" "yandex"];
     };
   };
