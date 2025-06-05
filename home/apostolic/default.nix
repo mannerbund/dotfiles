@@ -34,15 +34,12 @@
           ru
         ]
     ))
-    lutris
     libreoffice-qt
     qbittorrent-enhanced
     xz
     anki-bin
     clang
     xdg-utils
-    wineWowPackages.waylandFull
-    winetricks
     nicotine-plus
     telegram-desktop
     syncthing
