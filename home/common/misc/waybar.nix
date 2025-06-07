@@ -111,7 +111,7 @@ in {
         wireplumber = {
           format = "{volume}% {icon}";
           format-muted = "";
-          on-click = "helvum";
+          on-click = "${lib.getExe pkgs.pwvucontrol}";
           format-icons = ["" "" ""];
         };
 

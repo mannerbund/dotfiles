@@ -15,7 +15,7 @@
 
     ../common/misc/bluetooth.nix
     ../common/misc/light.nix
-    ../common/misc/gamemode.nix
+    #../common/misc/gamemode.nix
     ../common/misc/wireguard.nix
     ../common/misc/zapret.nix
     ../common/misc/dnscrypt-proxy2.nix
