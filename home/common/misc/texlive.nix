@@ -16,6 +16,7 @@
         minted
         upquote
         polynom
+        longdivision
         pgf
         collection-fontsrecommended
         ;
