@@ -30,10 +30,10 @@
 
 (setq-default user-full-name "Apostolic")
 (setq backup-directory-alist `(("." . "~/.cache/backup")))
-(setq backup-by-copying t)          ; Don't clobber symlinks
-(setq create-lockfiles nil)         ; Don't have temp files
-(setq delete-old-versions t)        ; Cleanup automatically
-(setq delete-by-moving-to-trash t)  ; Dont delete, send to trash instead
+(setq backup-by-copying t) ;; Don't clobber symlinks
+(setq create-lockfiles nil) ;; Don't have temp files
+(setq delete-old-versions t) ;; Cleanup automatically
+(setq delete-by-moving-to-trash t) ;; Dont delete, send to trash instead
 (recentf-mode) ;; Enable recording recently-visited files
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -72,6 +72,8 @@
 
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-keybinding nil)
   :preface
   (setq evil-undo-system 'undo-redo)
   (setq evil-want-C-i-jump nil)
@@ -79,17 +81,9 @@
   (setq evil-want-Y-yank-to-eol t)
   (setq evil-want-minibuffer t)
   (setq evil-respect-visual-line-mode t)
-  (setq evil-want-keybinding nil)
   :config
   (setq evil-visual-update-x-selection-p nil)
   (evil-mode 1))
-
-(use-package evil-surround
-  :ensure t
-  :init
-  (setq evil-want-keybinding nil)
-  :config
-  (global-evil-surround-mode 1))
 
 (use-package evil-collection
   :ensure t
@@ -99,6 +93,22 @@
   (evil-collection-setup-minibuffer t)
   :config
   (evil-collection-init))
+
+(use-package evil-org
+  :ensure t
+  :after (evil org)
+  :hook (org-mode . evil-org-mode)
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))
+  (evil-org-agenda-set-keys))
+
+(use-package evil-surround
+  :ensure t
+  :init
+  (setq evil-want-keybinding nil)
+  :config
+  (global-evil-surround-mode 1))
 
 (use-package calc
   :preface
@@ -243,7 +253,10 @@
          (org-mode . flyspell-mode)
          (org-mode . turn-on-org-cdlatex)
          (org-babel-after-execute . org-redisplay-inline-images))
-  :bind ("C-c a a" . org-agenda)
+  :bind (([f12] . org-agenda)
+         ([f11] . org-clock-goto)
+         ([C-f11] . org-clock-in)
+         ("C-c c" . org-capture))
   :config
   (setq org-link-frame-setup
         '((vm . vm-visit-folder-other-frame)
@@ -266,11 +279,38 @@
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
   (setq org-use-sub-superscripts '{})
   (setq org-directory "~/Documents/Vault")
-  (setq org-agenda-files '("~/Documents/Vault/agenda/work/work.org"
-                           "~/Documents/Vault/agenda/todo/read.org"
-                           "~/Documents/Vault/WIKI/notes/"
-                           "~/Documents/Vault/agenda/todo/todo.org"))
   (setq org-log-done 'time)
+  (setq org-modules '(org-habit))
+  ;; Agenda
+  (setq org-agenda-files '("~/Documents/Vault/agenda"))
+  (setq org-default-notes-file "~/Documents/Vault/agenda/refile.org")
+  (setq org-capture-templates
+        '(("t" "todo" entry (file "~/Documents/Vault/agenda/refile.org")
+           "* TODO %?\n%u\n" :clock-in t :clock-resume t)
+          ("j" "journal" entry (file+olp+datetree "~/Documents/Vault/agenda/diary.org")
+           "* %?\n%u\n" :clock-in t :clock-resume t)
+          ("n" "note" entry (file "~/Documents/Vault/agenda/refile.org")
+           "* %? :note:\n%u\n" :clock-in t :clock-resume t)))
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)"
+          		    "|" "INACTIVE(i)" "CANCELLED(c)" "DONE(d)")))
+  (setq org-todo-state-tags-triggers
+        '(("CANCELLED" ("CANCELLED" . t))
+          ("WAITING" ("WAITING" . t))
+          ("HOLD" ("WAITING") ("HOLD" . t))
+          (done ("WAITING") ("HOLD"))
+          ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+          ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+          ("DONE" ("WAITING") ("CANCELLED") ("HOLD"))))
+  (setq org-agenda-include-diary t)
+  (setq org-agenda-diary-file "~/Documents/Vault/agenda/diary.org")
+  (setq org-agenda-compact-blocks t)
+  (setq org-agenda-start-on-weekday nil)
+  (setq org-agenda-span 'day)
+  (setq org-deadline-warning-days 7)
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-scheduled-if-done t)
+  (evil-set-initial-state 'org-agenda-mode 'motion)
   ;; Appearance
   (setq org-startup-indented t)
   (setq org-startup-folded 'content)
@@ -282,17 +322,6 @@
   (setq org-fontify-whole-heading-line t)
   (setq org-fontify-todo-headline t)
   (setq org-fontify-done-headline t)
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(n)"
-          		    "|" "DONE(d)" "HOLD(h)" "OPTIONAL(o)" "IRRELEVANT(i)")))
-  (setq org-todo-keyword-faces
-        '(("TODO" . (:foreground "Orchid" :weight bold))
-          ("PLANNING" . (:foreground "SlateGray" :weight bold))
-          ("IN-PROGRESS" . (:foreground "LimeGreen" :weight bold))
-          ("DONE" . (:foreground "DarkBlue" :weight bold))
-          ("HOLD" . (:foreground "GoldenRod"))
-          ("OPTIONAL" . (:foreground "Snow" :weight bold))
-          ("IRRELEVANT" . (:foreground "FireBrick" :weight bold))))
   ;; Vertico
   (advice-add #'org-make-tags-matcher :around #'vertico-enforce-basic-completion)
   (advice-add #'org-agenda-filter :around #'vertico-enforce-basic-completion)
@@ -309,6 +338,7 @@
   (setq org-roam-database-connector 'sqlite-builtin)
   :custom
   (org-roam-directory (file-truename "~/Documents/Vault/WIKI/notes"))
+  (org-roam-db-gc-threshold most-positive-fixnum)
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
@@ -317,8 +347,8 @@
          ("C-c n a" . org-roam-alias-add)
          ("C-c n d" . org-id-get-create))
   :config
-  ;; Vertico
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (setq org-roam-node-display-template
+        (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
 
 (use-package org-modern
@@ -327,7 +357,15 @@
   (org-mode-hook . org-modern-mode)
   :init
   (setq org-modern-hide-stars t)
-  (setq org-modern-table nil))
+  (setq org-modern-table nil)
+  :config
+  (setq org-modern-todo-faces
+        '(("TODO" :background "DodgerBlue" :foreground "black")
+          ("NEXT" :background "BlueViolet" :foreground "black")
+          ("DONE" :background "LimeGreen" :foreground "black")
+          ("WAITING" :background "DarkOrange" :foreground "black")
+          ("HOLD" :background "SlateGray" :foreground "black")
+          ("CANCELLED" :background "DarkRed" :foreground "black"))))
 
 (use-package org-appear
   :ensure t
@@ -343,32 +381,32 @@
               ("C-c a d" . anki-editor-delete-note-at-point)))
 
 (defun apostolic/latex-prettify-symbols ()
-(setq prettify-symbols-alist
-      '(("\\alpha"     . #x03B1)    
-        ("\\beta"      . #x03B2)    
-        ("\\gamma"     . #x03B3)    
-        ("\\delta"     . #x03B4)    
-        ("\\epsilon"   . #x03B5)    
-        ("\\zeta"      . #x03B6)    
-        ("\\eta"       . #x03B7)    
-        ("\\theta"     . #x03B8)    
-        ("\\lambda"    . #x03BB)    
-        ("\\mu"        . #x03BC)    
-        ("\\pi"        . #x03C0)    
-        ("\\phi"       . #x03C6)    
-        ("\\psi"       . #x03C8)    
-        ("\\Omega"     . #x03A9)    
-        ("\\infty"     . #x221E)    
-        ("\\rightarrow". #x2192)    
-        ("\\leftarrow" . #x2190)    
-        ("\\leq"       . #x2264)    
-        ("\\geq"       . #x2265)    
-        ("\\neq"       . #x2260)    
-        ("\\times"     . #x00D7)    
-        ("\\cdot"      . #x22C5)    
-        ("\\sum"       . #x2211)    
-        ("\\int"       . #x222B)    
-        ("\\to"        . #x2192)))  
+  (setq prettify-symbols-alist
+        '(("\\alpha"     . #x03B1)    
+          ("\\beta"      . #x03B2)    
+          ("\\gamma"     . #x03B3)    
+          ("\\delta"     . #x03B4)    
+          ("\\epsilon"   . #x03B5)    
+          ("\\zeta"      . #x03B6)    
+          ("\\eta"       . #x03B7)    
+          ("\\theta"     . #x03B8)    
+          ("\\lambda"    . #x03BB)    
+          ("\\mu"        . #x03BC)    
+          ("\\pi"        . #x03C0)    
+          ("\\phi"       . #x03C6)    
+          ("\\psi"       . #x03C8)    
+          ("\\Omega"     . #x03A9)    
+          ("\\infty"     . #x221E)    
+          ("\\rightarrow". #x2192)    
+          ("\\leftarrow" . #x2190)    
+          ("\\leq"       . #x2264)    
+          ("\\geq"       . #x2265)    
+          ("\\neq"       . #x2260)    
+          ("\\times"     . #x00D7)    
+          ("\\cdot"      . #x22C5)    
+          ("\\sum"       . #x2211)    
+          ("\\int"       . #x222B)    
+          ("\\to"        . #x2192)))  
   (prettify-symbols-mode 1))
 
 (use-package auctex
@@ -463,7 +501,7 @@
   (indent-bars-treesit-ignore-blank-lines-types '("module"))
   ;; Add other languages as needed
   (indent-bars-treesit-scope '((python function_definition class_definition for_statement
-	  if_statement with_statement while_statement)))
+	                                   if_statement with_statement while_statement)))
   ;; Note: wrap may not be needed if no-descend-list is enough
   ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
   ;;				      list list_comprehension
@@ -495,8 +533,8 @@
                    (:plugins
                     (:ruff
                      (:enabled t :json-false
-                      :formatEnabled t
-                      :lineLength 88)))))))
+                               :formatEnabled t
+                               :lineLength 88)))))))
 
 (use-package eglot-booster
   :after eglot
@@ -517,10 +555,10 @@
          ("k" . flymake-diagnostics-prev-error)
          ("TAB" . flymake-show-diagnostic))
    (:repeat-map flymake-mode-repeat-map
-               ("e" . flymake-goto-next-error)
-               ("E" . flymake-goto-prev-error)
-               ("[" . flymake-goto-prev-error)
-               ("]" . flymake-goto-next-error)))
+                ("e" . flymake-goto-next-error)
+                ("E" . flymake-goto-prev-error)
+                ("[" . flymake-goto-prev-error)
+                ("]" . flymake-goto-next-error)))
   :config
   (defun flymake-setup-next-error-function ()
     (setq next-error-function 'flymake-next-error-compat))
