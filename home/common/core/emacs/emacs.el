@@ -105,8 +105,6 @@
 
 (use-package evil-surround
   :ensure t
-  :init
-  (setq evil-want-keybinding nil)
   :config
   (global-evil-surround-mode 1))
 
@@ -240,7 +238,7 @@
   (load-theme 'gruvbox-dark-hard t))
 
 (set-face-attribute 'default nil :family "Iosevka" :height 160)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Aile" :height 160)
+(set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 160)
 
 (use-package eyebrowse
   :ensure t
