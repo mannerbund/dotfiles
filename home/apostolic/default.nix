@@ -8,6 +8,7 @@
     ../common/core
 
     ../common/misc/niri.nix
+    ../common/misc/bemenu.nix
     ../common/misc/stylix.nix
     ../common/misc/music.nix
     ../common/misc/texlive.nix

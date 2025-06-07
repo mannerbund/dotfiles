@@ -17,7 +17,6 @@
 
   stylix.targets = {
     mako.enable = true;
-    wofi.enable = true;
     niri.enable = true;
     swaylock = {
       enable = true;
@@ -26,7 +25,6 @@
   };
 
   home.packages = with pkgs; [
-    wofi-pass
     wl-clipboard
     wl-mirror
     wayland-utils
@@ -50,10 +48,6 @@
       timeouts = [
         {
           timeout = 900;
-          command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
-        }
-        {
-          timeout = 1200;
           command = "/run/current-system/systemd/bin/systemctl suspend";
         }
       ];
@@ -73,22 +67,6 @@
   stylix.targets.foot.enable = true;
 
   programs = {
-    wofi = {
-      enable = true;
-      settings = {
-        term = "${pkgs.foot}/bin/foot";
-        allow_images = true;
-        width = 500;
-        key_up = "Ctrl-p";
-        key_down = "Ctrl-n";
-      };
-      style = ''
-        #outer-box {
-          border: 3px solid #${config.lib.stylix.colors.base0A};
-          border-radius: 10px;
-        }
-      '';
-    };
     swaylock.enable = true;
     foot.enable = true;
   };
@@ -143,8 +121,7 @@
         lib.attrsets.mergeAttrsList [
           {
             "Mod+Return".action = spawn "foot";
-            "Mod+D".action = spawn "wofi" "--show" "drun";
-            "Mod+Shift+D".action = spawn "wofi-pass";
+            "Mod+D".action = spawn "bemenu-run";
             "Mod+S".action = spawn "emacsclient" "-c";
             "Mod+T".action = spawn "telegram-desktop";
             "Mod+W".action = spawn "zen";
