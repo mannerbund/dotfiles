@@ -99,7 +99,7 @@
 
 (use-package evil-org
   :ensure t
-  :after org
+  :after (evil org)
   :hook (org-mode . evil-org-mode)
   :config
   (require 'evil-org-agenda)
@@ -108,6 +108,7 @@
 
 (use-package evil-surround
   :ensure t
+  :after evil
   :config
   (global-evil-surround-mode 1))
 
