@@ -379,10 +379,12 @@
 
 (use-package eyebrowse
   :ensure t
+  :init
+  (setopt eyebrowse-keymap-prefix (kbd "C-c w"))
   :config
   (setopt eyebrowse-new-workspace t)
+  (eyebrowse-setup-evil-keys)
   (eyebrowse-mode t))
-
 
 (use-package anki-editor
   :ensure t
