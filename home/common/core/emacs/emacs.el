@@ -121,22 +121,13 @@
 (set-face-attribute 'default nil :family "Iosevka" :height 160)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 160)
 
-;; Major Modes
-(use-package calc
-  :preface
-  (evil-collection-define-key 'normal 'calc-mode-map
-    (kbd "C-r") 'calc-redo))
-
-(use-package nix-mode
-  :ensure t
-  :mode "\\.nix\\'")
-
 ;; Org-mode
 (use-package org
   :hook ((org-mode . visual-line-mode)
          (org-mode . flyspell-mode)
          (org-mode . turn-on-org-cdlatex)
-         (org-mode . org-latex-preview))
+         (org-mode . org-latex-preview)
+         (org-mode . (lambda () (hl-line-mode -1))))
   :bind (([f12] . org-agenda)
          ([f11] . org-clock-goto)
          ([C-f11] . org-clock-in)
@@ -357,7 +348,6 @@
   (setopt corfu-preselect 'prompt)
   (keymap-unset corfu-map "RET"))
 
-
 (use-package dabbrev
   :config
   (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
@@ -365,6 +355,23 @@
   (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
+
+;; Major Modes
+(use-package calc
+  :preface
+  (evil-collection-define-key 'normal 'calc-mode-map
+    (kbd "C-r") 'calc-redo))
+
+(use-package nix-mode
+  :ensure t
+  :mode "\\.nix\\'")
+
+(use-package magit
+  :ensure t)
+
+(use-package git-commit
+  :after magit
+  :hook (git-commit-setup . flyspell-mode))
 
 ;; Miscellaneous 
 (use-package which-key
@@ -436,7 +443,6 @@
           TeX-PDF-mode t
           TeX-source-correlate-method 'synctex
           TeX-source-correlate-start-server t)
-
   (setopt TeX-view-program-selection '((output-pdf "Zathura"))
           TeX-view-program-list '(("Zathura" "zathura %o"))))
 
@@ -445,13 +451,6 @@
   :after latex
   :hook ((LaTeX-mode . cdlatex-mode)
          (LaTeX-mode . cdlatex-electricindex-mode)))
-
-(use-package magit
-  :ensure t)
-
-(use-package git-commit
-  :after magit
-  :hook (git-commit-setup . flyspell-mode))
 
 (use-package envrc
   :ensure t
