@@ -185,14 +185,26 @@
             ("DONE" ("WAITING") ("CANCELLED") ("HOLD"))))
   (setopt org-agenda-include-diary t)
   (setopt org-agenda-diary-file "~/Documents/Vault/agenda/diary.org")
+  (setopt org-enforce-todo-dependencies t)
+  (setopt org-agenda-dim-blocked-tasks t)
   (setopt org-agenda-compact-blocks t)
   (setopt org-agenda-start-on-weekday nil)
   (setopt org-agenda-span 'day)
   (setopt org-deadline-warning-days 7)
   (setopt org-agenda-skip-deadline-if-done t)
   (setopt org-agenda-skip-scheduled-if-done t)
-  (setopt org-agenda-dim-blocked-tasks t)
   (evil-set-initial-state 'org-agenda-mode 'motion)
+  ;;;; Refile settings
+  ; Exclude DONE state tasks from refile targets
+  (defun bh/verify-refile-target ()
+    "Exclude todo keywords with a done state from refile targets"
+    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+  (setq org-refile-target-verify-function 'bh/verify-refile-target)
+  (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                   (org-agenda-files :maxlevel . 9))))
+  (setq org-refile-use-outline-path t)
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-allow-creating-parent-nodes (quote confirm))
   ;; Appearance
   (setopt org-startup-indented t)
   (setopt org-startup-folded 'content)
