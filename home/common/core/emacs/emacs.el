@@ -4,7 +4,12 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
-(setq package-enable-at-startup nil)
+(setq package-enable-at-startup nil) ;; Disable `package.el'
+
+(menu-bar-mode -1) ;; Don't display menu bar
+(tool-bar-mode -1) ;; Don't display tool bar
+(scroll-bar-mode -1) ;; Don't display scroll bar
+(blink-cursor-mode -1) ;; Don't blink the cursor
 
 (let ((normal-gc-cons-threshold gc-cons-threshold)
       (normal-gc-cons-percentage gc-cons-percentage)
@@ -21,82 +26,80 @@
                      file-name-handler-alist ',normal-file-name-handler-alist))))
 
 ;;; init.el --- Initialization -*- lexical-binding: t; -*-
-(setq auto-mode-case-fold nil)
-(setq bidi-inhibit-bpa t)
-(setq-default bidi-display-reordering 'left-to-right
-              bidi-paragraph-direction 'left-to-right)
-(setq fast-but-imprecise-scrolling t)
-(setq jit-lock-defer-time 0)
 
-(setq-default user-full-name "Apostolic")
-(setq backup-directory-alist `(("." . "~/.cache/backup")))
-(setq backup-by-copying t) ;; Don't clobber symlinks
-(setq create-lockfiles nil) ;; Don't have temp files
-(setq delete-old-versions t) ;; Cleanup automatically
-(setq delete-by-moving-to-trash t) ;; Dont delete, send to trash instead
-(recentf-mode) ;; Enable recording recently-visited files
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-
-
-(setq transient-mark-mode 1) ;; Highlight selected region
-(menu-bar-mode -1) ;; Don't display menu bar
-(tool-bar-mode -1) ;; Don't display tool bar
-(scroll-bar-mode -1) ;; Don't display scroll bar
-(blink-cursor-mode -1) ;; Don't blink the cursor
-(setq cursor-in-non-selected-windows nil)
-(column-number-mode) ;; Display column number in the mode line
-(setq tooltip-mode -1) ;; Don't display tooltips as popups, use the echo area instead
-(setq fringe-mode '(0 . 0)) ;; Don't display fringe
-(setq confirm-kill-emacs 'y-or-n-p)
-(setq ring-bell-function 'ignore)
-(setq visible-cursor nil)
-(setq cursor-in-non-selected-windows nil) ; dont render cursors other windows
-(setq scroll-conservatively 101) ; Never recenter the window NEW
-(setq scroll-preserve-screen-position t) ; Scrolling back and forth
-
-(setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
-(electric-pair-mode 1)
-(show-paren-mode 1)
-(setq show-paren-context-when-offscreen t)
+(use-package emacs
+  :init
+  (setopt backup-directory-alist `(("." . "~/.cache/backup")))
+  (setopt backup-by-copying t)
+  (setopt create-lockfiles nil)
+  (setopt delete-old-versions t)
+  (setopt delete-by-moving-to-trash t)
+  (setopt auto-mode-case-fold nil)
+  (setopt bidi-inhibit-bpa t)
+  (setopt bidi-display-reordering 'left-to-right
+          bidi-paragraph-direction 'left-to-right)
+  (setopt fast-but-imprecise-scrolling t)
+  (setopt indent-tabs-mode nil)
+  (setopt tab-width 4)
+  (setopt confirm-kill-emacs 'y-or-n-p)
+  (setopt ring-bell-function 'ignore)
+  (setopt visible-cursor nil)
+  (setopt cursor-in-non-selected-windows nil)
+  (setopt scroll-conservatively 101)
+  (setopt scroll-preserve-screen-position t)
+  (setopt mouse-wheel-progressive-speed nil)
+  (setopt mouse-wheel-follow-mouse t)
+  (tooltip-mode -1) ;; Don't display tooltips as popups, use the echo area instead
+  (electric-pair-mode 1)
+  (show-paren-mode 1)
+  (column-number-mode 1) ;; Display column number in the mode line
+  (setopt show-paren-context-when-offscreen t)
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (setopt tab-always-indent 'complete)
+  ;; Disable Ispell completion function.
+  (setopt text-mode-ispell-word-completion nil)
+  ;; Hide commands in M-x which do not work in the current mode.
+  (setopt read-extended-command-predicate #'command-completion-default-include-p)
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setopt minibuffer-prompt-properties
+          '(read-only t cursor-intangible t face minibuffer-prompt)))
 
 (use-package gcmh
   :ensure t
   :hook
   (after-init-hook . gcmh-mode)
   :init
-  (setq gcmh-idle-delay 5)
-  (setq gcmh-high-cons-threshold (* 16 1024 1024)) ; 16MB
-  (setq gcmh-verbose init-file-debug))
+  (setopt gcmh-idle-delay 5)
+  (setopt gcmh-high-cons-threshold (* 16 1024 1024)) ; 16MB
+  (setopt gcmh-verbose init-file-debug))
 
+;; Evil
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-keybinding nil)
-  :preface
-  (setq evil-undo-system 'undo-redo)
-  (setq evil-want-C-i-jump nil)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-Y-yank-to-eol t)
-  (setq evil-want-minibuffer t)
-  (setq evil-respect-visual-line-mode t)
+  (setopt evil-want-keybinding nil)
+  (setopt evil-undo-system 'undo-redo)
+  (setopt evil-want-C-i-jump nil)
+  (setopt evil-want-C-u-scroll t)
+  (setopt evil-want-Y-yank-to-eol t)
   :config
-  (setq evil-visual-update-x-selection-p nil)
-  (evil-mode 1))
+  (setopt evil-visual-update-x-selection-p nil)
+  (setopt evil-respect-visual-line-mode t)
+  (setopt evil-want-minibuffer t)
+  (evil-mode))
 
 (use-package evil-collection
   :ensure t
   :after evil
-  :custom
-  (evil-collection-calendar-want-org-bindings t)
-  (evil-collection-setup-minibuffer t)
   :config
+  (setopt evil-collection-calendar-want-org-bindings t)
+  (setopt evil-collection-setup-minibuffer t)
   (evil-collection-init))
 
 (use-package evil-org
   :ensure t
-  :after (evil org)
+  :after org
   :hook (org-mode . evil-org-mode)
   :config
   (require 'evil-org-agenda)
@@ -108,15 +111,165 @@
   :config
   (global-evil-surround-mode 1))
 
+;; Theme
+(use-package gruvbox-theme
+  :ensure t
+  :config
+  (load-theme 'gruvbox-dark-hard t))
+
+(set-face-attribute 'default nil :family "Iosevka" :height 160)
+(set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 160)
+
+;; Major Modes
 (use-package calc
   :preface
   (evil-collection-define-key 'normal 'calc-mode-map
     (kbd "C-r") 'calc-redo))
 
-;; Add orderless support
+(use-package nix-mode
+  :ensure t
+  :mode "\\.nix\\'")
+
+;; Org-mode
+(use-package org
+  :hook ((org-mode . visual-line-mode)
+         (org-mode . flyspell-mode)
+         (org-mode . turn-on-org-cdlatex)
+         (org-mode . org-latex-preview))
+  :bind (([f12] . org-agenda)
+         ([f11] . org-clock-goto)
+         ([C-f11] . org-clock-in)
+         ("C-c c" . org-capture))
+  :config
+  (setopt org-link-frame-setup
+          '((vm . vm-visit-folder-other-frame)
+            (vm-imap . vm-visit-imap-folder-other-frame)
+            (gnus . org-gnus-no-new-news)
+            (file . find-file)
+            (wl . wl-other-frame)))
+  ;; Babel
+  (setopt org-confirm-babel-evaluate nil)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((C . t)
+     (emacs-lisp . t)
+     (latex . t)
+     (org . t)
+     (python . t)))
+  (setopt org-babel-python-command "python3")
+  ;; Org
+  (setopt org-directory "~/Documents/Vault")
+  (setopt org-log-done 'time)
+  (setopt org-log-into-drawer t)
+  ;; Agenda
+  (setopt org-modules '(org-habit))
+  (setopt org-agenda-files '("~/Documents/Vault/agenda"))
+  (setopt org-default-notes-file "~/Documents/Vault/agenda/refile.org")
+  (setopt org-capture-templates
+          '(("t" "todo" entry (file "~/Documents/Vault/agenda/refile.org")
+             "* TODO %?\n%u\n" :clock-in t :clock-resume t)
+            ("d" "diary" entry (file+olp+datetree "~/Documents/Vault/agenda/diary.org")
+             "* %?\n%u\n" :clock-in t :clock-resume t)
+            ("n" "note" entry (file "~/Documents/Vault/agenda/refile.org")
+             "* %? :note:\n%u\n" :clock-in t :clock-resume t)))
+  (setopt org-todo-keywords
+          '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+            (sequence "WAITING(w)" "HOLD(i)" "|" "CANCELLED(c)")))
+  (setopt org-todo-state-tags-triggers
+          '(("CANCELLED" ("CANCELLED" . t))
+            ("WAITING" ("WAITING" . t))
+            ("HOLD" ("WAITING") ("HOLD" . t))
+            (done ("WAITING") ("HOLD"))
+            ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+            ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+            ("DONE" ("WAITING") ("CANCELLED") ("HOLD"))))
+  (setopt org-agenda-include-diary t)
+  (setopt org-agenda-diary-file "~/Documents/Vault/agenda/diary.org")
+  (setopt org-agenda-compact-blocks t)
+  (setopt org-agenda-start-on-weekday nil)
+  (setopt org-agenda-span 'day)
+  (setopt org-deadline-warning-days 7)
+  (setopt org-agenda-skip-deadline-if-done t)
+  (setopt org-agenda-skip-scheduled-if-done t)
+  (setopt org-agenda-dim-blocked-tasks t)
+  (evil-set-initial-state 'org-agenda-mode 'motion)
+  ;; Appearance
+  (setopt org-startup-indented t)
+  (setopt org-startup-folded 'content)
+  (setopt org-startup-with-inline-images t)
+  (setopt org-hide-emphasis-markers t)
+  (setopt org-pretty-entities t)
+  (setopt org-ellipsis " ┅ ")
+  (setopt org-src-fontify-natively t)
+  (setopt org-fontify-quote-and-verse-blocks t)
+  (setopt org-fontify-whole-heading-line t)
+  (setopt org-fontify-todo-headline t)
+  (setopt org-fontify-done-headline t)
+  ;; Vertico
+  (advice-add #'org-make-tags-matcher :around #'vertico-enforce-basic-completion)
+  (advice-add #'org-agenda-filter :around #'vertico-enforce-basic-completion)
+  ;; LaTeX
+  (setopt org-use-sub-superscripts '{})
+  (setopt org-startup-with-latex-preview t)
+  (setopt org-latex-compiler "pdflatex")
+  (setopt org-preview-latex-default-process 'dvisvgm)
+  (setopt org-highlight-latex-and-related '(latex script entities)))
+
+(use-package org-roam
+  :ensure t
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ("C-c n a" . org-roam-alias-add)
+         ("C-c n d" . org-id-get-create))
+  :init
+  (setq org-roam-db-gc-threshold most-positive-fixnum)
+  :config
+  (setopt org-roam-directory (file-truename "~/Documents/Vault/WIKI/notes"))
+  (setopt org-roam-database-connector 'sqlite-builtin)
+  (setopt org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode))
+
+(use-package org-modern
+  :ensure t
+  :hook
+  (org-mode-hook . org-modern-mode)
+  :init
+  (setopt org-modern-hide-stars t)
+  (setopt org-modern-table nil)
+  :config
+  (setopt org-modern-todo-faces
+          '(("TODO" :background "DodgerBlue" :weight bold :foreground "black")
+            ("NEXT" :background "BlueViolet" :weight bold :foreground "black")
+            ("DONE" :background "LimeGreen" :weight bold :foreground "black")
+            ("WAITING" :background "DarkOrange" :weight bold :foreground "black")
+            ("HOLD" :background "SlateGray" :weight bold :foreground "black")
+            ("CANCELLED" :background "DarkRed" :weight bold :foreground "black"))))
+
+(use-package org-appear
+  :ensure t
+  :hook
+  (org-mode-hook . org-appear-mode))
+
+;; Completion
+(use-package orderless
+  :ensure t
+  :config
+  (setopt completion-styles '(orderless basic))
+  (setopt completion-category-defaults nil)
+  (setopt completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package marginalia
+  :ensure t
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
+
 (use-package consult
   :ensure t
-  ;; Replace bindings. Lazily loaded by `use-package'.
   :bind (;; C-c bindings in `mode-specific-map'
          ("C-c M-x" . consult-mode-command)
          ("C-c h" . consult-history)
@@ -126,7 +279,6 @@
          ;; M-g bindings in `goto-map'
          ("M-g e" . consult-compile-error)
          ("M-g f" . consult-flymake)
-         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
          ("M-g m" . consult-mark)
          ("M-g k" . consult-global-mark)
          ("M-g i" . consult-imenu)
@@ -142,35 +294,16 @@
          ("M-s" . consult-history)                 ;; orig. next-matching-history-element
          ("M-r" . consult-history))                ;; orig. previous-matching-history-element
 
-  ;; Enable automatic preview at point in the *Completions* buffer. This is
-  ;; relevant when you use the default completion UI.
   :hook (completion-list-mode . consult-preview-at-point-mode)
-
-  ;; The :init configuration is always executed (Not lazy)
   :init
-
-  ;; Tweak the register preview for `consult-register-load',
-  ;; `consult-register-store' and the built-in commands.  This improves the
-  ;; register formatting, adds thin separator lines, register sorting and hides
-  ;; the window mode line.
   (advice-add #'register-preview :override #'consult-register-window)
-  (setq register-preview-delay 0.5)
-
+  (setopt register-preview-delay 0.5)
   ;; Use Consult to select xref locations with preview
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
-
-  ;; Configure other variables and modes in the :config section,
-  ;; after lazily loading the package.
+  (setopt xref-show-xrefs-function #'consult-xref
+          xref-show-definitions-function #'consult-xref)
+  ;; Enable recording recently-visited files
+  (recentf-mode)
   :config
-
-  ;; Optionally configure preview. The default value
-  ;; is 'any, such that any key triggers the preview.
-  ;; (setq consult-preview-key 'any)
-  ;; (setq consult-preview-key "M-.")
-  ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
-  ;; For some commands and buffer sources it is useful to configure the
-  ;; :preview-key on a per-command basis using the `consult-customize' macro.
   (consult-customize
    consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep consult-man
@@ -179,196 +312,64 @@
    consult--source-recent-file consult--source-project-recent-file
    ;; :preview-key "M-."
    :preview-key '(:debounce 0.4 any))
-
-  ;; Optionally configure the narrowing key.
-  ;; Both < and C-+ work reasonably well.
-  (setq consult-narrow-key "<") ;; "C-+"
-
-  ;; Optionally make narrowing help available in the minibuffer.
-  ;; You may want to use `embark-prefix-help-command' or which-key instead.
-  ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
-  )
-
-(use-package vertico
-  :ensure t
-  :custom
-  (vertico-scroll-margin 0) ;; Different scroll margin
-  (vertico-count 7) ;; Show more candidates
-  (vertico-resize nil) ;; Grow and shrink the Vertico minibuffer
-  (vertico-cycle t) ;; Enable cycling for vertico-next/previous
-  (evil-make-intercept-map vertico-map 'insert)
-  :init
-  (vertico-mode))
+  (setopt consult-narrow-key "<"))
 
 (use-package savehist
   :init
   (savehist-mode))
 
-(use-package marginalia
+(use-package vertico
   :ensure t
-  :bind (:map minibuffer-local-map
-              ("M-A" . marginalia-cycle))
   :init
-  (marginalia-mode))
+  (vertico-mode)
+  :config
+  (setopt vertico-scroll-margin 0) ;; Different scroll margin
+  (setopt vertico-count 12) ;; Show more candidates
+  (setopt vertico-resize nil) ;; Grow and shrink the Vertico minibuffer
+  (evil-make-intercept-map vertico-map 'insert))
 
-(use-package orderless
+(use-package corfu
   :ensure t
-  :custom
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
-  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
-  (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+  :init
+  (global-corfu-mode)
+  (corfu-history-mode)
+  (corfu-popupinfo-mode)
+  :config
+  (setopt corfu-auto t)
+  (setopt corfu-auto-prefix 4)
+  (setopt corfu-auto-delay 0.07)
+  (setopt corfu-count 8)
+  (setopt corfu-cycle t)
+  (setopt corfu-quit-no-match 'separator)
+  (setopt corfu-preselect 'prompt)
+  (keymap-unset corfu-map "RET"))
 
+
+(use-package dabbrev
+  :config
+  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+  (add-to-list 'dabbrev-ignored-buffer-modes 'authinfo-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
+
+;; Miscellaneous 
 (use-package which-key
-  :custom
-  (which-key-idle-delay 0.3)
-  (which-key-sort-order 'which-key-key-order-alpha)
-  (which-key-separator " → ")
-  (which-key-unicode-correction 3)
-  (which-key-prefix-prefix "+")
   :config
-  (which-key-mode)
-  (which-key-setup-minibuffer))
-
-(use-package gruvbox-theme
-  :ensure t
-  :config
-  (load-theme 'gruvbox-dark-hard t))
-
-(set-face-attribute 'default nil :family "Iosevka" :height 160)
-(set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 160)
+  (setopt which-key-idle-delay 0.3)
+  (setopt which-key-sort-order 'which-key-key-order-alpha)
+  (setopt which-key-separator " → ")
+  (setopt which-key-unicode-correction 3)
+  (setopt which-key-prefix-prefix "+")
+  (which-key-setup-minibuffer)
+  (which-key-mode))
 
 (use-package eyebrowse
   :ensure t
   :config
-  (setq eyebrowse-new-workspace t)
+  (setopt eyebrowse-new-workspace t)
   (eyebrowse-mode t))
 
-(use-package org
-  :hook ((org-mode . visual-line-mode)
-         (org-mode . flyspell-mode)
-         (org-mode . turn-on-org-cdlatex)
-         (org-babel-after-execute . org-redisplay-inline-images))
-  :bind (([f12] . org-agenda)
-         ([f11] . org-clock-goto)
-         ([C-f11] . org-clock-in)
-         ("C-c c" . org-capture))
-  :config
-  (setq org-link-frame-setup
-        '((vm . vm-visit-folder-other-frame)
-          (vm-imap . vm-visit-imap-folder-other-frame)
-          (gnus . org-gnus-no-new-news)
-          (file . find-file)
-          (wl . wl-other-frame)))
-  ;; Babel
-  (setq org-confirm-babel-evaluate nil)
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((C . t)
-     (emacs-lisp . t)
-     (latex . t)
-     (org . t)
-     (python . t)
-     (shell . t)))
-  (setq org-babel-python-command "python3")
-  ;; Org
-  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-  (setq org-use-sub-superscripts '{})
-  (setq org-directory "~/Documents/Vault")
-  (setq org-log-done 'time)
-  (setq org-modules '(org-habit))
-  ;; Agenda
-  (setq org-agenda-files '("~/Documents/Vault/agenda"))
-  (setq org-default-notes-file "~/Documents/Vault/agenda/refile.org")
-  (setq org-capture-templates
-        '(("t" "todo" entry (file "~/Documents/Vault/agenda/refile.org")
-           "* TODO %?\n%u\n" :clock-in t :clock-resume t)
-          ("j" "journal" entry (file+olp+datetree "~/Documents/Vault/agenda/diary.org")
-           "* %?\n%u\n" :clock-in t :clock-resume t)
-          ("n" "note" entry (file "~/Documents/Vault/agenda/refile.org")
-           "* %? :note:\n%u\n" :clock-in t :clock-resume t)))
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)"
-          		    "|" "INACTIVE(i)" "CANCELLED(c)" "DONE(d)")))
-  (setq org-todo-state-tags-triggers
-        '(("CANCELLED" ("CANCELLED" . t))
-          ("WAITING" ("WAITING" . t))
-          ("HOLD" ("WAITING") ("HOLD" . t))
-          (done ("WAITING") ("HOLD"))
-          ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-          ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-          ("DONE" ("WAITING") ("CANCELLED") ("HOLD"))))
-  (setq org-agenda-include-diary t)
-  (setq org-agenda-diary-file "~/Documents/Vault/agenda/diary.org")
-  (setq org-agenda-compact-blocks t)
-  (setq org-agenda-start-on-weekday nil)
-  (setq org-agenda-span 'day)
-  (setq org-deadline-warning-days 7)
-  (setq org-agenda-skip-deadline-if-done t)
-  (setq org-agenda-skip-scheduled-if-done t)
-  (evil-set-initial-state 'org-agenda-mode 'motion)
-  ;; Appearance
-  (setq org-startup-indented t)
-  (setq org-startup-folded 'content)
-  (setq org-startup-with-inline-images t)
-  (setq org-hide-emphasis-markers t)
-  (setq org-ellipsis " ┅ ")
-  (setq org-fontify-quote-and-verse-blocks t)
-  (setq org-src-fontify-natively t)
-  (setq org-fontify-whole-heading-line t)
-  (setq org-fontify-todo-headline t)
-  (setq org-fontify-done-headline t)
-  ;; Vertico
-  (advice-add #'org-make-tags-matcher :around #'vertico-enforce-basic-completion)
-  (advice-add #'org-agenda-filter :around #'vertico-enforce-basic-completion)
-  ;; LaTeX
-  (setq org-startup-with-latex-preview t)
-  (setq org-latex-compiler "pdflatex")
-  (setq org-preview-latex-default-process 'dvisvgm)
-  (setq org-highlight-latex-and-related '(latex script entities))
-  (add-hook 'org-mode-hook 'org-preview-latex-fragment))
-
-(use-package org-roam
-  :ensure t
-  :init
-  (setq org-roam-database-connector 'sqlite-builtin)
-  :custom
-  (org-roam-directory (file-truename "~/Documents/Vault/WIKI/notes"))
-  (org-roam-db-gc-threshold most-positive-fixnum)
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ("C-c n a" . org-roam-alias-add)
-         ("C-c n d" . org-id-get-create))
-  :config
-  (setq org-roam-node-display-template
-        (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode))
-
-(use-package org-modern
-  :ensure t
-  :hook
-  (org-mode-hook . org-modern-mode)
-  :init
-  (setq org-modern-hide-stars t)
-  (setq org-modern-table nil)
-  :config
-  (setq org-modern-todo-faces
-        '(("TODO" :background "DodgerBlue" :foreground "black")
-          ("NEXT" :background "BlueViolet" :foreground "black")
-          ("DONE" :background "LimeGreen" :foreground "black")
-          ("WAITING" :background "DarkOrange" :foreground "black")
-          ("HOLD" :background "SlateGray" :foreground "black")
-          ("CANCELLED" :background "DarkRed" :foreground "black"))))
-
-(use-package org-appear
-  :ensure t
-  :hook
-  (org-mode-hook . org-appear-mode))
 
 (use-package anki-editor
   :ensure t
@@ -379,50 +380,50 @@
               ("C-c a d" . anki-editor-delete-note-at-point)))
 
 (defun apostolic/latex-prettify-symbols ()
-  (setq prettify-symbols-alist
-        '(("\\alpha"     . #x03B1)    
-          ("\\beta"      . #x03B2)    
-          ("\\gamma"     . #x03B3)    
-          ("\\delta"     . #x03B4)    
-          ("\\epsilon"   . #x03B5)    
-          ("\\zeta"      . #x03B6)    
-          ("\\eta"       . #x03B7)    
-          ("\\theta"     . #x03B8)    
-          ("\\lambda"    . #x03BB)    
-          ("\\mu"        . #x03BC)    
-          ("\\pi"        . #x03C0)    
-          ("\\phi"       . #x03C6)    
-          ("\\psi"       . #x03C8)    
-          ("\\Omega"     . #x03A9)    
-          ("\\infty"     . #x221E)    
-          ("\\rightarrow". #x2192)    
-          ("\\leftarrow" . #x2190)    
-          ("\\leq"       . #x2264)    
-          ("\\geq"       . #x2265)    
-          ("\\neq"       . #x2260)    
-          ("\\times"     . #x00D7)    
-          ("\\cdot"      . #x22C5)    
-          ("\\sum"       . #x2211)    
-          ("\\int"       . #x222B)    
-          ("\\to"        . #x2192)))  
+  (setopt prettify-symbols-alist
+          '(("\\alpha"     . #x03B1)    
+            ("\\beta"      . #x03B2)    
+            ("\\gamma"     . #x03B3)    
+            ("\\delta"     . #x03B4)    
+            ("\\epsilon"   . #x03B5)    
+            ("\\zeta"      . #x03B6)    
+            ("\\eta"       . #x03B7)    
+            ("\\theta"     . #x03B8)    
+            ("\\lambda"    . #x03BB)    
+            ("\\mu"        . #x03BC)    
+            ("\\pi"        . #x03C0)    
+            ("\\phi"       . #x03C6)    
+            ("\\psi"       . #x03C8)    
+            ("\\Omega"     . #x03A9)    
+            ("\\infty"     . #x221E)    
+            ("\\rightarrow". #x2192)    
+            ("\\leftarrow" . #x2190)    
+            ("\\leq"       . #x2264)    
+            ("\\geq"       . #x2265)    
+            ("\\neq"       . #x2260)    
+            ("\\times"     . #x00D7)    
+            ("\\cdot"      . #x22C5)    
+            ("\\sum"       . #x2211)    
+            ("\\int"       . #x222B)    
+            ("\\to"        . #x2192)))  
   (prettify-symbols-mode 1))
 
 (use-package auctex
   :ensure t
+  :mode ("\\.tex\\'" . LaTeX-mode)
   :hook ((LaTeX-mode . LaTeX-preview-setup)
          (LaTeX-mode . apostolic/latex-prettify-symbols)
          (LaTeX-mode . flyspell-mode))
-  :mode ("\\.tex\\'" . LaTeX-mode)
   :config
-  (setq TeX-auto-save t
-        TeX-parse-self t
-        TeX-save-query nil
-        TeX-PDF-mode t
-        TeX-source-correlate-method 'synctex
-        TeX-source-correlate-start-server t)
+  (setopt TeX-auto-save t
+          TeX-parse-self t
+          TeX-save-query nil
+          TeX-PDF-mode t
+          TeX-source-correlate-method 'synctex
+          TeX-source-correlate-start-server t)
 
-  (setq TeX-view-program-selection '((output-pdf "Zathura"))
-        TeX-view-program-list '(("Zathura" "zathura %o"))))
+  (setopt TeX-view-program-selection '((output-pdf "Zathura"))
+          TeX-view-program-list '(("Zathura" "zathura %o"))))
 
 (use-package cdlatex
   :ensure t
@@ -439,57 +440,22 @@
 
 (use-package envrc
   :ensure t
-  :defer t
   :hook (after-init . envrc-global-mode))
-
-;; Add orderless support
-(use-package corfu
-  :ensure t
-  :custom
-  (corfu-auto t)
-  (corfu-auto-prefix 4)
-  (corfu-auto-delay 0.07)
-  (corfu-count 8)
-  (corfu-cycle t)
-  (corfu-quit-no-match 'separator)
-  (corfu-preselect 'prompt)
-  (keymap-unset corfu-map "RET")
-  :init
-  (global-corfu-mode)
-  (corfu-history-mode)
-  (corfu-popupinfo-mode))
-
-;; Enable indentation+completion using the TAB key.
-;; `completion-at-point' is often bound to M-TAB.
-(setq tab-always-indent 'complete)
-;; Disable Ispell completion function.
-(setq text-mode-ispell-word-completion nil)
-;; Hide commands in M-x which do not apply to the current mode.
-(setq read-extended-command-predicate #'command-completion-default-include-p)
-
-(use-package dabbrev
-  :config
-  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
-  (add-to-list 'dabbrev-ignored-buffer-modes 'authinfo-mode)
-  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
-  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
-  (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
 
 (use-package kind-icon
   :ensure t
   :after corfu
-  :custom
-  (kind-icon-default-style `(:padding -0.5 :scale 1.0 :height 0.85))
   :config
+  (setopt kind-icon-default-style `(:padding -0.5 :scale 1.0 :height 0.85))
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (use-package hl-line
-  :hook
-  (hl-line-mode-hook . hl-line-number-mode)
-  (global-hl-line-mode-hook . global-hl-line-number-mode)
   :init
-  (setq hl-line-sticky-flag nil)
-  (setq global-hl-line-sticky-flag nil))
+  (setopt hl-line-sticky-flag nil)
+  (setopt global-hl-line-sticky-flag nil)
+  :hook
+  (prog-mode . hl-line-mode)
+  (text-mode . hl-line-mode))
 
 (use-package indent-bars
   :ensure t
@@ -509,14 +475,14 @@
 
 (use-package eldoc
   :config
-  (setq eldoc-idle-delay 0.5)
-  (setq eldoc-echo-area-use-multiline-p nil))
+  (setopt eldoc-idle-delay 0.5)
+  (setopt eldoc-echo-area-use-multiline-p nil))
 
 (use-package eglot
   :defer t
   :init
-  (setq eglot-autoshutdown t)
-  (setq eglot-sync-connect nil)
+  (setopt eglot-autoshutdown t)
+  (setopt eglot-sync-connect nil)
   :bind (:map eglot-mode-map
               ("C-c l a" . eglot-code-actions)
               ("C-c l f" . eglot-format-buffer)
@@ -526,13 +492,13 @@
   (nix-mode . eglot-ensure)
   :config
   (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
-  (setq-default eglot-workspace-configuration
-                '((:pylsp
-                   (:plugins
-                    (:ruff
-                     (:enabled t :json-false
-                               :formatEnabled t
-                               :lineLength 88)))))))
+  (setopt eglot-workspace-configuration
+          '((:pylsp
+             (:plugins
+              (:ruff
+               (:enabled t :json-false
+                         :formatEnabled t
+                         :lineLength 88)))))))
 
 (use-package eglot-booster
   :after eglot
@@ -541,25 +507,9 @@
 (use-package flymake
   :hook
   (flymake-mode-hook . flymake-setup-next-error-function)
-  :bind
-  ((:map flymake-mode-map
-         ("C-. !" . flymake-show-buffer-diagnostics)
-         ("M-] E" . flymake-goto-next-error)
-         ("M-[ E" . flymake-goto-prev-error))
-   (:map flymake-diagnostics-buffer-mode-map
-         ("n" . flymake-diagnostics-next-error)
-         ("p" . flymake-diagnostics-prev-error)
-         ("j" . flymake-diagnostics-next-error)
-         ("k" . flymake-diagnostics-prev-error)
-         ("TAB" . flymake-show-diagnostic))
-   (:repeat-map flymake-mode-repeat-map
-                ("e" . flymake-goto-next-error)
-                ("E" . flymake-goto-prev-error)
-                ("[" . flymake-goto-prev-error)
-                ("]" . flymake-goto-next-error)))
   :config
   (defun flymake-setup-next-error-function ()
-    (setq next-error-function 'flymake-next-error-compat))
+    (setopt next-error-function 'flymake-next-error-compat))
 
   (defun flymake-next-error-compat (&optional n _)
     (flymake-goto-next-error n))
@@ -577,14 +527,13 @@
 
 (use-package flymake-proc
   :config
-  (setq flymake-proc-ignored-file-name-regexps '("\\.l?hs\\'"))
+  (setopt flymake-proc-ignored-file-name-regexps '("\\.l?hs\\'"))
   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
 (use-package python
-  :custom
-  (python-indent-guess-indent-offset-verbose nil)
   :config
-  (setq comint-move-point-for-output 'all)
+  (setopt python-indent-guess-indent-offset-verbose nil)
+  (setopt comint-move-point-for-output 'all)
   (evil-set-initial-state 'inferior-python-mode 'normal)
   (add-to-list 'display-buffer-alist
                '("\\*Python\\*"
@@ -592,7 +541,3 @@
                  (side . right)
                  (window-width . 0.42)
                  (no-select . t))))
-
-(use-package nix-mode
-  :ensure t
-  :mode "\\.nix\\'")
