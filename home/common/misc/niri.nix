@@ -31,6 +31,7 @@
     wdisplays
     xwayland-satellite
     pwvucontrol
+    bemoji
   ];
 
   services = {
@@ -80,6 +81,7 @@
         DISPLAY = ":0";
         TERMINAL = "footclient";
         MOZ_USE_XINPUT2 = "1"; # Mozilla smooth scrolling/touchpads.
+        BEMOJI_PICKER_CMD = "${lib.getExe pkgs.bemenu} -C -l 10";
       };
       outputs = {
         "eDP-1" = {
@@ -121,7 +123,8 @@
         lib.attrsets.mergeAttrsList [
           {
             "Mod+Return".action = spawn "foot";
-            "Mod+D".action = spawn "bemenu-run";
+            "Mod+D".action = spawn "${pkgs.bemenu}/bin/bemenu-run";
+            "Mod+Shift+D".action = spawn "${lib.getExe pkgs.bemoji}";
             "Mod+S".action = spawn "emacsclient" "-c";
             "Mod+T".action = spawn "telegram-desktop";
             "Mod+W".action = spawn "zen";
