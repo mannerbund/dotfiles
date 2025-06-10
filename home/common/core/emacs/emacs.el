@@ -83,10 +83,9 @@
   (setopt evil-want-C-i-jump nil)
   (setopt evil-want-C-u-scroll t)
   (setopt evil-want-Y-yank-to-eol t)
+  (setopt evil-respect-visual-line-mode t)
   :config
   (setopt evil-visual-update-x-selection-p nil)
-  (setopt evil-respect-visual-line-mode t)
-  (setopt evil-want-minibuffer t)
   (evil-mode))
 
 (use-package evil-collection
@@ -100,7 +99,7 @@
 
 (use-package evil-org
   :ensure t
-  :after (evil org)
+  :after org
   :hook (org-mode . evil-org-mode)
   :config
   (require 'evil-org-agenda)
@@ -109,7 +108,6 @@
 
 (use-package evil-surround
   :ensure t
-  :after evil
   :config
   (global-evil-surround-mode 1))
 
@@ -125,10 +123,7 @@
 ;; Org-mode
 (use-package org
   :hook ((org-mode . visual-line-mode)
-         (org-mode . flyspell-mode)
-         (org-mode . turn-on-org-cdlatex)
-         (org-mode . org-latex-preview)
-         (org-mode . (lambda () (hl-line-mode -1))))
+         (org-mode . flyspell-mode))
   :bind (([f12] . org-agenda)
          ([f11] . org-clock-goto)
          ([C-f11] . org-clock-in)
@@ -218,6 +213,7 @@
   (advice-add #'org-make-tags-matcher :around #'vertico-enforce-basic-completion)
   (advice-add #'org-agenda-filter :around #'vertico-enforce-basic-completion)
   ;; LaTeX
+  (add-hook 'org-mode-hook #'turn-on-org-cdlatex)
   (setopt org-use-sub-superscripts '{})
   (setopt org-startup-with-latex-preview t)
   (setopt org-latex-compiler "pdflatex")
@@ -474,7 +470,8 @@
   (setopt global-hl-line-sticky-flag nil)
   :hook
   (prog-mode . hl-line-mode)
-  (text-mode . hl-line-mode))
+  (text-mode . hl-line-mode)
+  (org-mode . (lambda () (hl-line-mode -1))))
 
 (use-package indent-bars
   :ensure t
