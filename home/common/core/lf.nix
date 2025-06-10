@@ -52,7 +52,6 @@ in {
     keybindings = {
       "." = "set hidden!";
       U = "glob-unselect";
-      x = "delete";
       gL = "follow-link";
       gd = "cd ~/Desktop";
       go = "cd ~/Documents";
