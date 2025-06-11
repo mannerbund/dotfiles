@@ -2,7 +2,7 @@ keys:
   age:
     - &local age1qy2xnw79k2xuld9vdzffef05pa9u7uuvn9awlepp03pfvvwksd3ss6e372
 creation_rules:
-  - path_regex: hosts/common/users/.*
+  - path_regex: hosts/common/secrets/.*
     key_groups:
       - age:
         - *local
