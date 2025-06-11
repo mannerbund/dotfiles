@@ -20,11 +20,16 @@
       rutracker = "https://rutracker.org";
       thepiratebay = "https://thepiratebay.org";
     };
+    keyBindings = {
+      normal = {
+        "td" = "config-cycle colors.webpage.darkmode.enabled true false";
+      };
+    };
     settings = {
       zoom.default = "125%";
+      colors.webpage.darkmode.enabled = true;
       auto_save.session = true;
       session.lazy_restore = false;
-      content.proxy_dns_requests = true;
     };
   };
 }
