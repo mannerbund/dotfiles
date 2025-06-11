@@ -1,4 +1,13 @@
 {lib, ...}: {
+  environment.persistence."/persist".directories = [
+    {
+      directory = "/var/lib/wireguard";
+      user = "root";
+      group = "keys";
+      mode = "u=rwx,g=,o=";
+    }
+  ];
+
   networking.wg-quick.interfaces = {
     wg0 = {
       address = ["192.168.6.205/32"];
@@ -15,15 +24,6 @@
       ];
     };
   };
-
-  environment.persistence."/persist".directories = [
-    {
-      directory = "/var/lib/wireguard";
-      user = "root";
-      group = "keys";
-      mode = "u=rwx,g=,o=";
-    }
-  ];
 
   systemd.services.wg-quick-wg0.wantedBy = lib.mkForce [];
 }

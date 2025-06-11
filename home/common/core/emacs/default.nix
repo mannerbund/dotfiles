@@ -7,10 +7,12 @@
     inputs.emacs-overlay.overlays.default
   ];
 
-  home.sessionVariables = {
+  home.sessionVariables = let
+    emacs = "${pkgs.emacs-git-pgtk}";
+  in {
     ALTERNATE_EDITOR = "";
-    EDITOR = "emacsclient -c"; # $EDITOR opens in terminal
-    VISUAL = "emacsclient -c -a emacs"; # $VISUAL opens in GUI mode
+    EDITOR = "${emacs}/bin/emacsclient -c"; # $EDITOR opens in terminal
+    VISUAL = "${emacs}/bin/emacsclient -c -a ${emacs}/bin/emacs"; # $VISUAL opens in GUI mode
   };
 
   home.packages = with pkgs; [
