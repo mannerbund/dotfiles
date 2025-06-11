@@ -47,6 +47,7 @@ in {
       e = "emacsclient -c";
       z = "zathura-sandbox";
       sct = "systemctl";
+      newsboat = "newsboat -u /run/secrets/rss";
     };
     shellAbbrs = {
       update = "nixos-rebuild --use-remote-sudo -v -L switch --flake ~/.local/dotfiles";

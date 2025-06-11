@@ -127,9 +127,10 @@
             "Mod+Shift+D".action = spawn "${lib.getExe pkgs.bemoji}";
             "Mod+S".action = spawn "emacsclient" "-c";
             "Mod+T".action = spawn "telegram-desktop";
-            "Mod+W".action = spawn "zen";
+            "Mod+W".action = spawn "qutebrowser";
             "Mod+A".action = spawn "foot" "htop";
             "Mod+M".action = spawn "foot" "lf";
+            "Mod+N".action = spawn "foot" "newsboat" "-u" "/run/secrets/rss";
             "Mod+P".action = spawn "pwvucontrol";
             "Mod+Q".action = close-window;
             "Mod+Shift+Slash".action = show-hotkey-overlay;
