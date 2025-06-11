@@ -21,8 +21,10 @@
       thepiratebay = "https://thepiratebay.org";
     };
     settings = {
+      zoom.default = "125%";
       auto_save.session = true;
       session.lazy_restore = false;
+      content.proxy_dns_requests = true;
     };
   };
 }
