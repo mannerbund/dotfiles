@@ -125,7 +125,7 @@
             "Mod+Return".action = spawn "foot";
             "Mod+D".action = spawn "${pkgs.bemenu}/bin/bemenu-run";
             "Mod+Shift+D".action = spawn "${lib.getExe pkgs.bemoji}";
-            "Mod+S".action = spawn "emacsclient" "-c";
+            "Mod+S".action = spawn "${pkgs.emacs-git-pgtk}/bin/emacsclient" "-c";
             "Mod+T".action = spawn "telegram-desktop";
             "Mod+W".action = spawn "qutebrowser";
             "Mod+A".action = spawn "foot" "htop";
