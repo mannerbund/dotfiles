@@ -20,5 +20,9 @@
       rutracker = "https://rutracker.org";
       thepiratebay = "https://thepiratebay.org";
     };
+    settings = {
+      auto_save.session = true;
+      session.lazy_restore = false;
+    };
   };
 }
