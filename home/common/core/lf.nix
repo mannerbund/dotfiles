@@ -13,6 +13,7 @@
   gzip = lib.getExe pkgs.gzip;
   unrar = lib.getExe pkgs.unrar;
   bat = lib.getExe pkgs.bat;
+  epub-thumbnailer = lib.getExe pkgs.epub-thumbnailer;
   pdftoppm = "${pkgs.poppler_utils}/bin/pdftoppm";
   z7 = "${pkgs.p7zip}/bin/7z";
 in {
@@ -89,7 +90,7 @@ in {
             image "''${CACHE}.jpg" "$2" "$3"
          	;;
          *.epub)
-         	[ ! -f "$CACHE" ] && ${pkgs.epub-thumbnailer} "$1" "$CACHE" 1024
+         	[ ! -f "$CACHE" ] && ${epub-thumbnailer} "$1" "$CACHE" 1024
             image "$CACHE" "$2" "$3"
          	;;
          *.cbz|*.cbr|*.cbt)
