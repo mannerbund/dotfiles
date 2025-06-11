@@ -1,10 +1,30 @@
-{inputs, ...}: {
+{
+  inputs,
+  config,
+  ...
+}: {
   imports = [inputs.sops-nix.nixosModules.sops];
+
+  environment.persistence."/persist".directories = [
+    {
+      directory = "/var/lib/sops-nix";
+      user = "root";
+      group = "keys";
+      mode = "0700";
+    }
+  ];
+
   sops = {
-    defaultSopsFile = ../secrets.yaml;
+    defaultSopsFile = ../secrets/default.yaml;
     secrets = {
-      passwd.neededForUsers = true;
-      "wireless/home" = {};
+      apostolic_passwd = {
+        neededForUsers = true;
+      };
+      rss = {
+        sopsFile = ../secrets/rss.yaml;
+        group = "users";
+        mode = "0440";
+      };
     };
     age = {
       keyFile = "/persist/var/lib/sops-nix/key.txt";
@@ -12,13 +32,4 @@
     };
     gnupg.sshKeyPaths = [];
   };
-
-  environment.persistence."/persist".directories = [
-    {
-      directory = "/var/lib/sops-nix";
-      user = "root";
-      group = "keys";
-      mode = "u=rwx,g=,o=";
-    }
-  ];
 }

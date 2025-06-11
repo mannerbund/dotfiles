@@ -11,7 +11,7 @@ in {
     isNormalUser = true;
     createHome = true;
     uid = 1001;
-    hashedPasswordFile = config.sops.secrets.passwd.path;
+    hashedPasswordFile = config.sops.secrets.apostolic_passwd.path;
     shell = pkgs.fish;
     extraGroups = ifTheyExist [
       "wheel"
