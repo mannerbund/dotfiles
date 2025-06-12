@@ -162,15 +162,15 @@
              "* %? :note:\n%u\n" :clock-in t :clock-resume t)))
   (setopt org-todo-keywords
           '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-            (sequence "WAITING(w)" "HOLD(i)" "|" "CANCELLED(c)")))
+            (sequence "WAITING(w)" "HOLD(i)" "|" "CANCELED(c)")))
   (setopt org-todo-state-tags-triggers
-          '(("CANCELLED" ("CANCELLED" . t))
+          '(("CANCELED" ("CANCELED" . t))
             ("WAITING" ("WAITING" . t))
             ("HOLD" ("WAITING") ("HOLD" . t))
             (done ("WAITING") ("HOLD"))
-            ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-            ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-            ("DONE" ("WAITING") ("CANCELLED") ("HOLD"))))
+            ("TODO" ("WAITING") ("CANCELED") ("HOLD"))
+            ("NEXT" ("WAITING") ("CANCELED") ("HOLD"))
+            ("DONE" ("WAITING") ("CANCELED") ("HOLD"))))
   (setopt org-agenda-include-diary t)
   (setopt org-agenda-diary-file "~/Documents/Vault/agenda/diary.org")
   (setopt org-enforce-todo-dependencies t)
@@ -251,7 +251,7 @@
             ("DONE" :background "LimeGreen" :weight bold :foreground "black")
             ("WAITING" :background "DarkOrange" :weight bold :foreground "black")
             ("HOLD" :background "SlateGray" :weight bold :foreground "black")
-            ("CANCELLED" :background "DarkRed" :weight bold :foreground "black"))))
+            ("CANCELED" :background "DarkRed" :weight bold :foreground "black"))))
 
 (use-package org-appear
   :ensure t
