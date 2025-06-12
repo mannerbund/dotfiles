@@ -27,15 +27,6 @@
   };
 
   home.packages = with pkgs; [
-    (aspellWithDicts (
-      dicts:
-        with dicts; [
-          en
-          en-computers
-          en-science
-          ru
-        ]
-    ))
     libreoffice-qt
     qbittorrent-enhanced
     xz
