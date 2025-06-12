@@ -1,7 +1,5 @@
 { pkgs, ... }:
 {
-  stylix.targets.qutebrowser.enable = true;
-
   home.sessionVariables = {
     BROWSER = "qutebrowser";
   };
@@ -28,6 +26,7 @@
     };
     settings = {
       zoom.default = "125%";
+      fonts.default_size = "15pt";
       colors.webpage.darkmode.enabled = true;
       auto_save.session = true;
       session.lazy_restore = false;
