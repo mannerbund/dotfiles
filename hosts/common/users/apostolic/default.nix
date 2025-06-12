@@ -47,6 +47,9 @@ in {
         "Pictures"
         "Videos"
       ];
+      files = [
+        ".authinfo.gpg"
+      ];
     };
   };
 

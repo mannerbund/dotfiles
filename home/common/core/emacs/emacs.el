@@ -375,6 +375,12 @@
   :hook (git-commit-setup . flyspell-mode))
 
 ;; Miscellaneous 
+(use-package tramp
+  :config
+  (setopt tramp-default-method "ssh")
+  (setopt remote-file-name-inhibit-cache nil)
+  (setopt tramp-verbose 1))
+
 (use-package which-key
   :config
   (setopt which-key-idle-delay 0.3)
