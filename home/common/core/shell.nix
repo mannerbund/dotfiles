@@ -1,13 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  tide = pkgs.fishPlugins.tide.src;
-in {
+{config, ...}: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
     files = [
-      #".local/share/fish/fish_history"
       ".local/share/zoxide/db.zo"
     ];
   };
@@ -42,59 +35,6 @@ in {
     history.size = 100000;
   };
 
-  #programs.fish = {
-  #  enable = true;
-  #  plugins = [
-  #    {
-  #      name = "tide";
-  #      src = tide;
-  #    }
-  #  ];
-  #  shellInit = ''
-  #    set fish_greeting
-
-  #    function fish_user_key_bindings
-  #      fish_vi_key_bindings
-  #      bind -M insert '`' accept-autosuggestion
-  #      bind f accept-autosuggestion
-  #    end
-
-  #    set fish_cursor_insert block
-
-  #    string replace -r '^' 'set -g ' < ${tide}/functions/tide/configure/icons.fish | source
-  #    string replace -r '^' 'set -g ' < ${tide}/functions/tide/configure/configs/lean.fish | source
-  #    string replace -r '^' 'set -g ' < ${tide}/functions/tide/configure/configs/lean_16color.fish | source
-  #    set -g tide_prompt_add_newline_before false
-
-  #    fish_config theme choose fish\ default
-  #    set fish_color_autosuggestion white
-  #  '';
-  #  shellAliases = {
-  #    cp = "cp -iv";
-  #    mv = "mv -iv";
-  #    rm = "rm -vI";
-  #    mkd = "mkdir -pv";
-  #    yta = "yt-dlp -xf bestaudio/best";
-  #    ip = "ip -c=auto";
-  #    enru = "trans -t ru -e google --shell";
-  #    ruen = "trans -t en -e google --shell";
-  #    ls = "eza";
-  #    l = "eza --git-ignore $eza_params";
-  #    ll = "eza --all --header --long";
-  #    llm = "eza --all --header --long --sort=modified $eza_params";
-  #    la = "eza -lbhHigUmuSa";
-  #    lx = "eza -lbhHigUmuSa@";
-  #    tree = "eza --tree --level=2";
-  #    e = "emacsclient -nw -c";
-  #    z = "zathura-sandbox";
-  #    sct = "systemctl";
-  #    newsboat = "newsboat -u /run/secrets/rss";
-  #  };
-  #  shellAbbrs = {
-  #    update = "nixos-rebuild --use-remote-sudo -v -L switch --flake ~/.local/dotfiles";
-  #  };
-  #};
-
   stylix.targets = {
     fzf.enable = true;
     bat.enable = true;
@@ -107,7 +47,6 @@ in {
   programs.eza = {
     enable = true;
     icons = "auto";
-    #enableFishIntegration = true;
     enableZshIntegration = true;
     extraOptions = [
       "--git"
@@ -121,7 +60,6 @@ in {
 
   programs.fzf = {
     enable = true;
-    #enableFishIntegration = true;
     enableZshIntegration = true;
     tmux.enableShellIntegration = true;
     defaultOptions = [
@@ -132,7 +70,6 @@ in {
 
   programs.zoxide = {
     enable = true;
-    #enableFishIntegration = true;
     enableZshIntegration = true;
     options = ["--cmd cd"];
   };

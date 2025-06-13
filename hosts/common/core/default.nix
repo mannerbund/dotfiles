@@ -14,7 +14,6 @@
     ./pipewire.nix
     ./systemd-boot.nix
     ./zsh.nix
-    #./fish.nix
     ./sops.nix
     ./sudo.nix
     ./persistence.nix

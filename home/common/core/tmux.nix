@@ -13,7 +13,6 @@
     enable = true;
     terminal = "foot";
     shell = "${pkgs.zsh}/bin/zsh";
-    #shell = "${pkgs.fish}/bin/fish";
     clock24 = false;
     baseIndex = 1;
     keyMode = "vi";
