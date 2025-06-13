@@ -3,15 +3,22 @@
     directories = [".librewolf"];
   };
 
+  home.sessionVariables = {
+    BROWSER = "librewolf";
+  };
+
   programs.librewolf = {
     enable = true;
     languagePacks = ["en-US" "ru-RU"];
     settings = {
+      "cookiebanners.service.mode.privateBrowsing" = 2;
+      "cookiebanners.service.mode" = 2;
       "webgl.disabled" = false;
       "privacy.clearOnShutdown.history" = false;
       "privacy.clearOnShutdown.cookies" = false;
-      "network.cookie.lifetimePolicy" = 0;
-      "layout.css.devPixelsPerPx" = "1.1";
+      "privacy.clearOnShutdown.downloads" = false;
+      "layout.css.devPixelsPerPx" = "1.05";
+      "zoom.minPercent" = 110;
     };
     profiles."${config.home.username}" = {
       bookmarks.force = true;
@@ -140,10 +147,6 @@
       DontCheckDefaultBrowser = true;
       OfferToSaveLogins = false;
       ExtensionSettings = {
-        "idcac-pub@guus.ninja" = {
-          installation_mode = "force_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
-        };
         "jid1-BoFifL9Vbdl2zQ@jetpack" = {
           installation_mode = "force_installed";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi";
