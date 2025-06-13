@@ -13,7 +13,8 @@
     ./openssh.nix
     ./pipewire.nix
     ./systemd-boot.nix
-    ./fish.nix
+    ./zsh.nix
+    #./fish.nix
     ./sops.nix
     ./sudo.nix
     ./persistence.nix
