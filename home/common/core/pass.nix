@@ -1,4 +1,12 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
+  home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [".password-store"];
+  };
+
   programs.password-store = {
     enable = true;
     package = pkgs.pass.withExtensions (exts: [exts.pass-otp]);

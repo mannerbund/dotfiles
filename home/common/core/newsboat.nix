@@ -1,4 +1,12 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
+  home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [".local/share/newsboat"];
+  };
+
   programs.newsboat = {
     enable = true;
     autoReload = true;

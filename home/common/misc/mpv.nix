@@ -1,4 +1,10 @@
-{
+{config, ...}: {
+  home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [
+      ".local/state/mpv"
+    ];
+  };
+
   stylix.targets.mpv.enable = true;
 
   programs.mpv = {

@@ -17,6 +17,12 @@
   pdftoppm = "${pkgs.poppler_utils}/bin/pdftoppm";
   z7 = "${pkgs.p7zip}/bin/7z";
 in {
+  home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [
+      ".local/share/lf"
+    ];
+  };
+
   programs.lf = {
     enable = true;
     settings = {
@@ -25,31 +31,6 @@ in {
       sixel = true;
       tabstop = 4;
     };
-    extraConfig = ''
-      # make sure cache folder exists
-      %mkdir -p ${config.home.homeDirectory}/.cache/lf
-      # make sure trash folder exists
-      %mkdir -p ${config.home.homeDirectory}/.local/share/Trash
-
-      # define a custom 'delete' command
-      cmd delete ''${{
-          set -f
-          printf "$fx\n"
-          printf "delete?[y/n]"
-          read ans
-          [ "$ans" = "y" ] && rm -rf $fx
-      }}
-
-      # Follow symbolic links
-      cmd follow-link %{{
-        lf -remote "send $id select \"$(readlink -- "$f" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
-      }}
-
-      # eza
-      cmd on-select &{{
-          lf -remote "send $id set statfmt \"$(${eza} -ld --color=always "$f" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
-      }}
-    '';
     keybindings = {
       "." = "set hidden!";
       U = "glob-unselect";
@@ -61,7 +42,25 @@ in {
       gm = "cd ~/Music";
       gp = "cd ~/Pictures";
       gv = "cd ~/Videos";
+      e = "emacsclient -nw $f";
     };
+    extraConfig = ''
+      # Make sure cache folder exists
+      %mkdir -p ${config.home.homeDirectory}/.cache/lf
+
+      # Follow symbolic links
+      cmd follow-link %{{
+        lf -remote "send $id select \"$(readlink -- "$f" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
+      }}
+
+      # Editor
+      map e !emacsclient -nw "$f"
+
+      # Eza
+      cmd on-select &{{
+          lf -remote "send $id set statfmt \"$(${eza} -ld --color=always "$f" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
+      }}
+    '';
     previewer = {
       keybinding = "i";
       source = pkgs.writeShellScript "pv.sh" ''

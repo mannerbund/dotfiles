@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./emacs
+    ./persistence.nix
     ./newsboat.nix
     ./xdg.nix
     ./git.nix

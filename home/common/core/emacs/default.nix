@@ -1,17 +1,22 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }: {
   nixpkgs.overlays = [
     inputs.emacs-overlay.overlays.default
   ];
 
+  home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [".emacs.d"];
+  };
+
   home.sessionVariables = let
     emacs = "${pkgs.emacs-git-pgtk}";
   in {
     ALTERNATE_EDITOR = "";
-    EDITOR = "${emacs}/bin/emacsclient -c"; # $EDITOR opens in terminal
+    EDITOR = "${emacs}/bin/emacsclient -nw"; # $EDITOR opens in terminal
     VISUAL = "${emacs}/bin/emacsclient -c -a ${emacs}/bin/emacs"; # $VISUAL opens in GUI mode
   };
 
