@@ -127,7 +127,7 @@
             "Mod+Shift+D".action = spawn "${lib.getExe pkgs.bemoji}";
             "Mod+S".action = spawn "${pkgs.emacs-git-pgtk}/bin/emacsclient" "-c";
             "Mod+T".action = spawn "${pkgs.telegram-desktop}/bin/telegram-desktop";
-            "Mod+W".action = spawn "${pkgs.qutebrowser}/bin/qutebrowser";
+            "Mod+W".action = spawn "${pkgs.librewolf}/bin/librewolf";
             "Mod+A".action = spawn "${pkgs.foot}/bin/foot" "htop";
             "Mod+M".action = spawn "${pkgs.foot}/bin/foot" "lf";
             "Mod+N".action = spawn "${pkgs.foot}/bin/foot" "newsboat" "-u" "/run/secrets/rss";

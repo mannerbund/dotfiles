@@ -17,7 +17,7 @@
     ../common/misc/zathura.nix
     ../common/misc/yt-dlp.nix
     ../common/misc/mpv.nix
-    ../common/misc/qutebrowser.nix
+    ../common/misc/librewolf.nix
     ../common/misc/irssi.nix
   ];
 
@@ -34,6 +34,7 @@
       ".local/share/TelegramDesktop"
       ".local/share/Anki2"
       ".local/state/syncthing"
+      ".local/state/wireplumber"
     ];
   };
 
