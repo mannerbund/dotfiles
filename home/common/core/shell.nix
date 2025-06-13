@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, pkgs, ...}: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
     files = [
       ".local/share/zoxide/db.zo"
@@ -9,7 +9,10 @@
     enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
+    #syntaxHighlighting.enable = true;
+    syntaxHighlighting.package = pkgs.zsh-fast-syntax-highlighting;
+    defaultKeymap = "viins";
+    history.size = 100000;
     shellAliases = {
       cp = "cp -iv";
       mv = "mv -iv";
@@ -32,7 +35,29 @@
       newsboat = "newsboat -u /run/secrets/rss";
       update = "nixos-rebuild --use-remote-sudo -v -L switch --flake ~/.local/dotfiles";
     };
-    history.size = 100000;
+    initContent = ''
+      export KEYTIMEOUT=1
+
+      bindkey -v '^?' backward-delete-char
+      
+      # Change cursor shape for different vi modes.
+      function zle-keymap-select () {
+          case $KEYMAP in
+              vicmd) echo -ne '\e[1 q';;      # block
+              viins|main) echo -ne '\e[5 q';; # beam
+          esac
+      }
+      zle -N zle-keymap-select
+      zle-line-init() {
+          zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+          echo -ne "\e[5 q"
+      }
+      zle -N zle-line-init
+      echo -ne '\e[5 q' # Use beam shape cursor on startup.
+      preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+      source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+    '';
   };
 
   stylix.targets = {
