@@ -1,4 +1,12 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
+  home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [".gnupg"];
+  };
+
   services.gpg-agent = {
     enable = true;
     enableFishIntegration = true;

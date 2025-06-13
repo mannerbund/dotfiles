@@ -1,4 +1,10 @@
-{
+{config, ...}: {
+  home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [
+      ".local/share/zathura"
+    ];
+  };
+
   stylix.targets.zathura.enable = true;
 
   xdg.mimeApps.defaultApplications = {

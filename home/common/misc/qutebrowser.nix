@@ -1,5 +1,8 @@
-{ pkgs, ... }:
-{
+{config, ...}: {
+  home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [".local/share/qutebrowser"];
+  };
+
   home.sessionVariables = {
     BROWSER = "qutebrowser";
   };
@@ -30,7 +33,7 @@
       colors.webpage.darkmode.enabled = true;
       auto_save.session = true;
       session.lazy_restore = false;
-      spellcheck.languages = [ "en-US" "ru-RU" ];
+      spellcheck.languages = ["en-US" "ru-RU"];
       content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0";
       content.headers.accept_language = "en-US,en;q=0.5";
       content.blocking.method = "both";
