@@ -28,7 +28,13 @@ in {
   security.pam.services.swaylock = {};
   security.polkit.enable = true;
 
-  services.logind.powerKey = "poweroff";
+  services.logind = {
+    powerKey = "poweroff";
+    extraConfig = ''
+      HandleLidSwitch=ignore
+      HandleLidSwitchDocked=ignore
+    '';
+  };
 
   services.greetd = {
     enable = true;
