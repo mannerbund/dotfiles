@@ -17,7 +17,6 @@
     ../common/misc/zathura.nix
     ../common/misc/yt-dlp.nix
     ../common/misc/mpv.nix
-    #../common/misc/zen.nix
     ../common/misc/qutebrowser.nix
     ../common/misc/irssi.nix
   ];

@@ -11,7 +11,6 @@
 
   programs.tmux = {
     enable = true;
-    terminal = "foot";
     shell = "${pkgs.zsh}/bin/zsh";
     clock24 = false;
     baseIndex = 1;
