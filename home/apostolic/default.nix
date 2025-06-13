@@ -26,6 +26,16 @@
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
   };
 
+  home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [
+      ".local/share/nix"
+      ".local/share/qBittorrent"
+      ".local/share/TelegramDesktop"
+      ".local/share/Anki2"
+      ".local/state/syncthing"
+    ];
+  };
+
   home.packages = with pkgs; [
     libreoffice-qt
     qbittorrent-enhanced
