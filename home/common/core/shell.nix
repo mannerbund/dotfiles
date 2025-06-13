@@ -1,13 +1,18 @@
-{config, pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
     files = [
       ".local/share/zoxide/db.zo"
-      ".local/share/.zsh_history"
+      ".zsh_history"
+      ".local/share/history"
     ];
   };
 
   home.sessionVariables = {
-    HISTFILE = "${config.xdg.dataHome}/.local/share/.zsh_history";
+    HISTFILE = "${config.home.homeDirectory}/.local/share/history";
   };
 
   programs.zsh = {
@@ -43,7 +48,7 @@
       export KEYTIMEOUT=1
 
       bindkey -v '^?' backward-delete-char
-      
+
       # Change cursor shape for different vi modes.
       function zle-keymap-select () {
           case $KEYMAP in
