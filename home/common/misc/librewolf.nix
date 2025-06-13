@@ -14,6 +14,9 @@
       "cookiebanners.service.mode.privateBrowsing" = 2;
       "cookiebanners.service.mode" = 2;
       "webgl.disabled" = false;
+      "privacy.resistFingerprinting" = false;
+      "privacy.fingerprintingProtection" = true;
+      "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC";
       "privacy.clearOnShutdown.history" = false;
       "privacy.clearOnShutdown.cookies" = false;
       "privacy.clearOnShutdown.downloads" = false;
