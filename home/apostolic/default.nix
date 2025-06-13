@@ -30,6 +30,7 @@
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [
       ".local/share/nix"
+      ".local/share/iwctl"
       ".local/share/qBittorrent"
       ".local/share/TelegramDesktop"
       ".local/share/Anki2"
@@ -51,7 +52,6 @@
 
   home.sessionVariables = {
     LESS = "-R --mouse";
-    HISTFILE = "${config.xdg.dataHome}/history";
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
     NPM_CONFIG_USERCONFIG = "${config.xdg.dataHome}/npm";
     XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
