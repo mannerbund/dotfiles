@@ -2,14 +2,18 @@
   home.persistence."/persist/${config.home.homeDirectory}" = {
     files = [
       ".local/share/zoxide/db.zo"
+      ".local/share/.zsh_history"
     ];
+  };
+
+  home.sessionVariables = {
+    HISTFILE = "${config.xdg.dataHome}/.local/share/.zsh_history";
   };
 
   programs.zsh = {
     enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
-    #syntaxHighlighting.enable = true;
     syntaxHighlighting.package = pkgs.zsh-fast-syntax-highlighting;
     defaultKeymap = "viins";
     history.size = 100000;
