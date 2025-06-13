@@ -6,13 +6,14 @@
 }: let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
+  users.defaultUserShell = pkgs.zsh;
   users.mutableUsers = false;
   users.users.apostolic = {
     isNormalUser = true;
     createHome = true;
     uid = 1001;
     hashedPasswordFile = config.sops.secrets.apostolic_passwd.path;
-    shell = pkgs.fish;
+    #shell = pkgs.fish;
     extraGroups = ifTheyExist [
       "wheel"
       "video"

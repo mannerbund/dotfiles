@@ -48,7 +48,7 @@
 
     targets = {
       console.enable = true;
-      fish.enable = true;
+      #fish.enable = true;
       nixos-icons.enable = true;
       gnome.enable = true;
       qt.enable = true;
