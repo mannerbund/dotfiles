@@ -79,7 +79,7 @@
       environment = {
         NIXOS_OZONE_WL = "1";
         DISPLAY = ":0";
-        TERMINAL = "footclient";
+        TERMINAL = "foot";
         MOZ_USE_XINPUT2 = "1"; # Mozilla smooth scrolling/touchpads.
         BEMOJI_PICKER_CMD = "${lib.getExe pkgs.bemenu} -C -l 10";
       };
@@ -122,7 +122,7 @@
       in
         lib.attrsets.mergeAttrsList [
           {
-            "Mod+Return".action = spawn "foot";
+            "Mod+Return".action = spawn "foot" "tmux";
             "Mod+D".action = spawn "${pkgs.bemenu}/bin/bemenu-run";
             "Mod+Shift+D".action = spawn "${lib.getExe pkgs.bemoji}";
             "Mod+S".action = spawn "${pkgs.emacs-git-pgtk}/bin/emacsclient" "-c";
