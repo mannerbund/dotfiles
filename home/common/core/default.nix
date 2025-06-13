@@ -3,6 +3,7 @@
     ./emacs
     ./persistence.nix
     ./tmux.nix
+    ./ssh.nix
     ./newsboat.nix
     ./xdg.nix
     ./git.nix
