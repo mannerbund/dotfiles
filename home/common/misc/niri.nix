@@ -122,16 +122,16 @@
       in
         lib.attrsets.mergeAttrsList [
           {
-            "Mod+Return".action = spawn "foot" "tmux";
+            "Mod+Return".action = spawn "${pkgs.foot}/bin/foot";
             "Mod+D".action = spawn "${pkgs.bemenu}/bin/bemenu-run";
             "Mod+Shift+D".action = spawn "${lib.getExe pkgs.bemoji}";
             "Mod+S".action = spawn "${pkgs.emacs-git-pgtk}/bin/emacsclient" "-c";
-            "Mod+T".action = spawn "telegram-desktop";
-            "Mod+W".action = spawn "qutebrowser";
-            "Mod+A".action = spawn "foot" "htop";
-            "Mod+M".action = spawn "foot" "lf";
-            "Mod+N".action = spawn "foot" "newsboat" "-u" "/run/secrets/rss";
-            "Mod+P".action = spawn "pwvucontrol";
+            "Mod+T".action = spawn "${pkgs.telegram-desktop}/bin/telegram-desktop";
+            "Mod+W".action = spawn "${pkgs.qutebrowser}/bin/qutebrowser";
+            "Mod+A".action = spawn "${pkgs.foot}/bin/foot" "htop";
+            "Mod+M".action = spawn "${pkgs.foot}/bin/foot" "lf";
+            "Mod+N".action = spawn "${pkgs.foot}/bin/foot" "newsboat" "-u" "/run/secrets/rss";
+            "Mod+P".action = spawn "${pkgs.pwvucontrol}/bin/pwvucontrol";
             "Mod+Q".action = close-window;
             "Mod+Shift+Slash".action = show-hotkey-overlay;
 
