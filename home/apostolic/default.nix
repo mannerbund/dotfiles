@@ -19,6 +19,7 @@
     ../common/misc/mpv.nix
     #../common/misc/zen.nix
     ../common/misc/qutebrowser.nix
+    ../common/misc/irssi.nix
   ];
 
   home = {
