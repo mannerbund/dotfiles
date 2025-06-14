@@ -25,6 +25,7 @@ in {
 
   home-manager.users.apostolic = import ../../../../home/apostolic;
 
+  security.pki.certificateFiles = [ "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
   security.pam.services.swaylock = {};
   security.polkit.enable = true;
 
