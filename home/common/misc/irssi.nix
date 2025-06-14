@@ -30,7 +30,10 @@ in {
       };
     };
     extraConfig = ''
-      settings = { "fe-common/core" = { theme = "gothic"; }; };
+      settings = {
+        "fe-common/core" = { theme = "gothic"; };
+        "fe-text" = { window_default_hidelevel = "hidden joins parts quits"; };
+      };
     '';
   };
 }
