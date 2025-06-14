@@ -48,6 +48,7 @@
       export KEYTIMEOUT=1
 
       bindkey -v '^?' backward-delete-char
+      bindkey '`' autosuggest-accept
 
       # Change cursor shape for different vi modes.
       function zle-keymap-select () {
