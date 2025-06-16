@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, pkgs, ...}: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [".librewolf"];
   };
@@ -9,7 +9,6 @@
 
   programs.librewolf = {
     enable = true;
-    languagePacks = ["en-US" "ru-RU"];
     settings = {
       "cookiebanners.service.mode.privateBrowsing" = 2;
       "cookiebanners.service.mode" = 2;
@@ -21,7 +20,6 @@
       "privacy.clearOnShutdown.cookies" = false;
       "privacy.clearOnShutdown.downloads" = false;
       "layout.css.devPixelsPerPx" = "1.05";
-      "zoom.minPercent" = 110;
     };
     profiles."${config.home.username}" = {
       bookmarks.force = true;
@@ -122,6 +120,17 @@
     policies = {
       Homepage = {
         StartPage = "previous-session";
+        Locked = true;
+      };
+      FirefoxHome = {
+        Search = true;
+        TopSites = false;
+        SponsoredTopSites = false;
+        Highlights = false;
+        Pocket = false;
+        SponsoredPocket = false;
+        Snippets = false;
+        Locked = true;
       };
       EnableTrackingProtection = {
         Value = true;
@@ -138,6 +147,7 @@
         SponsoredSuggestions = false;
         Locked = true;
       };
+      DefaultZoom = 1.2;
       AutofillAddressEnabled = true;
       AutofillCreditCardEnabled = false;
       PasswordManagerEnabled = false;
@@ -149,6 +159,7 @@
       DisableTelemetry = true;
       DontCheckDefaultBrowser = true;
       OfferToSaveLogins = false;
+      NoDefaultBookmarks = false;
       ExtensionSettings = {
         "jid1-BoFifL9Vbdl2zQ@jetpack" = {
           installation_mode = "force_installed";
@@ -161,6 +172,10 @@
         "addon@darkreader.org" = {
           installation_mode = "force_installed";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+        };
+        "ru@dictionaries.addons.mozilla.org" = {
+          installation_mode = "force_installed";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/russian-spellchecking-dic-3703/latest.xpi";
         };
       };
     };
