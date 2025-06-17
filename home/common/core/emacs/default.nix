@@ -41,7 +41,7 @@
     enable = true;
     package = (
       pkgs.emacsWithPackagesFromUsePackage {
-        package = pkgs.emacs-git-pgtk;
+        package = pkgs.emacs-pgtk;
         config = ./emacs.el;
         defaultInitFile = true;
         extraEmacsPackages = epkgs: [
