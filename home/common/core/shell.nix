@@ -42,7 +42,7 @@
       z = "zathura-sandbox";
       sct = "systemctl";
       newsboat = "newsboat -u /run/secrets/rss";
-      update = "nixos-rebuild --use-remote-sudo -v -L switch --flake ~/.local/dotfiles";
+      update = "nixos-rebuild --sudo -v -L switch --flake ~/.local/dotfiles";
     };
     initContent = ''
       export KEYTIMEOUT=1
