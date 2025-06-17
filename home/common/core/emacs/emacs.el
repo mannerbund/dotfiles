@@ -26,9 +26,9 @@
                      file-name-handler-alist ',normal-file-name-handler-alist))))
 
 ;;; init.el --- Initialization -*- lexical-binding: t; -*-
-
 (use-package emacs
   :init
+  (setopt auth-sources '("~/.authinfo.gpg"))
   (setopt backup-directory-alist `(("." . "~/.cache/backup")))
   (setopt backup-by-copying t)
   (setopt create-lockfiles nil)
@@ -156,8 +156,6 @@
   (setopt org-capture-templates
           '(("t" "todo" entry (file "~/Documents/Vault/agenda/refile.org")
              "* TODO %?\n%u\n" :clock-in t :clock-resume t)
-            ("d" "diary" entry (file+olp+datetree "~/Documents/Vault/agenda/diary.org")
-             "* %?\n%u\n" :clock-in t :clock-resume t)
             ("n" "note" entry (file "~/Documents/Vault/agenda/refile.org")
              "* %? :note:\n%u\n" :clock-in t :clock-resume t)))
   (setopt org-todo-keywords
@@ -196,7 +194,7 @@
   (setopt org-refile-allow-creating-parent-nodes (quote confirm))
   ;;;; Archive settings
   (setopt org-archive-mark-done nil)
-  (setopt org-archive-location "%s_archive::* Archived Tasks")
+  (setopt org-archive-location "~/Documents/Vault/agenda/archive/%s_archive::* Archived Tasks")
   ;; Appearance
   (setopt org-startup-indented t)
   (setopt org-startup-folded 'content)
