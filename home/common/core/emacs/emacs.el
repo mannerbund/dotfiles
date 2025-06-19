@@ -231,6 +231,12 @@
   (setq org-roam-db-gc-threshold most-positive-fixnum)
   :config
   (setopt org-roam-directory (file-truename "~/Documents/Vault/WIKI/notes"))
+  (setq org-roam-dailies-directory "daily/")
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n"))))
   (setopt org-roam-database-connector 'sqlite-builtin)
   (setopt org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
