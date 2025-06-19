@@ -49,7 +49,7 @@
       timeouts = [
         {
           timeout = 900;
-          command = "${pkgs.niri}/bin/msg action power-off-monitors";
+          command = "/run/current-system/systemd/bin/systemctl suspend";
         }
       ];
       events = [
@@ -59,7 +59,7 @@
         }
         {
           event = "before-sleep";
-          command = "${pkgs.swaylock}/bin/swaylock -f";
+          command = "/run/current-system/systemd/bin/loginctl lock-session";
         }
       ];
     };
