@@ -42,7 +42,7 @@
       z = "zathura-sandbox";
       sct = "systemctl";
       newsboat = "newsboat -u /run/secrets/rss";
-      update = "nixos-rebuild --sudo -v -L switch --flake ~/.local/dotfiles";
+      update = "nixos-rebuild switch --use-remote-sudo -v -L --flake ~/.local/dotfiles";
     };
     initContent =
       let
@@ -68,9 +68,6 @@
           zle -N zle-line-init
           echo -ne '\e[5 q' # Use beam shape cursor on startup.
           preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
-
-          ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
-          ZSH_AUTOSUGGEST_USE_ASYNC=1
           '';
         zshConfigLast =
           ''
