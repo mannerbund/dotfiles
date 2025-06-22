@@ -23,6 +23,8 @@ in {
       cache_neg_min_ttl = 60;
       cache_neg_max_ttl = 300;
 
+      server_names = ["NextDNS-c8df27"];
+
       sources.public-resolvers = {
         urls = [
           "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
@@ -33,7 +35,12 @@ in {
         refresh_delay = 73;
       };
 
-      server_names = ["cloudflare" "quad9"];
+      
+      static = {
+        "NextDNS-c8df27" = {
+          stamp = "sdns://AgEAAAAAAAAAAAAOZG5zLm5leHRkbnMuaW8HL2M4ZGYyNw";
+        };
+      };
 
       disabled_server_names = ["google" "yandex"];
     };
