@@ -3,11 +3,10 @@
   lib,
   config,
   ...
-}: 
-{
+}: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [
-     ".local/share/lf"
+      ".local/share/lf"
     ];
   };
 
@@ -72,7 +71,7 @@
       keybinding = "i";
       source = pkgs.writeShellScript "pv.sh" ''
         #!/bin/sh
-        
+
         batorcat() {
             file="$1"
             shift
@@ -82,7 +81,7 @@
                 cat "$file"
             fi
         }
-        
+
         case "$(printf "%s\n" "$(readlink -f "$1")" | tr '[:upper:]' '[:lower:]')" in
             *.tgz | *.tar.gz) tar tzf "$1" ;;
             *.tar.bz2 | *.tbz2) tar tjf "$1" ;;

@@ -1,5 +1,5 @@
-{pkgs, ... }:{
-  home.packages = [ pkgs.dconf ];
+{pkgs, ...}: {
+  home.packages = [pkgs.dconf];
   stylix = {
     enable = true;
     autoEnable = false;
