@@ -30,6 +30,7 @@
           ru
         ]
     ))
+    clang
     graphviz
     emacs-lsp-booster
     nil
@@ -39,7 +40,7 @@
     enable = true;
     package = (
       pkgs.emacsWithPackagesFromUsePackage {
-        package = pkgs.emacs-pgtk;
+        package = pkgs.emacs-git-pgtk;
         config = ./emacs.el;
         defaultInitFile = true;
         extraEmacsPackages = epkgs: [
