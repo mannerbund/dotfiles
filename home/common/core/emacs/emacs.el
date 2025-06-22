@@ -115,7 +115,7 @@
 (use-package gruvbox-theme
   :ensure t
   :config
-  (load-theme 'gruvbox-dark-hard t))
+  (load-theme 'gruvbox t))
 
 (set-face-attribute 'default nil :family "Iosevka" :height 160)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 160)
