@@ -1,18 +1,21 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [
+      ".local/share/zsh"
+    ];
     files = [
       ".local/share/zoxide/db.zo"
       ".zsh_history"
-      ".local/share/history"
     ];
   };
 
   home.sessionVariables = {
-    HISTFILE = "${config.home.homeDirectory}/.local/share/history";
+    HISTFILE = "${config.home.homeDirectory}/.zsh_history";
   };
 
   programs.zsh = {
@@ -44,32 +47,52 @@
       newsboat = "newsboat -u /run/secrets/rss";
       update = "nixos-rebuild --sudo -v -L switch --flake ~/.local/dotfiles";
     };
-    initContent = ''
-      export KEYTIMEOUT=1
+    dotDir = ".local/share/zsh";
+    completionInit =
+      ''
+      autoload -Uz compinit 
+      if [[ -n ''${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+      	compinit;
+      else
+      	compinit -C;
+      fi;
+      '';
+    initContent =
+      let
+        zshConfig = lib.mkOrder 1000
+          ''
+          export KEYTIMEOUT=1
 
-      bindkey -v '^?' backward-delete-char
-      bindkey '`' autosuggest-accept
+          bindkey -v '^?' backward-delete-char
+          bindkey '`' autosuggest-accept
 
-      # Change cursor shape for different vi modes.
-      function zle-keymap-select () {
-          case $KEYMAP in
-              vicmd) echo -ne '\e[1 q';;      # block
-              viins|main) echo -ne '\e[5 q';; # beam
-          esac
-      }
-      zle -N zle-keymap-select
-      zle-line-init() {
-          zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-          echo -ne "\e[5 q"
-      }
-      zle -N zle-line-init
-      echo -ne '\e[5 q' # Use beam shape cursor on startup.
-      preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+          # Change cursor shape for different vi modes.
+          function zle-keymap-select () {
+              case $KEYMAP in
+                  vicmd) echo -ne '\e[1 q';;      # block
+                  viins|main) echo -ne '\e[5 q';; # beam
+              esac
+                                          }
+          zle -N zle-keymap-select
+          zle-line-init() {
+              zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+              echo -ne "\e[5 q"
+                          }
+          zle -N zle-line-init
+          echo -ne '\e[5 q' # Use beam shape cursor on startup.
+          preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-      source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh 2>/dev/null
-    '';
+          ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+          ZSH_AUTOSUGGEST_USE_ASYNC=1
+          '';
+        zshConfigLast =
+          ''
+          source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+          '';
+      in 
+        lib.mkMerge [ zshConfig zshConfigLast];
   };
-
+  
   stylix.targets = {
     fzf.enable = true;
     bat.enable = true;
