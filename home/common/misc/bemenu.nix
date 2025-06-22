@@ -1,6 +1,4 @@
 {
-  #stylix.targets.bemenu.enable = true;
-
   programs.bemenu = {
     enable = true;
     settings = {

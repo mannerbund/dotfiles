@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  config,
   ...
 }: {
   imports = [inputs.stylix.nixosModules.stylix];
@@ -17,8 +16,8 @@
   stylix = {
     enable = true;
     autoEnable = false;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-    polarity = "dark";
+    image = ../gruvbox_city.png;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark.yaml";
     fonts = {
       sizes = {
         applications = 14;
@@ -48,9 +47,6 @@
     targets = {
       console.enable = true;
       nixos-icons.enable = true;
-      gnome.enable = true;
-      qt.enable = true;
-      gtk.enable = true;
     };
   };
 }

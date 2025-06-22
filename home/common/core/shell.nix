@@ -5,9 +5,6 @@
   ...
 }: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
-    directories = [
-      ".local/share/zsh"
-    ];
     files = [
       ".local/share/zoxide/db.zo"
       ".zsh_history"
@@ -47,16 +44,6 @@
       newsboat = "newsboat -u /run/secrets/rss";
       update = "nixos-rebuild --sudo -v -L switch --flake ~/.local/dotfiles";
     };
-    dotDir = ".local/share/zsh";
-    completionInit =
-      ''
-      autoload -Uz compinit 
-      if [[ -n ''${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-      	compinit;
-      else
-      	compinit -C;
-      fi;
-      '';
     initContent =
       let
         zshConfig = lib.mkOrder 1000
@@ -93,11 +80,6 @@
         lib.mkMerge [ zshConfig zshConfigLast];
   };
   
-  stylix.targets = {
-    fzf.enable = true;
-    bat.enable = true;
-  };
-
   programs.ripgrep.enable = true;
   programs.fd.enable = true;
   programs.bat.enable = true;
