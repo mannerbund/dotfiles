@@ -3,14 +3,14 @@
     {
       directory = "/var/lib/wireguard";
       user = "root";
-      group = "keys";
+      group = "root";
       mode = "u=rwx,g=,o=";
     }
   ];
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = ["192.168.6.95/32"];
+      address = ["192.168.6.179/32"];
       dns = ["127.0.0.1"];
       privateKeyFile = "/var/lib/wireguard/wireguard-privkey";
 
