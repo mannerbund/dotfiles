@@ -9,8 +9,6 @@
   server = "127.0.0.1";
   port = 6601;
 in {
-  stylix.targets.waybar.enable = true;
-
   home.packages = [pkgs.mpc];
   programs.waybar = {
     enable = true;
