@@ -31,7 +31,6 @@
       ".local/share/nix"
       ".local/share/iwctl"
       ".local/share/qBittorrent"
-      ".local/share/TelegramDesktop"
       ".local/share/Anki2"
       ".local/state/syncthing"
       ".local/state/wireplumber"
@@ -39,14 +38,8 @@
   };
 
   home.packages = with pkgs; [
-    libreoffice-qt
-    qbittorrent-enhanced
-    xz
     anki-bin
-    clang
     xdg-utils
-    nicotine-plus
-    telegram-desktop
     syncthing
   ];
 
