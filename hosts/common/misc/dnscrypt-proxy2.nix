@@ -35,7 +35,6 @@ in {
         refresh_delay = 73;
       };
 
-      
       static = {
         "NextDNS-c8df27" = {
           stamp = "sdns://AgEAAAAAAAAAAAAOZG5zLm5leHRkbnMuaW8HL2M4ZGYyNw";
