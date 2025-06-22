@@ -15,15 +15,7 @@
     ./waybar.nix
   ];
 
-  stylix.targets = {
-    mako.enable = true;
-    niri.enable = true;
-    foot.enable = true;
-    swaylock = {
-      enable = true;
-      useWallpaper = true;
-    };
-  };
+  stylix.targets.niri.enable = true;
 
   home.packages = with pkgs; [
     wl-clipboard
@@ -113,9 +105,9 @@
         default-column-width = {proportion = 1.0;};
       };
       spawn-at-startup = [
-        {command = [(lib.getExe pkgs.swww) "img" "../gruvbox_city.png"];}
+        {command = [(lib.getExe pkgs.swww) "img" "../../../hosts/common/gruvbox_city.png"];}
         {command = [(lib.getExe pkgs.xwayland-satellite)];}
-        {command = ["emacs --fg-daemon"];}
+        {command = ["${pkgs.emacs-git-pgtk}/bin/emacs --daemon"];}
       ];
       binds = with config.lib.niri.actions; let
         sh = spawn "sh" "-c";
