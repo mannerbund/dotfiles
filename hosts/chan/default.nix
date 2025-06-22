@@ -19,6 +19,7 @@
     ../common/misc/wireguard.nix
     ../common/misc/zapret.nix
     ../common/misc/dnscrypt-proxy2.nix
+    ../common/misc/transmission.nix
     #../common/misc/scx.nix
   ];
 
