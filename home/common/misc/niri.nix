@@ -105,9 +105,9 @@
         default-column-width = {proportion = 1.0;};
       };
       spawn-at-startup = [
-        {command = [(lib.getExe pkgs.swww) "img" "../../../hosts/common/gruvbox_city.png"];}
-        {command = [(lib.getExe pkgs.xwayland-satellite)];}
-        {command = ["${pkgs.emacs-git-pgtk}/bin/emacs --daemon"];}
+        {command = ["${lib.getExe pkgs.swww}" "img" "../../../hosts/common/gruvbox_city.png"];}
+        {command = ["${lib.getExe pkgs.xwayland-satellite}"];}
+        {command = ["emacs" "--daemon"];}
       ];
       binds = with config.lib.niri.actions; let
         sh = spawn "sh" "-c";
