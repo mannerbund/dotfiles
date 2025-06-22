@@ -1,6 +1,7 @@
 {
   stylix = {
     enable = true;
+    image = ../gruvbox_city.png;
     autoEnable = false;
     targets = {
       firefox.enable = true;

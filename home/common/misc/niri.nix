@@ -18,6 +18,7 @@
   stylix.targets = {
     mako.enable = true;
     niri.enable = true;
+    foot.enable = true;
     swaylock = {
       enable = true;
       useWallpaper = true;
@@ -35,6 +36,7 @@
   ];
 
   services = {
+    swww.enable = true;
     mako = {
       enable = true;
       settings = {
@@ -42,7 +44,6 @@
         ignore-timeout = true;
       };
     };
-    swww.enable = true;
     swayidle = {
       enable = true;
       extraArgs = ["-w"];
@@ -65,7 +66,6 @@
     };
   };
 
-  stylix.targets.foot.enable = true;
 
   programs = {
     swaylock.enable = true;
@@ -113,7 +113,7 @@
         default-column-width = {proportion = 1.0;};
       };
       spawn-at-startup = [
-        {command = [(lib.getExe pkgs.swww) "img" "${config.home.homeDirectory}/Pictures/Wallpapers/gruvbox_city.png"];}
+        {command = [(lib.getExe pkgs.swww) "img" "../gruvbox_city.png"];}
         {command = [(lib.getExe pkgs.xwayland-satellite)];}
         {command = ["emacs --fg-daemon"];}
       ];

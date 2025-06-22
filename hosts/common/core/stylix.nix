@@ -17,7 +17,6 @@
   stylix = {
     enable = true;
     autoEnable = false;
-    image = config.lib.stylix.pixel "base00";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";
     fonts = {
