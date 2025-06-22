@@ -44,10 +44,10 @@
       newsboat = "newsboat -u /run/secrets/rss";
       update = "nixos-rebuild switch --use-remote-sudo -v -L --flake ~/.local/dotfiles";
     };
-    initContent =
-      let
-        zshConfig = lib.mkOrder 1000
-          ''
+    initContent = let
+      zshConfig =
+        lib.mkOrder 1000
+        ''
           export KEYTIMEOUT=1
 
           bindkey -v '^?' backward-delete-char
@@ -68,15 +68,14 @@
           zle -N zle-line-init
           echo -ne '\e[5 q' # Use beam shape cursor on startup.
           preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
-          '';
-        zshConfigLast =
-          ''
-          source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh 2>/dev/null
-          '';
-      in 
-        lib.mkMerge [ zshConfig zshConfigLast];
+        '';
+      zshConfigLast = ''
+        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+      '';
+    in
+      lib.mkMerge [zshConfig zshConfigLast];
   };
-  
+
   programs.ripgrep.enable = true;
   programs.fd.enable = true;
   programs.bat.enable = true;

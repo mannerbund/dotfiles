@@ -58,7 +58,6 @@
     };
   };
 
-
   programs = {
     swaylock.enable = true;
     foot.enable = true;

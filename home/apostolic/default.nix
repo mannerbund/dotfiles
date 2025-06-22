@@ -30,7 +30,6 @@
     directories = [
       ".local/share/nix"
       ".local/share/iwctl"
-      ".local/share/qBittorrent"
       ".local/share/Anki2"
       ".local/state/syncthing"
       ".local/state/wireplumber"
