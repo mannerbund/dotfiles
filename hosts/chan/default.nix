@@ -52,13 +52,6 @@
     };
   };
 
-  # Fix needed
-  #systemd.tmpfiles.settings = {
-  #  "10-iwd" = {
-  #    "/var/lib/iwd/nevada.psk".C.argument = config.sops.secrets."wireless/home".path;
-  #  };
-  #};
-
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
