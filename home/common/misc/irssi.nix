@@ -12,10 +12,15 @@
     url = "https://raw.githubusercontent.com/irssi/scripts.irssi.org/refs/heads/master/scripts/trackbar.pl";
     sha256 = "1hhhs2vxmsml4dfng2iq3723fz86b0l6s91l78zg8chmay89ca4l";
   };
+  nickcolor = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/irssi/scripts.irssi.org/refs/heads/master/scripts/nickcolor.pl";
+    sha256 = "1imn2ryxq8j7d2iy8cyjnzri83flkz7f34xx8cfj0hlijgqbbir1";
+  };
 in {
   home.file.".irssi/gothic.theme".source = gothicTheme;
-  home.file.".irssi/scripts/autorun/trackbar.pl".source = trackbar;
   home.file.".irssi/scripts/autorun/tmux-nicklist-portable.pl".source = tmux-nicklist;
+  home.file.".irssi/scripts/autorun/trackbar.pl".source = trackbar;
+  home.file.".irssi/scripts/autorun/nickcolor.pl".source = nickcolor;
 
   programs.irssi = {
     enable = true;
