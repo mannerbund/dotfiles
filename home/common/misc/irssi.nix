@@ -44,6 +44,11 @@ in {
         "fe-common/core" = { theme = "gothic"; };
         "fe-text" = { window_default_hidelevel = "hidden joins parts quits"; };
       };
+      keyboard = (
+        { key = "^K"; id = "scroll_backward"; data = ""; },
+        { key = "^J"; id = "scroll_forward"; data = ""; }
+      );
+
     '';
   };
 }
