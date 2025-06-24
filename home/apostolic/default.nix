@@ -41,6 +41,7 @@
     anki-bin
     xdg-utils
     syncthing
+    transmission_4
   ];
 
   home.sessionVariables = {

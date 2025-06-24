@@ -15,12 +15,11 @@
 
     ../common/misc/bluetooth.nix
     ../common/misc/light.nix
-    #../common/misc/gamemode.nix
     ../common/misc/wireguard.nix
     ../common/misc/zapret.nix
     ../common/misc/dnscrypt-proxy2.nix
-    ../common/misc/transmission.nix
     #../common/misc/scx.nix
+    #../common/misc/gamemode.nix
   ];
 
   networking = {
@@ -28,8 +27,8 @@
     useNetworkd = true;
     nameservers = ["127.0.0.1"];
     firewall = {
-      allowedTCPPorts = [53317 22000];
-      allowedUDPPorts = [53317 22000];
+      allowedTCPPorts = [51413 53317 22000];
+      allowedUDPPorts = [51413 53317 22000];
     };
     useDHCP = false;
     wireless.iwd.enable = true;
