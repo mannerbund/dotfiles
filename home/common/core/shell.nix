@@ -5,14 +5,17 @@
   ...
 }: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
+    directories = [
+      ".config/zsh" # for .zcompdump
+    ];
     files = [
       ".local/share/zoxide/db.zo"
-      ".zsh_history"
     ];
   };
 
   home.sessionVariables = {
-    HISTFILE = "${config.home.homeDirectory}/.zsh_history";
+    HISTFILE = "${config.home.homeDirectory}/.cache/history";
+    INPUTRC = "${config.home.homeDirectory}/.local/share/inputrc";
   };
 
   home.file.".local/share/inputrc".text = ''
@@ -47,6 +50,8 @@
     autosuggestion.enable = true;
     syntaxHighlighting.package = pkgs.zsh-fast-syntax-highlighting;
     defaultKeymap = "viins";
+    dotDir = ".config/zsh";
+    history.path = ".cache/zsh/history";
     history.size = 100000;
     shellAliases = {
       cp = "cp -iv";
