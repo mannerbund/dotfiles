@@ -15,6 +15,32 @@
     HISTFILE = "${config.home.homeDirectory}/.zsh_history";
   };
 
+  home.file.".local/share/inputrc".text = ''
+    set editing-mode vi
+    set show-all-if-ambiguous on
+
+    $if mode=vi
+      set show-mode-in-prompt on
+      set vi-ins-mode-string \1\e[6 q\2
+      set vi-cmd-mode-string \1\e[2 q\2
+
+      set keymap vi-command
+      Control-l: clear-screen
+      Control-a: beginning-of-line
+
+      set keymap vi-insert
+      Control-l: clear-screen
+      Control-a: beginning-of-line
+    $endif
+
+    $if profanity
+      "\C-p": prof_win_prev
+      "\C-n": prof_win_next
+      "\C-k": prof_win_pageup
+      "\C-j": prof_win_pagedown
+    $endif
+  '';
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
