@@ -63,7 +63,7 @@
     foot.enable = true;
   };
 
-  programs.niri = {
+  programs.nir = {
     enable = true;
     package = pkgs.niri-unstable;
     settings = {
@@ -104,7 +104,7 @@
         default-column-width = {proportion = 1.0;};
       };
       spawn-at-startup = [
-        {command = ["${lib.getExe pkgs.swww}" "img" "../../../hosts/common/gruvbox_city.png"];}
+        {command = ["${lib.getExe pkgs.swww}" "img" "../gruvbox_city.png"];}
         {command = ["${lib.getExe pkgs.xwayland-satellite}"];}
         {command = ["emacs" "--daemon"];}
       ];
