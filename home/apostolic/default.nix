@@ -19,6 +19,7 @@
     ../common/misc/mpv.nix
     ../common/misc/librewolf.nix
     ../common/misc/irssi.nix
+    ../common/misc/profanity.nix
   ];
 
   home = {
