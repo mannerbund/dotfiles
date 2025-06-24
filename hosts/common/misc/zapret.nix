@@ -3,6 +3,7 @@
     enable = true;
     httpSupport = false;
     whitelist = [
+      "7chan.org"
       "10tv.app"
       "7tv.app"
       "7tv.io"
