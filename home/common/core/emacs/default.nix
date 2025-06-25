@@ -40,11 +40,20 @@
     enable = true;
     package = (
       pkgs.emacsWithPackagesFromUsePackage {
-        package = pkgs.emacs-pgtk;
+        package = pkgs.emacs-git-pgtk;
         config = ./emacs.el;
         defaultInitFile = true;
         extraEmacsPackages = epkgs: [
-          epkgs.manualPackages.treesit-grammars.with-all-grammars
+          (epkgs.treesit-grammars.with-grammars (grammars: [
+            grammars.tree-sitter-python
+            grammars.tree-sitter-go
+            grammars.tree-sitter-heex
+            grammars.tree-sitter-json
+            grammars.tree-sitter-json5
+            grammars.tree-sitter-nix
+            grammars.tree-sitter-rust
+            grammars.tree-sitter-yaml
+          ]))
           epkgs.eglot-booster
         ];
         override = epkgs:
