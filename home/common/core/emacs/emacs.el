@@ -367,9 +367,10 @@
   (evil-collection-define-key 'normal 'calc-mode-map
     (kbd "C-r") 'calc-redo))
 
-(use-package nix-mode
-  :ensure t
-  :mode "\\.nix\\'")
+(use-package nix-ts-mode
+  :mode "\\.nix\\'"
+  :hook
+  (nix-ts-mode . eglot-ensure))
 
 (use-package magit
   :ensure t)
@@ -515,9 +516,7 @@
               ("C-c l d" . eldoc))
   :hook
   (python-mode . eglot-ensure)
-  (nix-mode . eglot-ensure)
   :config
-  (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
   (setopt eglot-workspace-configuration
           '((:pylsp
              (:plugins
