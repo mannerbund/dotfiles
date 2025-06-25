@@ -231,8 +231,8 @@
   (setq org-roam-db-gc-threshold most-positive-fixnum)
   :config
   (setopt org-roam-directory (file-truename "~/Documents/Vault/WIKI/notes"))
-  (setq org-roam-dailies-directory "daily/")
-  (setq org-roam-dailies-capture-templates
+  (setopt org-roam-dailies-directory "daily/")
+  (setopt org-roam-dailies-capture-templates
         '(("d" "default" entry
            "* %?"
            :target (file+head "%<%Y-%m-%d>.org"
@@ -514,8 +514,6 @@
               ("C-c l a" . eglot-code-actions)
               ("C-c l f" . eglot-format-buffer)
               ("C-c l d" . eldoc))
-  :hook
-  (python-mode . eglot-ensure)
   :config
   (setopt eglot-workspace-configuration
           '((:pylsp
@@ -556,6 +554,8 @@
   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
 (use-package python
+  :hook
+  (python-mode . eglot-ensure)
   :config
   (setopt python-indent-guess-indent-offset-verbose nil)
   (setopt comint-move-point-for-output 'all)
