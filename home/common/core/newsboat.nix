@@ -9,8 +9,8 @@
 
   programs.newsboat = {
     enable = true;
-    autoReload = true;
     reloadThreads = 5;
+    reloadTime = 120;
     extraConfig = ''
       unbind-key ,
       unbind-key j
