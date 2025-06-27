@@ -9,11 +9,19 @@
     ];
   };
 
-  home.file.".config/profanity/inputrc".text = ''
-    $if profanity
-    "\M-p": prof_win_pageup
-    "\M-n": prof_win_pagedown
-    $endif
+  home.file.".config/profanity/profrc".text = ''
+    [ui]
+    theme=gruvbox
+    history=true
+    
+    [logging]
+    chlog=true
+    
+    [omemo]
+    policy=always
+
+    [connection]
+    carbons=true
   '';
 
   home.packages = with pkgs; [
