@@ -10,6 +10,7 @@
   programs.tmux = {
     enable = true;
     shell = "${pkgs.zsh}/bin/zsh";
+    terminal = "screen-256color";
     clock24 = false;
     baseIndex = 1;
     keyMode = "vi";
