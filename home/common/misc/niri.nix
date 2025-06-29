@@ -67,7 +67,7 @@
           term = "xterm-256color";
         };
         key-bindings = {
-          show-urls-copy="Control+Shift+y";
+          show-urls-copy = "Control+Shift+y";
         };
         mouse = {
           hide-when-typing = "yes";
