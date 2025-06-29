@@ -3,11 +3,9 @@
     enable = true;
     httpSupport = false;
     whitelist = [
-      "7chan.org"
-      "10tv.app"
-      "7tv.app"
-      "7tv.io"
       "audiobookbay.lu"
+      "7chan.org"
+      "goodreads.com"
       "cloudflare-ech.com"
       "dis.gd"
       "discord-attachments-uploads-prd.storage.googleapis.com"
@@ -32,8 +30,9 @@
       "discordpartygames.com"
       "discordsays.com"
       "discordsez.com"
-      "ggpht.com"
-      "goodreads.com"
+      "yt3.ggpht.com"
+      "yt4.ggpht.com"
+      "yt3.googleusercontent.com"
       "googlevideo.com"
       "jnn-pa.googleapis.com"
       "stable.dl2.discordapp.net"
@@ -48,6 +47,11 @@
       "yt-video-upload.l.google.com"
       "ytimg.com"
       "ytimg.l.google.com"
+      "frankerfacez.com"
+      "ffzap.com"
+      "betterttv.net"
+      "7tv.app"
+      "7tv.io"
     ];
     params = [
       "--dpi-desync=fake,disorder"
