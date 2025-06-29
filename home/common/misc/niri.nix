@@ -108,7 +108,7 @@
         xkb.layout = "us,ru";
         xkb.options = "ctrl:nocaps,grp:ctrl_space_toggle";
         repeat-delay = 200;
-        repeat-rate = 30;
+        repeat-rate = 40;
       };
       prefer-no-csd = true;
       clipboard.disable-primary = true;
