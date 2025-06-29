@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = [pkgs.dconf];
+
   stylix = {
     enable = true;
     autoEnable = false;
