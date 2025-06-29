@@ -13,10 +13,10 @@
     [ui]
     theme=gruvbox
     history=true
-    
+
     [logging]
     chlog=true
-    
+
     [omemo]
     policy=always
 
