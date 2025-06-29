@@ -154,10 +154,10 @@
   (setopt org-agenda-files '("~/Documents/Vault/agenda"))
   (setopt org-default-notes-file "~/Documents/Vault/agenda/refile.org")
   (setopt org-capture-templates
-          '(("t" "todo" entry (file "~/Documents/Vault/agenda/refile.org")
-             "* TODO %?\n%u\n" :clock-in t :clock-resume t)
-            ("n" "note" entry (file "~/Documents/Vault/agenda/refile.org")
-             "* %? :note:\n%u\n" :clock-in t :clock-resume t)))
+          '(("t" "Todo" entry (file "~/Documents/Vault/agenda/refile.org")
+             "* TODO %?\n%u\n")
+            ("n" "Note" entry (file "~/Documents/Vault/agenda/refile.org")
+             "* %? :note:\n%u\n")))
   (setopt org-todo-keywords
           '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
             (sequence "WAITING(w)" "HOLD(i)" "|" "CANCELED(c)")))
@@ -177,10 +177,9 @@
   (setopt org-deadline-warning-days 7)
   (setopt org-agenda-skip-deadline-if-done t)
   (setopt org-agenda-skip-scheduled-if-done t)
-  (evil-set-initial-state 'org-agenda-mode 'motion)
-  ;;;; Custom Agenda Views
   (setopt org-agenda-dim-blocked-tasks t)
   (setopt org-agenda-compact-blocks t)
+  (evil-set-initial-state 'org-agenda-mode 'motion)
   ;;;; Refile settings
   ; Exclude DONE state tasks from refile targets
   (defun bh/verify-refile-target ()
@@ -218,6 +217,17 @@
   (setopt org-preview-latex-default-process 'dvisvgm)
   (setopt org-highlight-latex-and-related '(latex script entities)))
 
+(use-package org-journal
+  :ensure t
+  :defer t
+  :bind ("C-c j o" . org-journal-open-current-journal-file)
+  :init
+  (setq org-journal-prefix-key "C-c j")
+  :config
+  (setq org-journal-dir "~/Documents/Vault/journal"
+        org-journal-date-format "%A, %d %B %Y"
+        org-journal-enable-agenda-integration t))
+
 (use-package org-roam
   :ensure t
   :bind (("C-c n l" . org-roam-buffer-toggle)
@@ -231,12 +241,6 @@
   (setq org-roam-db-gc-threshold most-positive-fixnum)
   :config
   (setopt org-roam-directory (file-truename "~/Documents/Vault/WIKI/notes"))
-  (setopt org-roam-dailies-directory "daily/")
-  (setopt org-roam-dailies-capture-templates
-        '(("d" "default" entry
-           "* %?"
-           :target (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>\n"))))
   (setopt org-roam-database-connector 'sqlite-builtin)
   (setopt org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
