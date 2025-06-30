@@ -226,6 +226,7 @@
   :config
   (setq org-journal-dir "~/Documents/Vault/journal"
         org-journal-date-format "%A, %d %B %Y"
+        org-journal-file-type 'monthly 
         org-journal-enable-agenda-integration t))
 
 (use-package org-roam
@@ -517,6 +518,7 @@
   :bind (:map eglot-mode-map
               ("C-c l a" . eglot-code-actions)
               ("C-c l f" . eglot-format-buffer)
+              ("C-c l r" . eglot-rename)
               ("C-c l d" . eldoc))
   :config
   (setopt eglot-workspace-configuration
