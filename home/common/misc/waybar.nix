@@ -32,9 +32,9 @@ in {
         ];
         modules-right = [
           "tray"
-          "niri/language"
           "mpd"
           "wireplumber"
+          "niri/language"
           "battery"
           "clock"
         ];
@@ -84,7 +84,7 @@ in {
 
         mpd = {
           inherit server port;
-          format = "{stateIcon} {randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})";
+          format = "{stateIcon} {randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%H:%M}/{totalTime:%H:%M})";
           on-click = "${lib.getExe pkgs.mpc} --host ${server} -p ${toString port} toggle";
           unknown-tag = "";
           random-icons = {
