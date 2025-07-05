@@ -18,6 +18,7 @@
     ../common/misc/wireguard.nix
     ../common/misc/zapret.nix
     ../common/misc/dnscrypt-proxy2.nix
+    ../common/misc/stylix.nix
     #../common/misc/scx.nix
     #../common/misc/gamemode.nix
   ];
