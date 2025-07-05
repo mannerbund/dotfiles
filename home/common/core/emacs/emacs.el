@@ -63,7 +63,8 @@
   (setopt read-extended-command-predicate #'command-completion-default-include-p)
   ;; Do not allow the cursor in the minibuffer prompt
   (setopt minibuffer-prompt-properties
-          '(read-only t cursor-intangible t face minibuffer-prompt)))
+          '(read-only t cursor-intangible t face minibuffer-prompt))
+  (setopt reb-re-syntax 'string))
 
 (use-package gcmh
   :ensure t
@@ -85,6 +86,7 @@
   (setopt evil-want-Y-yank-to-eol t)
   (setopt evil-respect-visual-line-mode t)
   :config
+  (evil-define-key '(normal visual) 'global (kbd "M-r") 'replace-regexp)
   (setopt evil-visual-update-x-selection-p nil)
   (evil-mode))
 
@@ -102,9 +104,7 @@
   :after org
   :hook (org-mode . evil-org-mode)
   :config
-  (require 'evil-org-agenda)
-  (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))
-  (evil-org-agenda-set-keys))
+  (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading)))
 
 (use-package evil-surround
   :ensure t
@@ -129,12 +129,6 @@
          ([C-f11] . org-clock-in)
          ("C-c c" . org-capture))
   :config
-  (setopt org-link-frame-setup
-          '((vm . vm-visit-folder-other-frame)
-            (vm-imap . vm-visit-imap-folder-other-frame)
-            (gnus . org-gnus-no-new-news)
-            (file . find-file)
-            (wl . wl-other-frame)))
   ;; Babel
   (setopt org-confirm-babel-evaluate nil)
   (org-babel-do-load-languages
@@ -151,16 +145,26 @@
   (setopt org-log-into-drawer t)
   ;; Agenda
   (setopt org-modules '(org-habit))
+  (setopt org-habit-graph-column 60)
   (setopt org-agenda-files '("~/Documents/Vault/agenda"))
   (setopt org-default-notes-file "~/Documents/Vault/agenda/refile.org")
+  (defun org-journal-find-location ()
+    (org-journal-new-entry t)
+    (unless (eq org-journal-file-type 'daily)
+      (org-narrow-to-subtree))
+    (goto-char (point-max)))
+  (setopt org-capture-templates '())
   (setopt org-capture-templates
           '(("t" "Todo" entry (file "~/Documents/Vault/agenda/refile.org")
              "* TODO %?\n%u\n")
+            ("j" "Journal" plain (function org-journal-find-location)
+             "** %(format-time-string org-journal-time-format)%^{Title}\n%i%?"
+             :jump-to-captured t :immediate-finish t)
             ("n" "Note" entry (file "~/Documents/Vault/agenda/refile.org")
              "* %? :note:\n%u\n")))
   (setopt org-todo-keywords
           '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-            (sequence "WAITING(w)" "HOLD(i)" "|" "CANCELED(c)")))
+            (sequence "WAITING(w)" "HOLD(h)" "|" "CANCELED(c)")))
   (setopt org-todo-state-tags-triggers
           '(("CANCELED" ("CANCELED" . t))
             ("WAITING" ("WAITING" . t))
@@ -169,8 +173,7 @@
             ("TODO" ("WAITING") ("CANCELED") ("HOLD"))
             ("NEXT" ("WAITING") ("CANCELED") ("HOLD"))
             ("DONE" ("WAITING") ("CANCELED") ("HOLD"))))
-  (setopt org-agenda-include-diary t)
-  (setopt org-agenda-diary-file "~/Documents/Vault/agenda/diary.org")
+  (setopt org-agenda-include-diary nil)
   (setopt org-enforce-todo-dependencies t)
   (setopt org-agenda-start-on-weekday nil)
   (setopt org-agenda-span 'day)
@@ -220,13 +223,14 @@
 (use-package org-journal
   :ensure t
   :defer t
-  :bind ("C-c j o" . org-journal-open-current-journal-file)
   :init
   (setq org-journal-prefix-key "C-c j")
   :config
-  (setq org-journal-dir "~/Documents/Vault/journal"
+  (setopt org-journal-dir "~/Documents/Vault/journal"
         org-journal-date-format "%A, %d %B %Y"
+        org-journal-time-format "%H:%M"
         org-journal-file-type 'monthly 
+        org-journal-enable-cache t
         org-journal-enable-agenda-integration t))
 
 (use-package org-roam
@@ -246,10 +250,17 @@
   (setopt org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
 
+(use-package org-super-agenda
+  :ensure t
+  :after org
+  :config
+  (setq org-super-agenda-groups
+        '((:auto-category t)))
+  (org-super-agenda-mode))
+
 (use-package org-modern
   :ensure t
-  :hook
-  (org-mode-hook . org-modern-mode)
+  :after org
   :init
   (setopt org-modern-hide-stars t)
   (setopt org-modern-table nil)
@@ -260,12 +271,13 @@
             ("DONE" :background "LimeGreen" :weight bold :foreground "black")
             ("WAITING" :background "DarkOrange" :weight bold :foreground "black")
             ("HOLD" :background "SlateGray" :weight bold :foreground "black")
-            ("CANCELED" :background "DarkRed" :weight bold :foreground "black"))))
+            ("CANCELED" :background "DarkRed" :weight bold :foreground "black")))
+  (global-org-modern-mode))
 
 (use-package org-appear
   :ensure t
-  :hook
-  (org-mode-hook . org-appear-mode))
+  :after org
+  :hook (org-mode . org-appear-mode))
 
 ;; Completion
 (use-package orderless
