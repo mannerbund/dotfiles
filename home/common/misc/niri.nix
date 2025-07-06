@@ -4,7 +4,11 @@
   inputs,
   lib,
   ...
-}: {
+}:
+let
+  lf = "${config.home.homeDirectory}/.local/bin/lfub";
+in
+{
   nixpkgs.overlays = [
     inputs.niri.overlays.niri
   ];
@@ -133,7 +137,7 @@
             "Mod+T".action = spawn "${pkgs.telegram-desktop}/bin/telegram-desktop";
             "Mod+W".action = spawn "${pkgs.librewolf}/bin/librewolf";
             "Mod+A".action = spawn "${pkgs.foot}/bin/foot" "htop";
-            "Mod+M".action = spawn "${pkgs.foot}/bin/foot" "lf";
+            "Mod+M".action = spawn "${pkgs.foot}/bin/foot" "${lf}";
             "Mod+N".action = spawn "${pkgs.foot}/bin/foot" "newsboat" "-u" "/run/secrets/rss";
             "Mod+P".action = spawn "${pkgs.pwvucontrol}/bin/pwvucontrol";
             "Mod+Q".action = close-window;
