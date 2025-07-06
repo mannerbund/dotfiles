@@ -18,6 +18,7 @@
     ../common/misc/yt-dlp.nix
     ../common/misc/mpv.nix
     ../common/misc/librewolf.nix
+    ../common/misc/syncthing.nix
   ];
 
   home = {
@@ -28,16 +29,15 @@
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [
       ".local/share/Anki2"
-      ".local/state/syncthing"
       ".local/state/wireplumber"
     ];
   };
 
   home.packages = with pkgs; [
     anki-bin
-    syncthing
     xdg-utils
     transmission_4
+    sc-im
   ];
 
   home.sessionVariables = {
