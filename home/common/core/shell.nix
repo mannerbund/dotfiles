@@ -7,9 +7,7 @@
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [
       ".config/zsh" # for .zcompdump
-    ];
-    files = [
-      ".local/share/zoxide/db.zo"
+      ".local/share/zoxide"
     ];
   };
 
