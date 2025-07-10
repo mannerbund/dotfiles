@@ -232,13 +232,13 @@
   (setopt org-agenda-compact-blocks t)
   (evil-set-initial-state 'org-agenda-mode 'motion)
   ;;;; Refile settings
-  ; Exclude DONE state tasks from refile targets
+  ;; Exclude DONE state tasks from refile targets
   (defun bh/verify-refile-target ()
     "Exclude todo keywords with a done state from refile targets"
     (not (member (nth 2 (org-heading-components)) org-done-keywords)))
   (setopt org-refile-target-verify-function 'bh/verify-refile-target)
   (setopt org-refile-targets (quote ((nil :maxlevel . 9)
-                                   (org-agenda-files :maxlevel . 9))))
+                                     (org-agenda-files :maxlevel . 9))))
   (setopt org-refile-use-outline-path t)
   (setopt org-outline-path-complete-in-steps nil)
   (setopt org-refile-allow-creating-parent-nodes (quote confirm))
@@ -275,11 +275,11 @@
   (setq org-journal-prefix-key "C-c j")
   :config
   (setopt org-journal-dir "~/Documents/Vault/journal"
-        org-journal-date-format "%A, %d %B %Y"
-        org-journal-time-format "%H:%M"
-        org-journal-file-type 'monthly 
-        org-journal-enable-cache t
-        org-journal-enable-agenda-integration t))
+          org-journal-file-format "%Y-%m.org"
+          org-journal-date-format "%A, %d %B %Y"
+          org-journal-time-format "%H:%M"
+          org-journal-file-type 'monthly 
+          org-journal-enable-cache t))
 
 (use-package org-roam
   :ensure t
