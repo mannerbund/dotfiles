@@ -71,7 +71,7 @@
       z = "zathura-sandbox";
       sct = "systemctl";
       newsboat = "newsboat -u /run/secrets/rss";
-      update = "nixos-rebuild switch --use-remote-sudo -v -L --flake ~/.local/dotfiles";
+      update = "nixos-rebuild switch --sudo -v -L --flake ~/.local/dotfiles";
     };
     initContent = let
       zshConfig =
@@ -81,22 +81,6 @@
 
           bindkey -v '^?' backward-delete-char
           bindkey '`' autosuggest-accept
-
-          # Change cursor shape for different vi modes.
-          function zle-keymap-select () {
-              case $KEYMAP in
-                  vicmd) echo -ne '\e[1 q';;      # block
-                  viins|main) echo -ne '\e[5 q';; # beam
-              esac
-                                          }
-          zle -N zle-keymap-select
-          zle-line-init() {
-              zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-              echo -ne "\e[5 q"
-                          }
-          zle -N zle-line-init
-          echo -ne '\e[5 q' # Use beam shape cursor on startup.
-          preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
         '';
       zshConfigLast = ''
         source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh 2>/dev/null
