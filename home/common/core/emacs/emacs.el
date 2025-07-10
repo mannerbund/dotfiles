@@ -153,7 +153,6 @@
     (unless (eq org-journal-file-type 'daily)
       (org-narrow-to-subtree))
     (goto-char (point-max)))
-  (setopt org-capture-templates '())
   (setopt org-capture-templates
           '(("t" "Todo" entry (file "~/Documents/Vault/agenda/refile.org")
              "* TODO %?\n%u\n")
