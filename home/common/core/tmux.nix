@@ -11,9 +11,10 @@
     enable = true;
     shell = "${pkgs.zsh}/bin/zsh";
     terminal = "screen-256color";
-    clock24 = false;
     baseIndex = 1;
     keyMode = "vi";
+    escapeTime = 10;
+    mouse = true;
     plugins = with pkgs; [
       {
         plugin = tmuxPlugins.resurrect;
@@ -29,5 +30,10 @@
         '';
       }
     ];
+
+    extraConfig = ''
+      set -g status-right ""
+      set -g status-position top
+    '';
   };
 }
