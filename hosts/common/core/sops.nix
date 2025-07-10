@@ -1,8 +1,4 @@
-{
-  inputs,
-  config,
-  ...
-}: {
+{inputs, ...}: {
   imports = [inputs.sops-nix.nixosModules.sops];
 
   environment.persistence."/persist".directories = [
@@ -17,9 +13,6 @@
   sops = {
     defaultSopsFile = ../secrets/default.yaml;
     secrets = {
-      apostolic_passwd = {
-        neededForUsers = true;
-      };
       rss = {
         sopsFile = ../secrets/rss.yaml;
         group = "users";
