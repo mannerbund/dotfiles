@@ -251,28 +251,7 @@
   (org-roam-db-autosync-mode))
 
 (use-package org-super-agenda
-  :ensure t
-  :after org
-  :config
-  (setq org-super-agenda-groups
-        '((:auto-category t)))
-  (org-super-agenda-mode))
-
-(use-package org-modern
-  :ensure t
-  :after org
-  :init
-  (setopt org-modern-hide-stars t)
-  (setopt org-modern-table nil)
-  :config
-  (setopt org-modern-todo-faces
-          '(("TODO" :background "DodgerBlue" :weight bold :foreground "black")
-            ("NEXT" :background "BlueViolet" :weight bold :foreground "black")
-            ("DONE" :background "LimeGreen" :weight bold :foreground "black")
-            ("WAITING" :background "DarkOrange" :weight bold :foreground "black")
-            ("HOLD" :background "SlateGray" :weight bold :foreground "black")
-            ("CANCELED" :background "DarkRed" :weight bold :foreground "black")))
-  (global-org-modern-mode))
+  :ensure t)
 
 (use-package org-appear
   :ensure t
