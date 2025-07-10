@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [
       ".local/share/lf"
@@ -20,13 +19,9 @@
     gnome-epub-thumbnailer
     p7zip
     xz
-    libcdio
     odt2txt
     catdoc
-    gnumeric
     exiftool
-    man-db
-    groff
     ueberzugpp
     ffmpegthumbnailer
     poppler-utils
@@ -46,26 +41,26 @@
       executable = true;
       text = ''
         #!/bin/sh
-        
+
         # This is a wrapper script for lf that allows it to create image previews with
         # ueberzug. This works in concert with the lf configuration file and the
         # lf-cleaner script.
-        
+
         set -e
-        
+
         UB_PID=0
         UB_SOCKET=""
-        
+
         case "$(uname -a)" in
             *Darwin*) UEBERZUG_TMP_DIR="$TMPDIR" ;;
             *) UEBERZUG_TMP_DIR="/tmp" ;;
         esac
-        
+
         cleanup() {
             exec 3>&-
             ueberzugpp cmd -s "$UB_SOCKET" -a exit
         }
-        
+
         if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
             lf "$@"
         else
@@ -127,7 +122,7 @@
       keybinding = "i";
       source = pkgs.writeShellScript "pv.sh" ''
         #!/bin/sh
-        
+
         image() {
             FILE_PATH="$1"
             X=$4
@@ -137,7 +132,7 @@
             ueberzugpp cmd -s "$UB_SOCKET" -a add -i PREVIEW -x "$X" -y "$Y" --max-width "$MW" --max-height "$MH" -f "$FILE_PATH"
             exit 1
         }
-        
+
         batorcat() {
             file="$1"
             shift
@@ -147,9 +142,9 @@
                 cat "$file"
             fi
         }
-        
+
         CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
-        
+
         case "$(printf "%s\n" "$(readlink -f "$1")" | tr '[:upper:]' '[:lower:]')" in
             *.tgz | *.tar.gz) tar tzf "$1" ;;
             *.tar.bz2 | *.tbz2) tar tjf "$1" ;;
@@ -175,7 +170,7 @@
                 [ ! -f "''${CACHE}.jpg" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
                 image "''${CACHE}.jpg" "$2" "$3" "$4" "$5"
                 ;;
-	        */epub+zip|*/mobi*)
+            *.epub |*.mobi)
                 [ ! -f "''${CACHE}.jpg" ] && gnome-epub-thumbnailer "$1" "$CACHE"
                 image "''${CACHE}.jpg" "$2" "$3" "$4" "$5"
                 ;;
