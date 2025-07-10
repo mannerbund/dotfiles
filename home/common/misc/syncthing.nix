@@ -1,8 +1,6 @@
-{config, ...}:
-let
+{config, ...}: let
   user = "${config.home.username}";
-in
-{
+in {
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [
       ".local/state/syncthing"
@@ -21,15 +19,15 @@ in
       folders = {
         "/home/${user}/Documents/Vault" = {
           label = "Vault";
-          devices = [ "phone" ];
+          devices = ["phone"];
         };
         "/home/${user}/Library" = {
           label = "Library";
-          devices = [ "phone" ];
+          devices = ["phone"];
         };
         "/home/${user}/Music" = {
           label = "Music";
-          devices = [ "phone" ];
+          devices = ["phone"];
         };
       };
       gui = {

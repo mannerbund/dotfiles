@@ -4,15 +4,9 @@
   inputs,
   lib,
   ...
-}:
-let
+}: let
   lf = "${config.home.homeDirectory}/.local/bin/lfub";
-in
-{
-  nixpkgs.overlays = [
-    inputs.niri.overlays.niri
-  ];
-
+in {
   imports = [
     inputs.niri.homeModules.niri
     inputs.niri.homeModules.stylix
@@ -78,6 +72,7 @@ in
         };
       };
     };
+    wayprompt.enable = true;
   };
 
   programs.niri = {
@@ -118,28 +113,40 @@ in
       clipboard.disable-primary = true;
       layout = {
         gaps = 8;
-        default-column-width = {proportion = 1.0;};
+        default-column-width = {
+          proportion = 1.0;
+        };
       };
       spawn-at-startup = [
-        {command = ["swww" "img" "${../gruvbox_city.png}"];}
+        {
+          command = [
+            "swww"
+            "img"
+            "${../gruvbox_city.png}"
+          ];
+        }
         {command = ["${lib.getExe pkgs.xwayland-satellite}"];}
-        {command = ["emacs" "--daemon"];}
+        {
+          command = [
+            "emacs"
+            "--daemon"
+          ];
+        }
       ];
       binds = with config.lib.niri.actions; let
         sh = spawn "sh" "-c";
       in
         lib.attrsets.mergeAttrsList [
           {
-            "Mod+Return".action = spawn "${pkgs.foot}/bin/foot";
-            "Mod+D".action = spawn "${pkgs.bemenu}/bin/bemenu-run";
-            "Mod+Shift+D".action = spawn "${lib.getExe pkgs.bemoji}" "-n";
-            "Mod+S".action = spawn "${pkgs.emacs-git-pgtk}/bin/emacsclient" "-c";
-            "Mod+T".action = spawn "${pkgs.telegram-desktop}/bin/telegram-desktop";
-            "Mod+W".action = spawn "${pkgs.librewolf}/bin/librewolf";
-            "Mod+A".action = spawn "${pkgs.foot}/bin/foot" "htop";
-            "Mod+M".action = spawn "${pkgs.foot}/bin/foot" "${lf}";
-            "Mod+N".action = spawn "${pkgs.foot}/bin/foot" "newsboat" "-u" "/run/secrets/rss";
-            "Mod+P".action = spawn "${pkgs.pwvucontrol}/bin/pwvucontrol";
+            "Mod+Return".action = spawn "foot";
+            "Mod+D".action = spawn "bemenu-run";
+            "Mod+Shift+D".action = spawn "bemoji" "-n";
+            "Mod+S".action = spawn "emacsclient" "-c";
+            "Mod+W".action = spawn "librewolf";
+            "Mod+A".action = spawn "foot" "htop";
+            "Mod+M".action = spawn "foot" "${lf}";
+            "Mod+N".action = spawn "foot" "newsboat" "-u" "/run/secrets/rss";
+            "Mod+P".action = spawn "pwvucontrol";
             "Mod+Q".action = close-window;
             "Mod+Shift+Slash".action = show-hotkey-overlay;
 

@@ -1,15 +1,12 @@
-{ inputs }:
-{
+{inputs}: {
   default = final: prev: {
     weechat = prev.weechat.override {
-      configure =
-        { availablePlugins, ... }:
-        {
-          scripts = with prev.pkgs.weechatScripts; [
-            autosort
-            colorize_nicks
-          ];
-        };
+      configure = {availablePlugins, ...}: {
+        scripts = with prev.pkgs.weechatScripts; [
+          autosort
+          colorize_nicks
+        ];
+      };
     };
 
     #vim = prev.vim.overrideAttrs (old: rec {
