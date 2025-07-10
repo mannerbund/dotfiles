@@ -4,9 +4,6 @@
   ...
 }: {
   imports = [
-    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
-    inputs.nixos-hardware.nixosModules.common-pc-laptop
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
     ./hardware-configuration.nix
     ./hardware.nix
 
@@ -28,8 +25,16 @@
     useNetworkd = true;
     nameservers = ["127.0.0.1"];
     firewall = {
-      allowedTCPPorts = [51413 53317 22000];
-      allowedUDPPorts = [51413 53317 22000];
+      allowedTCPPorts = [
+        51413
+        53317
+        22000
+      ];
+      allowedUDPPorts = [
+        51413
+        53317
+        22000
+      ];
     };
     useDHCP = false;
     wireless.iwd.enable = true;
@@ -63,8 +68,5 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-  ];
   system.stateVersion = "24.11";
 }
