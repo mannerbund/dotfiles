@@ -8,6 +8,7 @@
 
   imports = [
     ./emacs
+    ./vim.nix
     ./persistence.nix
     ./tmux.nix
     ./ssh.nix

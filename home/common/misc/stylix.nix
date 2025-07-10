@@ -32,15 +32,14 @@
     };
     targets = {
       firefox.enable = true;
-      vim.enable = true;
       gnome.enable = true;
       qt.enable = true;
       gtk.enable = true;
+      vim.enable = true;
       tmux.enable = true;
       waybar.enable = true;
       mpv.enable = true;
       bemenu.enable = true;
-      emacs.enable = false;
       fzf.enable = true;
       bat.enable = true;
       zathura.enable = true;
