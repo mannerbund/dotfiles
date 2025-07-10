@@ -173,7 +173,56 @@
             ("TODO" ("WAITING") ("CANCELED") ("HOLD"))
             ("NEXT" ("WAITING") ("CANCELED") ("HOLD"))
             ("DONE" ("WAITING") ("CANCELED") ("HOLD"))))
-  (setopt org-agenda-include-diary nil)
+  (setopt org-todo-keyword-faces
+          '(("TODO" . (:background "DodgerBlue" :weight bold :foreground "black"))
+            ("NEXT" . (:background "BlueViolet" :weight bold :foreground "black"))
+            ("DONE" . (:background "LimeGreen" :weight bold :foreground "black"))
+            ("WAITING" . (:background "DarkOrange" :weight bold :foreground "black"))
+            ("HOLD" . (:background "SlateGray" :weight bold :foreground "black"))
+            ("CANCELED" . (:background "DarkRed" :weight bold :foreground "black"))))
+  (setopt org-agenda-custom-commands
+          '(("u" "Super View"
+             ((agenda "" ((org-super-agenda-groups
+                           '((:name "Today"
+                                    :time-grid t
+                                    :date today
+                                    :scheduled today
+                                    (:discard (:habit t)))))))
+              (alltodo "" ((org-agenda-overriding-header "")
+                           (org-super-agenda-groups
+                            '((:discard (:habit t :category "Reading" :tag
+                                                ("book" "article" "text")))
+                              (:name "Important"
+                                     :priority "A"
+                                     :order 0)
+                              (:name "Refile"
+                                     :tag "REFILE"
+                                     :order 1)
+                              (:name "Low Priority"
+                                     :priority "C"
+                                     :order 2)
+                              (:auto-category t)))))))
+            ("h" "Habits"
+             ((agenda "" ((org-agenda-overriding-header "Habits")
+                          (org-super-agenda-groups
+                           '((:name "Day"
+                                    :time-grid t
+                                    :and (:habit t :category ("Morning" "Daytime" "Evening")))
+                             (:name "Off Schedule"
+                                    :and (:habit t :not (:time-grid t :category ("Morning" "Daytime" "Evening" ))))
+                             (:discard (:anything t))))))))
+            ("r" "Reading"
+             ((alltodo "" ((org-agenda-overriding-header "Books to Read")
+                           (org-super-agenda-groups
+                            '((:name "Currently Reading"
+                                     :and (:tag ("book" "article" "text") :priority "A")
+                                     :and (:category "Reading" :priority "A"))
+                              (:name "To-read"
+                                     :tag ("book" "article" "text")
+                                     :category "Reading"
+                                     :and (:tag ("book" "article" "text") :priority< "A")
+                                     :and (:category "Reading" :priority< "A"))
+                              (:discard (:anything t))))))))))
   (setopt org-enforce-todo-dependencies t)
   (setopt org-agenda-start-on-weekday nil)
   (setopt org-agenda-span 'day)
@@ -251,7 +300,9 @@
   (org-roam-db-autosync-mode))
 
 (use-package org-super-agenda
-  :ensure t)
+  :ensure t
+  :config
+  (org-super-agenda-mode))
 
 (use-package org-appear
   :ensure t
