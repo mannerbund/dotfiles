@@ -363,11 +363,6 @@
   (evil-collection-define-key 'normal 'calc-mode-map
     (kbd "C-r") 'calc-redo))
 
-(use-package nix-ts-mode
-  :mode "\\.nix\\'"
-  :hook
-  (nix-ts-mode . eglot-ensure))
-
 (use-package magit
   :ensure t)
 
@@ -505,20 +500,21 @@
   :defer t
   :init
   (setopt eglot-autoshutdown t)
+  (setopt eglot-autoreconnect t)
   (setopt eglot-sync-connect nil)
+  (setopt eglot-code-action-indications nil)
   :bind (:map eglot-mode-map
               ("C-c l a" . eglot-code-actions)
               ("C-c l f" . eglot-format-buffer)
               ("C-c l r" . eglot-rename)
               ("C-c l d" . eldoc))
   :config
-  (setopt eglot-workspace-configuration
-          '((:pylsp
-             (:plugins
-              (:ruff
-               (:enabled t :json-false
-                         :formatEnabled t
-                         :lineLength 88)))))))
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 `(python-mode . ("ruff" "server")))
+    (add-to-list 'eglot-server-programs
+                 `(nix-ts-mode . ("nil" :initializationOptions
+                                  (:formatting (:command ["alejandra"])))))))
 
 (use-package eglot-booster
   :after eglot
@@ -550,6 +546,8 @@
   (setopt flymake-proc-ignored-file-name-regexps '("\\.l?hs\\'"))
   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
+;; Python
+
 (use-package python
   :hook
   (python-mode . eglot-ensure)
@@ -563,3 +561,14 @@
                  (side . right)
                  (window-width . 0.42)
                  (no-select . t))))
+
+(use-package flymake-ruff
+  :ensure t
+  :hook (python-mode . flymake-ruff-load))
+
+;; Nix
+
+(use-package nix-ts-mode
+  :mode "\\.nix\\'"
+  :hook
+  (nix-ts-mode . eglot-ensure))
