@@ -271,8 +271,7 @@
 (use-package org-journal
   :ensure t
   :defer t
-  :init
-  (setq org-journal-prefix-key "C-c j")
+  :bind ("C-c o j" . org-journal-new-entry)
   :config
   (setopt org-journal-dir "~/Documents/Vault/journal"
           org-journal-file-format "%Y-%m.org"
