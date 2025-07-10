@@ -45,6 +45,7 @@
       zathura.enable = true;
       foot.enable = true;
       mako.enable = true;
+      wayprompt.enable = true;
       swaylock = {
         enable = true;
         useWallpaper = true;

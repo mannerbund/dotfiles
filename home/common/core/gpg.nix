@@ -10,8 +10,8 @@
   services.gpg-agent = {
     enable = true;
     enableZshIntegration = true;
-    pinentry.package = pkgs.pinentry-gnome3;
-    pinentry.program = "pinentry-gnome3";
+    pinentry.package = pkgs.wayprompt;
+    pinentry.program = "pinentry-wayprompt";
     defaultCacheTtl = 86400;
   };
 

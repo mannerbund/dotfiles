@@ -40,7 +40,7 @@ in {
     };
   };
 
-  services.dbus.packages = [pkgs.gcr]; # for pinentry-gnome3
+  sops.secrets.apostolic_passwd.neededForUsers = true;
 
   services.upower.enable = true;
 }
