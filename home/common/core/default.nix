@@ -20,6 +20,7 @@
     ./lf.nix
     ./gpg.nix
     ./profanity.nix
-    ./irssi.nix
+    ./weechat.nix
+    #./irssi.nix
   ];
 }

@@ -20,11 +20,17 @@
     ./zram-generator.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  users = {
+    mutableUsers = false;
+  };
 
-  home-manager.useUserPackages = true;
-  home-manager.extraSpecialArgs = {
-    inherit inputs;
+  nixpkgs = {
+    overlays = [
+      inputs.self.overlays.default
+      inputs.niri.overlays.niri
+      inputs.emacs-overlay.overlays.default
+    ];
+    config.allowUnfree = true;
   };
 
   documentation.nixos.enable = lib.mkForce false;
