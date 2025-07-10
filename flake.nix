@@ -44,6 +44,7 @@
       flake = let
         lib = nixpkgs.lib // home-manager.lib;
       in {
+        overlays = import ./overlays {inherit inputs;};
         nixosConfigurations = {
           chan = lib.nixosSystem {
             modules = [./hosts/chan];
