@@ -4,8 +4,6 @@
   ...
 }: {
   imports = [
-    inputs.home-manager.nixosModules.home-manager
-
     ./nix.nix
     ./journald.nix
     ./locale.nix
