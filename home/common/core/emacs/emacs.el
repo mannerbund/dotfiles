@@ -183,10 +183,10 @@
           '(("u" "Super View"
              ((agenda "" ((org-super-agenda-groups
                            '((:name "Today"
+                                    :discard (:habit t)
                                     :time-grid t
                                     :date today
-                                    :scheduled today
-                                    (:discard (:habit t)))))))
+                                    :scheduled today)))))
               (alltodo "" ((org-agenda-overriding-header "")
                            (org-super-agenda-groups
                             '((:discard (:habit t :category "Reading" :tag
