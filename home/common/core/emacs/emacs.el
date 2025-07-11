@@ -514,13 +514,6 @@
   :ensure t
   :hook (after-init . envrc-global-mode))
 
-(use-package kind-icon
-  :ensure t
-  :after corfu
-  :config
-  (setopt kind-icon-default-style `(:padding -0.5 :scale 1.0 :height 0.85))
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
-
 (use-package hl-line
   :init
   (setopt hl-line-sticky-flag nil)
