@@ -239,7 +239,7 @@
   (setopt org-refile-target-verify-function 'bh/verify-refile-target)
   (setopt org-refile-targets (quote ((nil :maxlevel . 9)
                                      (org-agenda-files :maxlevel . 9))))
-  (setopt org-refile-use-outline-path t)
+  (setopt org-refile-use-outline-path 'file)
   (setopt org-outline-path-complete-in-steps nil)
   (setopt org-refile-allow-creating-parent-nodes (quote confirm))
   ;;;; Archive settings
@@ -377,6 +377,12 @@
   :init
   (vertico-mode)
   :config
+  (setopt vertico-multiform-categories
+          '((file grid reverse)
+            (imenu buffer)
+            (consult-ripgrep buffer)))
+  (setopt vertico-multiform-commands
+          '((consult-imenu buffer indexed)))
   (setopt vertico-scroll-margin 0) ;; Different scroll margin
   (setopt vertico-count 12) ;; Show more candidates
   (setopt vertico-resize nil) ;; Grow and shrink the Vertico minibuffer
