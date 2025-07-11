@@ -5,8 +5,6 @@
 }: {
   imports = [
     inputs.disko.nixosModules.disko
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.common-pc-laptop
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
   ];
 
