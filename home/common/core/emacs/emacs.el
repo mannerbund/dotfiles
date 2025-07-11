@@ -413,6 +413,21 @@
   (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
 
+(use-package cape
+  :ensure t
+  :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
+  :init
+  ;; Merge the dabbrev, dict and keyword capfs, display candidates together.
+  (setq-local completion-at-point-functions
+              (list (cape-capf-super #'cape-dabbrev #'cape-dict #'cape-keyword)))
+  ;; Cache
+  (setq-local completion-at-point-functions
+              (list (cape-capf-buster #'some-caching-capf)))
+  ;; Use Company backends as Capfs.
+  (setq-local completion-at-point-functions
+              (mapcar #'cape-company-to-capf
+                      (list #'company-files #'company-keywords #'company-dabbrev))))
+
 ;; Major Modes
 (use-package calc
   :preface
