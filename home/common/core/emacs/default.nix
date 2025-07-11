@@ -23,7 +23,6 @@
           ru
         ]
     ))
-    clang
     graphviz
     emacs-lsp-booster
     nil
