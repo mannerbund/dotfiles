@@ -2,6 +2,9 @@
   services.zapret = {
     enable = true;
     httpSupport = false;
+    udpSupport = true;
+    udpPorts = ["443"];
+    configureFirewall = true;
     whitelist = [
       "audiobookbay.lu"
       "7chan.org"
@@ -56,8 +59,11 @@
     params = [
       "--dpi-desync=fake,disorder"
       "--dpi-desync-ttl=1"
-      "--dpi-desync-autottl=3"
+      "--dpi-desync-autottl=-3"
       "--dpi-desync-repeats=6"
+      "--dpi-desync-fake-tls=0x00000000"
+      "--dpi-desync-fake-tls=!"
+      "--dpi-desync-fake-tls-mod=rnd,rndsni,dupsid"
     ];
   };
 }
