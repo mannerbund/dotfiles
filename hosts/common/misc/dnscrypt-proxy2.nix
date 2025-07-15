@@ -12,7 +12,7 @@ in {
       listen_addresses = ["127.0.0.1:53"];
       require_dnssec = true;
       require_nofilter = true;
-      require_nolog = false;
+      require_nolog = true;
 
       block_ipv6 = true;
       ipv6_servers = false;
@@ -25,23 +25,23 @@ in {
 
       server_names = ["NextDNS-c8df27"];
 
-      sources.public-resolvers = {
-        urls = [
-          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
-          "https://download.dnscrypt.info/dnscrypt-resolvers/v3/public-resolvers.md"
-        ];
-        minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
-        cache_file = "/var/lib/${StateDirectory}/public-resolvers.md";
-        refresh_delay = 73;
-      };
-
       static = {
         "NextDNS-c8df27" = {
           stamp = "sdns://AgEAAAAAAAAAAAAOZG5zLm5leHRkbnMuaW8HL2M4ZGYyNw";
         };
       };
 
-      disabled_server_names = ["google" "yandex"];
+      # sources.public-resolvers = {
+      #   urls = [
+      #     "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
+      #     "https://download.dnscrypt.info/dnscrypt-resolvers/v3/public-resolvers.md"
+      #   ];
+      #   minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+      #   cache_file = "/var/lib/${StateDirectory}/public-resolvers.md";
+      #   refresh_delay = 73;
+      # };
+
+      # disabled_server_names = ["google" "yandex"];
     };
   };
 }
