@@ -217,8 +217,6 @@
                                      :and (:tag ("book" "article" "text") :priority "A")
                                      :and (:category "Reading" :priority "A"))
                               (:name "To-read"
-                                     :tag ("book" "article" "text")
-                                     :category "Reading"
                                      :and (:tag ("book" "article" "text") :priority< "A")
                                      :and (:category "Reading" :priority< "A"))
                               (:discard (:anything t))))))))))
