@@ -36,7 +36,7 @@
   home.packages = with pkgs; [
     anki-bin
     xdg-utils
-    transmission_4
+    transmission_4-qt6
     sc-im
   ];
 
