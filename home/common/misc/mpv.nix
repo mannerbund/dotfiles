@@ -8,7 +8,7 @@
   programs.mpv = {
     enable = true;
     config = {
-      sub-scale = 1.5;
+      sub-scale = 1.2;
       sub-auto = "fuzzy";
       sub-bold = true;
       volume = 50;
