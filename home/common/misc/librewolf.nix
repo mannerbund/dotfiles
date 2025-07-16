@@ -80,16 +80,8 @@
           toolbar = true;
           bookmarks = [
             {
-              name = "libgen";
-              url = "https://libgen.rs";
-            }
-            {
-              name = "annas-archive";
-              url = "https://annas-archive.org";
-            }
-            {
-              name = "z-lib";
-              url = "https://1lib.sk";
+              name = "open-slum";
+              url = "https://open-slum.org";
             }
             {
               name = "flibusta";
@@ -159,7 +151,6 @@
       DisableTelemetry = true;
       DontCheckDefaultBrowser = true;
       OfferToSaveLogins = false;
-      NoDefaultBookmarks = false;
       ExtensionSettings = {
         "jid1-BoFifL9Vbdl2zQ@jetpack" = {
           installation_mode = "force_installed";
