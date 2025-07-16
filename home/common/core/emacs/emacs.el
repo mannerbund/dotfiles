@@ -217,8 +217,8 @@
                                      :and (:tag ("book" "article" "text") :priority "A")
                                      :and (:category "Reading" :priority "A"))
                               (:name "To-read"
-                                     :and (:tag ("book" "article" "text") :priority< "A")
-                                     :and (:category "Reading" :priority< "A"))
+                                     :and (:tag ("book" "article" "text") :not (:priority "A"))
+                                     :and (:category "Reading" :not (:priority "A")))
                               (:discard (:anything t))))))))))
   (setopt org-enforce-todo-dependencies t)
   (setopt org-agenda-start-on-weekday nil)
