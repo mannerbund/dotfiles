@@ -19,6 +19,9 @@
     ../common/misc/mpv.nix
     ../common/misc/librewolf.nix
     ../common/misc/syncthing.nix
+    ../common/misc/profanity.nix
+    ../common/misc/lf.nix
+    ../common/misc/weechat.nix
   ];
 
   home = {
