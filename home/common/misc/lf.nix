@@ -99,6 +99,7 @@
       gm = "cd ~/Music";
       gp = "cd ~/Pictures";
       gv = "cd ~/Videos";
+      gr = "cd /";
       e = "emacsclient -nw $f";
     };
     extraConfig = ''
