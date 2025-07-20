@@ -7,9 +7,11 @@
     configureFirewall = true;
     whitelist = [
       "audiobookbay.lu"
-      "7chan.org"
       "goodreads.com"
       "cloudflare-ech.com"
+      "news.google.com"
+      "zona.media"
+      "catbox.moe"
       "dis.gd"
       "discord-attachments-uploads-prd.storage.googleapis.com"
       "discord.app"
