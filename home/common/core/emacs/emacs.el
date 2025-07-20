@@ -557,8 +557,6 @@
   :config
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
-                 `(python-mode . ("ruff" "server")))
-    (add-to-list 'eglot-server-programs
                  `(nix-ts-mode . ("nil" :initializationOptions
                                   (:formatting (:command ["alejandra"])))))))
 
@@ -594,12 +592,19 @@
 
 ;; Python
 
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable)
+  :config
+  (setopt elpy-rpc-backend "jedi")           
+  (setopt elpy-checker "flake8")            
+  (setopt elpy-rpc-virtualenv-path 'current))
+
 (use-package python
-  :hook
-  (python-mode . eglot-ensure)
   :config
   (setopt python-indent-guess-indent-offset-verbose nil)
-  (setopt comint-move-point-for-output 'all)
   (evil-set-initial-state 'inferior-python-mode 'normal)
   (add-to-list 'display-buffer-alist
                '("\\*Python\\*"
@@ -607,10 +612,6 @@
                  (side . right)
                  (window-width . 0.42)
                  (no-select . t))))
-
-(use-package flymake-ruff
-  :ensure t
-  :hook (python-mode . flymake-ruff-load))
 
 ;; Nix
 
