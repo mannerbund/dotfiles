@@ -22,6 +22,7 @@
     ../common/misc/profanity.nix
     ../common/misc/lf.nix
     ../common/misc/weechat.nix
+    ../common/misc/newsraft.nix
   ];
 
   home = {
@@ -41,6 +42,7 @@
     xdg-utils
     transmission_4-qt6
     sc-im
+    libnotify
   ];
 
   home.sessionVariables = {
