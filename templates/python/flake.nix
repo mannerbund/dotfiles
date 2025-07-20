@@ -14,13 +14,12 @@
         packages = [
           (pkgs.python313.withPackages (python-pkgs:
             with python-pkgs; [
-              ruff
-              python-lsp-server
-              python-lsp-ruff
+              ipython
+              black
+              jedi
+              flake8
               numpy
               matplotlib
-              tkinter
-              ipython
               pandas
               requests
               scipy
