@@ -48,7 +48,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.package = pkgs.zsh-fast-syntax-highlighting;
     defaultKeymap = "viins";
-    dotDir = ".config/zsh";
+    dotDir = "${config.home.homeDirectory}/.config/zsh";
     history.path = "${config.home.homeDirectory}/.cache/zsh/history";
     history.size = 100000;
     shellAliases = {
