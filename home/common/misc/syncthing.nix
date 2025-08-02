@@ -17,8 +17,8 @@ in {
         };
       };
       folders = {
-        "/home/${user}/Documents/Vault" = {
-          label = "Vault";
+        "/home/${user}/Documents" = {
+          label = "Documents";
           devices = ["phone"];
         };
         "/home/${user}/Library" = {
