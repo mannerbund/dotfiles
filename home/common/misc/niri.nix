@@ -105,7 +105,7 @@ in {
       };
       input.keyboard = {
         xkb.layout = "us,ru";
-        xkb.options = "ctrl:nocaps,grp:ctrl_space_toggle";
+        xkb.options = "ctrl:nocaps,grp:win_space_toggle";
         repeat-delay = 200;
         repeat-rate = 40;
       };
@@ -145,7 +145,7 @@ in {
             "Mod+W".action = spawn "librewolf";
             "Mod+A".action = spawn "foot" "htop";
             "Mod+M".action = spawn "foot" "${lf}";
-            "Mod+N".action = spawn "foot" "newsboat" "-u" "/run/secrets/rss";
+            "Mod+N".action = spawn "foot" "newsraft" "-f" "${config.home.homeDirectory}/Documents/rss_feeds";
             "Mod+P".action = spawn "pwvucontrol";
             "Mod+Q".action = close-window;
             "Mod+Shift+Slash".action = show-hotkey-overlay;
@@ -161,7 +161,7 @@ in {
             "Mod+Shift+F".action = fullscreen-window;
             "Mod+C".action = center-column;
 
-            "Mod+Space".action = toggle-column-tabbed-display;
+            "Mod+Shift+Space".action = toggle-column-tabbed-display;
 
             "Mod+L".action = focus-column-right;
             "Mod+H".action = focus-column-left;
