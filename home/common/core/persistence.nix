@@ -19,9 +19,6 @@
       "Pictures"
       "Videos"
     ];
-    files = [
-      ".authinfo.gpg"
-    ];
     allowOther = true;
   };
 }

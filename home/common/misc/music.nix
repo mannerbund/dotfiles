@@ -37,7 +37,6 @@
     beets = {
       enable = true;
       mpdIntegration.enableStats = true;
-      mpdIntegration.enableUpdate = true;
       mpdIntegration.host = "127.0.0.1";
       mpdIntegration.port = 6601;
       settings = {
