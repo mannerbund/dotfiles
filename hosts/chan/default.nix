@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
-    ./hardware.nix
 
     ../common/core
     ../common/users/apostolic
