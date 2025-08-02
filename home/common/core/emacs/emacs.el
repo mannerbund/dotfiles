@@ -11,6 +11,13 @@
 (scroll-bar-mode -1) ;; Don't display scroll bar
 (blink-cursor-mode -1) ;; Don't blink the cursor
 
+;; Wayland Clipboard
+(setopt select-active-regions nil)
+(setopt select-enable-clipboard 't)
+(setopt select-enable-primary nil)
+(setopt interprogram-cut-function #'gui-select-text)
+
+;; From https://github.com/terlar/emacs-config/blob/eb245566b1484112c3768ce44d353a1688f4ee66/init.org
 (let ((normal-gc-cons-threshold gc-cons-threshold)
       (normal-gc-cons-percentage gc-cons-percentage)
       (normal-file-name-handler-alist file-name-handler-alist)
@@ -28,44 +35,46 @@
 ;;; init.el --- Initialization -*- lexical-binding: t; -*-
 (use-package emacs
   :init
-  (setopt auth-sources '("~/.authinfo.gpg"))
+  (setopt confirm-kill-emacs 'y-or-n-p)
+  (delete-selection-mode t)
+  ;; Backups
   (setopt backup-directory-alist `(("." . "~/.cache/backup")))
   (setopt backup-by-copying t)
   (setopt create-lockfiles nil)
   (setopt delete-old-versions t)
   (setopt delete-by-moving-to-trash t)
-  (setopt auto-mode-case-fold nil)
+  ;; Bidirectional Display
   (setopt bidi-inhibit-bpa t)
   (setopt bidi-display-reordering 'left-to-right
           bidi-paragraph-direction 'left-to-right)
-  (setopt fast-but-imprecise-scrolling t)
+  ;; Tabs & Spaces
   (setopt indent-tabs-mode nil)
   (setopt tab-width 4)
-  (setopt confirm-kill-emacs 'y-or-n-p)
-  (setopt ring-bell-function 'ignore)
-  (setopt visible-cursor nil)
+  (setopt tab-always-indent 'complete)
+  ;; Scrolling & Cursor
   (setopt cursor-in-non-selected-windows nil)
   (setopt scroll-conservatively 101)
   (setopt scroll-preserve-screen-position t)
   (setopt mouse-wheel-progressive-speed nil)
   (setopt mouse-wheel-follow-mouse t)
-  (tooltip-mode -1) ;; Don't display tooltips as popups, use the echo area instead
-  (electric-pair-mode 1)
-  (show-paren-mode 1)
+  (setopt visible-cursor nil)
+  (setopt minibuffer-prompt-properties
+          ;; Do not allow the cursor in the minibuffer prompt
+          '(read-only t cursor-intangible t face minibuffer-prompt))
+  ;; Mode Line
+  (setopt mode-line-format (delq 'mode-line-modes mode-line-format))
   (column-number-mode 1) ;; Display column number in the mode line
-  (setopt show-paren-context-when-offscreen t)
-  ;; Enable indentation+completion using the TAB key.
-  ;; `completion-at-point' is often bound to M-TAB.
-  (setopt tab-always-indent 'complete)
+  ;; Visual
+  (tooltip-mode -1)
+  (show-paren-mode 1)
+  (setopt ring-bell-function 'ignore)
   ;; Disable Ispell completion function.
   (setopt text-mode-ispell-word-completion nil)
   ;; Hide commands in M-x which do not work in the current mode.
   (setopt read-extended-command-predicate #'command-completion-default-include-p)
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setopt minibuffer-prompt-properties
-          '(read-only t cursor-intangible t face minibuffer-prompt))
   (setopt reb-re-syntax 'string))
 
+;; Garbage Collection
 (use-package gcmh
   :ensure t
   :hook
@@ -75,42 +84,6 @@
   (setopt gcmh-high-cons-threshold (* 16 1024 1024)) ; 16MB
   (setopt gcmh-verbose init-file-debug))
 
-;; Evil
-(use-package evil
-  :ensure t
-  :init
-  (setopt evil-want-keybinding nil)
-  (setopt evil-undo-system 'undo-redo)
-  (setopt evil-want-C-i-jump nil)
-  (setopt evil-want-C-u-scroll t)
-  (setopt evil-want-Y-yank-to-eol t)
-  (setopt evil-respect-visual-line-mode t)
-  :config
-  (evil-define-key '(normal visual) 'global (kbd "M-r") 'replace-regexp)
-  (setopt evil-visual-update-x-selection-p nil)
-  (evil-mode))
-
-(use-package evil-collection
-  :ensure t
-  :after evil
-  :init 
-  (evil-collection-init)
-  :config
-  (setopt evil-collection-calendar-want-org-bindings t)
-  (setopt evil-collection-setup-minibuffer t))
-
-(use-package evil-org
-  :ensure t
-  :after org
-  :hook (org-mode . evil-org-mode)
-  :config
-  (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading)))
-
-(use-package evil-surround
-  :ensure t
-  :config
-  (global-evil-surround-mode 1))
-
 ;; Theme
 (use-package gruvbox-theme
   :ensure t
@@ -119,6 +92,13 @@
 
 (set-face-attribute 'default nil :family "Iosevka" :height 160)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 160)
+
+;; Windows Managements
+(use-package ace-window
+  :ensure t
+  :bind ("M-o" . ace-window)
+  :config
+  (ace-window-display-mode))
 
 ;; Org-mode
 (use-package org
@@ -183,43 +163,27 @@
           '(("u" "Super View"
              ((agenda "" ((org-super-agenda-groups
                            '((:name "Today"
-                                    :discard (:habit t)
                                     :time-grid t
                                     :date today
-                                    :scheduled today)))))
+                                    :scheduled today
+                                    :order 1)
+                             (:discard (:habit t))))))
               (alltodo "" ((org-agenda-overriding-header "")
                            (org-super-agenda-groups
-                            '((:discard (:habit t :category "Reading" :tag
-                                                ("book" "article" "text")))
+                            '((:discard (:habit t))
                               (:name "Important"
                                      :priority "A"
                                      :order 0)
+                              (:name "Next to do"
+                                     :todo "NEXT"
+                                     :order 0)
                               (:name "Refile"
                                      :tag "REFILE"
-                                     :order 1)
+                                     :order 2)
                               (:name "Low Priority"
                                      :priority "C"
-                                     :order 2)
-                              (:auto-category t)))))))
-            ("h" "Habits"
-             ((agenda "" ((org-agenda-overriding-header "Habits")
-                          (org-super-agenda-groups
-                           '((:name "Day"
-                                    :time-grid t
-                                    :and (:habit t :category ("Morning" "Daytime" "Evening")))
-                             (:name "Off Schedule"
-                                    :and (:habit t :not (:time-grid t :category ("Morning" "Daytime" "Evening" ))))
-                             (:discard (:anything t))))))))
-            ("r" "Reading"
-             ((alltodo "" ((org-agenda-overriding-header "Books to Read")
-                           (org-super-agenda-groups
-                            '((:name "Currently Reading"
-                                     :and (:tag ("book" "article" "text") :priority "A")
-                                     :and (:category "Reading" :priority "A"))
-                              (:name "To-read"
-                                     :and (:tag ("book" "article" "text") :not (:priority "A"))
-                                     :and (:category "Reading" :not (:priority "A")))
-                              (:discard (:anything t))))))))))
+                                     :order 100)
+                              (:auto-category t)))))))))
   (setopt org-enforce-todo-dependencies t)
   (setopt org-agenda-start-on-weekday nil)
   (setopt org-agenda-span 'day)
@@ -228,7 +192,9 @@
   (setopt org-agenda-skip-scheduled-if-done t)
   (setopt org-agenda-dim-blocked-tasks t)
   (setopt org-agenda-compact-blocks t)
-  (evil-set-initial-state 'org-agenda-mode 'motion)
+  (setopt org-agenda-include-diary t)
+  (setopt org-agenda-log-mode 'clockcheck)
+  (setopt org-agenda-log-mode-items '(clock closed))
   ;;;; Refile settings
   ;; Exclude DONE state tasks from refile targets
   (defun bh/verify-refile-target ()
@@ -324,13 +290,11 @@
   :ensure t
   :bind (;; C-c bindings in `mode-specific-map'
          ("C-c M-x" . consult-mode-command)
-         ("C-c h" . consult-history)
          ("C-c m" . consult-man)
          ;; C-x bindings in `ctl-x-map'
          ("C-x b" . consult-buffer)            
          ;; M-g bindings in `goto-map'
          ("M-g e" . consult-compile-error)
-         ("M-g f" . consult-flymake)
          ("M-g m" . consult-mark)
          ("M-g k" . consult-global-mark)
          ("M-g i" . consult-imenu)
@@ -338,7 +302,6 @@
          ;; M-s bindings in `search-map'
          ("M-s r" . consult-ripgrep)
          ("M-s l" . consult-line)
-         ("M-s L" . consult-line-multi)
          ;; Isearch integration
          ("M-s e" . consult-isearch-history)
          ;; Minibuffer history
@@ -383,8 +346,7 @@
           '((consult-imenu buffer indexed)))
   (setopt vertico-scroll-margin 0) ;; Different scroll margin
   (setopt vertico-count 12) ;; Show more candidates
-  (setopt vertico-resize nil) ;; Grow and shrink the Vertico minibuffer
-  (evil-make-intercept-map vertico-map 'insert))
+  (setopt vertico-resize nil)) ;; Grow and shrink the Vertico minibuffer
 
 (use-package corfu
   :ensure t
@@ -411,27 +373,7 @@
   (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
 
-(use-package cape
-  :ensure t
-  :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
-  :init
-  ;; Merge the dabbrev, dict and keyword capfs, display candidates together.
-  (setq-local completion-at-point-functions
-              (list (cape-capf-super #'cape-dabbrev #'cape-dict #'cape-keyword)))
-  ;; Cache
-  (setq-local completion-at-point-functions
-              (list (cape-capf-buster #'some-caching-capf)))
-  ;; Use Company backends as Capfs.
-  (setq-local completion-at-point-functions
-              (mapcar #'cape-company-to-capf
-                      (list #'company-files #'company-keywords #'company-dabbrev))))
-
 ;; Major Modes
-(use-package calc
-  :preface
-  (evil-collection-define-key 'normal 'calc-mode-map
-    (kbd "C-r") 'calc-redo))
-
 (use-package magit
   :ensure t)
 
@@ -462,16 +404,7 @@
   (setopt eyebrowse-keymap-prefix (kbd "C-c w"))
   :config
   (setopt eyebrowse-new-workspace t)
-  (eyebrowse-setup-evil-keys)
   (eyebrowse-mode t))
-
-(use-package anki-editor
-  :ensure t
-  :defer t
-  :bind (:map anki-editor-mode-map
-              ("C-c a i" . anki-editor-insert-note)
-              ("C-c a p" . anki-editor-push-note-at-point)
-              ("C-c a d" . anki-editor-delete-note-at-point)))
 
 (defun apostolic/latex-prettify-symbols ()
   (setopt prettify-symbols-alist
@@ -537,6 +470,10 @@
   (text-mode . hl-line-mode)
   (org-mode . (lambda () (hl-line-mode -1))))
 
+(use-package smartparens
+  :ensure t
+  :hook (prog-mode text-mode))
+
 (use-package eldoc
   :config
   (setopt eldoc-idle-delay 0.5)
@@ -547,7 +484,6 @@
   :init
   (setopt eglot-autoshutdown t)
   (setopt eglot-autoreconnect t)
-  (setopt eglot-sync-connect nil)
   (setopt eglot-code-action-indications nil)
   :bind (:map eglot-mode-map
               ("C-c l a" . eglot-code-actions)
@@ -555,57 +491,61 @@
               ("C-c l r" . eglot-rename)
               ("C-c l d" . eldoc))
   :config
-  (with-eval-after-load 'eglot
-    (add-to-list 'eglot-server-programs
-                 `(nix-ts-mode . ("nil" :initializationOptions
-                                  (:formatting (:command ["alejandra"])))))))
+  (add-to-list 'eglot-server-programs
+               `(nix-ts-mode . ("nil" :initializationOptions
+                                (:formatting (:command ["alejandra"])))))
+  (add-hook 'nix-ts-mode-hook 'eglot-ensure)
+  (add-hook 'c-mode-hook 'eglot-ensure)
+  (add-hook 'c++-mode-hook 'eglot-ensure)
+  (add-hook 'python-mode-hook 'eglot-ensure))
 
 (use-package eglot-booster
   :after eglot
   :config (eglot-booster-mode))
 
-(use-package flymake
-  :hook
-  (flymake-mode-hook . flymake-setup-next-error-function)
+(use-package flycheck
+  :ensure t
   :config
-  (defun flymake-setup-next-error-function ()
-    (setopt next-error-function 'flymake-next-error-compat))
+  (global-flycheck-mode))
 
-  (defun flymake-next-error-compat (&optional n _)
-    (flymake-goto-next-error n))
+;; (use-package flymake
+;;   :hook
+;;   (flymake-mode-hook . flymake-setup-next-error-function)
+;;   :config
+;;   (defun flymake-setup-next-error-function ()
+;;     (setopt next-error-function 'flymake-next-error-compat))
 
-  (defun flymake-diagnostics-next-error ()
-    (interactive)
-    (forward-line)
-    (when (eobp) (forward-line -1))
-    (flymake-show-diagnostic (point)))
+;;   (defun flymake-next-error-compat (&optional n _)
+;;     (flymake-goto-next-error n))
 
-  (defun flymake-diagnostics-prev-error ()
-    (interactive)
-    (forward-line -1)
-    (flymake-show-diagnostic (point))))
+;;   (defun flymake-diagnostics-next-error ()
+;;     (interactive)
+;;     (forward-line)
+;;     (when (eobp) (forward-line -1))
+;;     (flymake-show-diagnostic (point)))
 
-(use-package flymake-proc
-  :config
-  (setopt flymake-proc-ignored-file-name-regexps '("\\.l?hs\\'"))
-  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
+;;   (defun flymake-diagnostics-prev-error ()
+;;     (interactive)
+;;     (forward-line -1)
+;;     (flymake-show-diagnostic (point))))
+
+;; (use-package flymake-proc
+;;   :config
+;;   (setopt flymake-proc-ignored-file-name-regexps '("\\.l?hs\\'"))
+;;   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
 ;; Python
-
-(use-package elpy
-  :ensure t
-  :defer t
-  :init
-  (advice-add 'python-mode :before 'elpy-enable)
-  :config
-  (setopt elpy-rpc-backend "jedi")           
-  (setopt elpy-checker "flake8")            
-  (setopt elpy-rpc-virtualenv-path 'current))
+;; (use-package elpy
+;;   :ensure t
+;;   :defer t
+;;   :init
+;;   (advice-add 'python-mode :before 'elpy-enable)
+;;   :config
+;;   (setopt elpy-rpc-virtualenv-path 'current))
 
 (use-package python
   :config
   (setopt python-indent-guess-indent-offset-verbose nil)
-  (evil-set-initial-state 'inferior-python-mode 'normal)
   (add-to-list 'display-buffer-alist
                '("\\*Python\\*"
                  (display-buffer-in-side-window)
@@ -613,8 +553,10 @@
                  (window-width . 0.42)
                  (no-select . t))))
 
-;; Nix
+(use-package flycheck-mypy
+  :ensure t)
 
+;; Nix
 (use-package nix-ts-mode
   :mode "\\.nix\\'"
   :hook
