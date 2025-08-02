@@ -171,7 +171,7 @@
                 [ ! -f "''${CACHE}.jpg" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
                 image "''${CACHE}.jpg" "$2" "$3" "$4" "$5"
                 ;;
-            *.epub |*.mobi)
+            *.epub | *.mobi)
                 [ ! -f "''${CACHE}.jpg" ] && gnome-epub-thumbnailer "$1" "$CACHE"
                 image "''${CACHE}.jpg" "$2" "$3" "$4" "$5"
                 ;;

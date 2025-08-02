@@ -16,8 +16,7 @@
             with python-pkgs; [
               ipython
               black
-              jedi
-              flake8
+              mypy
               numpy
               matplotlib
               pandas

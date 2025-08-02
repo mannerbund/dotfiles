@@ -139,7 +139,6 @@
         SponsoredSuggestions = false;
         Locked = true;
       };
-      DefaultZoom = 1.2;
       AutofillAddressEnabled = true;
       AutofillCreditCardEnabled = false;
       PasswordManagerEnabled = false;
