@@ -508,41 +508,6 @@
   :config
   (global-flycheck-mode))
 
-;; (use-package flymake
-;;   :hook
-;;   (flymake-mode-hook . flymake-setup-next-error-function)
-;;   :config
-;;   (defun flymake-setup-next-error-function ()
-;;     (setopt next-error-function 'flymake-next-error-compat))
-
-;;   (defun flymake-next-error-compat (&optional n _)
-;;     (flymake-goto-next-error n))
-
-;;   (defun flymake-diagnostics-next-error ()
-;;     (interactive)
-;;     (forward-line)
-;;     (when (eobp) (forward-line -1))
-;;     (flymake-show-diagnostic (point)))
-
-;;   (defun flymake-diagnostics-prev-error ()
-;;     (interactive)
-;;     (forward-line -1)
-;;     (flymake-show-diagnostic (point))))
-
-;; (use-package flymake-proc
-;;   :config
-;;   (setopt flymake-proc-ignored-file-name-regexps '("\\.l?hs\\'"))
-;;   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
-
-;; Python
-;; (use-package elpy
-;;   :ensure t
-;;   :defer t
-;;   :init
-;;   (advice-add 'python-mode :before 'elpy-enable)
-;;   :config
-;;   (setopt elpy-rpc-virtualenv-path 'current))
-
 (use-package python
   :config
   (setopt python-indent-guess-indent-offset-verbose nil)
