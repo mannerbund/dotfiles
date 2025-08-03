@@ -1,6 +1,8 @@
-{config, pkgs, ...}:
 {
-
+  config,
+  pkgs,
+  ...
+}: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [
       ".local/share/PrismLauncher"
@@ -11,7 +13,7 @@
     glfw
     (prismlauncher.override {
       # Add binary required by some mod
-      additionalPrograms = [ ffmpeg ];
+      additionalPrograms = [ffmpeg];
 
       # Change Java runtimes available to Prism Launcher
       jdks = [
