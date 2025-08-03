@@ -11,24 +11,24 @@
     pkgs = nixpkgs.legacyPackages."x86_64-linux";
   in {
     devShells.x86_64-linux.default = pkgs.mkShell {
-        packages = [
-          (pkgs.python313.withPackages (python-pkgs:
-            with python-pkgs; [
-              ipython
-              black
-              mypy
-              numpy
-              matplotlib
-              pandas
-              requests
-              scipy
-              statsmodels
-              sympy
-              seaborn
-              scikit-image
-              scikit-learn
-            ]))
-        ];
-      };
+      packages = [
+        (pkgs.python313.withPackages (python-pkgs:
+          with python-pkgs; [
+            ipython
+            black
+            mypy
+            numpy
+            matplotlib
+            pandas
+            requests
+            scipy
+            statsmodels
+            sympy
+            seaborn
+            scikit-image
+            scikit-learn
+          ]))
+      ];
+    };
   };
 }
