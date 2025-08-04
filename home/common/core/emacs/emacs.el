@@ -474,6 +474,10 @@
   :ensure t
   :hook (prog-mode text-mode))
 
+(use-package expand-region
+  :ensure t
+  :bind ("C-=" . er/expand-region))
+
 (use-package eldoc
   :config
   (setopt eldoc-idle-delay 0.5)
@@ -508,6 +512,7 @@
   :config
   (global-flycheck-mode))
 
+;; Python
 (use-package python
   :config
   (setopt python-indent-guess-indent-offset-verbose nil)
