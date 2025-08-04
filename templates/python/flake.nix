@@ -17,6 +17,7 @@
             ipython
             black
             mypy
+            ruff
             numpy
             matplotlib
             pandas
