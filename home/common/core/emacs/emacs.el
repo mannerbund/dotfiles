@@ -487,6 +487,10 @@
 
 (use-package eglot
   :defer t
+  :hook ((python-mode . eglot-ensure)
+         (c-mode . eglot-ensure)
+         (c++-mode . eglot-ensure)
+         (nix-ts-mode . eglot-ensure))
   :init
   (setopt eglot-autoshutdown t)
   (setopt eglot-autoreconnect t)
@@ -500,10 +504,8 @@
   (add-to-list 'eglot-server-programs
                `(nix-ts-mode . ("nil" :initializationOptions
                                 (:formatting (:command ["alejandra"])))))
-  (add-hook 'nix-ts-mode-hook 'eglot-ensure)
-  (add-hook 'c-mode-hook 'eglot-ensure)
-  (add-hook 'c++-mode-hook 'eglot-ensure)
-  (add-hook 'python-mode-hook 'eglot-ensure))
+  (add-to-list 'eglot-server-programs
+               '(python-mode . ("ruff" "server"))))
 
 (use-package eglot-booster
   :after eglot
@@ -530,6 +532,4 @@
 
 ;; Nix
 (use-package nix-ts-mode
-  :mode "\\.nix\\'"
-  :hook
-  (nix-ts-mode . eglot-ensure))
+  :mode "\\.nix\\'")
