@@ -474,8 +474,11 @@
   :ensure t
   :hook (prog-mode text-mode markdown-mode)
   :config
+  (require 'smartparens-config)
   (sp-with-modes 'org-mode
-    (sp-local-pair "=" "=" :wrap "C-=")))
+    (sp-local-pair "=" "=" :wrap "C-=")
+    (sp-local-pair "\"" "\"" :wrap "C-\"")
+    (sp-local-pair "'" "'" :wrap "C-'")))
 
 (use-package eldoc
   :config
