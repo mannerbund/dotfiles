@@ -472,11 +472,10 @@
 
 (use-package smartparens
   :ensure t
-  :hook (prog-mode text-mode))
-
-(use-package expand-region
-  :ensure t
-  :bind ("C-=" . er/expand-region))
+  :hook (prog-mode text-mode markdown-mode)
+  :config
+  (sp-with-modes 'org-mode
+    (sp-local-pair "=" "=" :wrap "C-=")))
 
 (use-package eldoc
   :config
