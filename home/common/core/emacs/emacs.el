@@ -51,6 +51,9 @@
   (setopt indent-tabs-mode nil)
   (setopt tab-width 4)
   (setopt tab-always-indent 'complete)
+  ;; Parenthesis
+  (electric-pair-mode 1)
+  (show-paren-mode 1)
   ;; Scrolling & Cursor
   (setopt cursor-in-non-selected-windows nil)
   (setopt scroll-conservatively 101)
@@ -66,7 +69,6 @@
   (column-number-mode 1) ;; Display column number in the mode line
   ;; Visual
   (tooltip-mode -1)
-  (show-paren-mode 1)
   (setopt ring-bell-function 'ignore)
   ;; Disable Ispell completion function.
   (setopt text-mode-ispell-word-completion nil)
@@ -290,7 +292,6 @@
   :ensure t
   :bind (;; C-c bindings in `mode-specific-map'
          ("C-c M-x" . consult-mode-command)
-         ("C-c m" . consult-man)
          ;; C-x bindings in `ctl-x-map'
          ("C-x b" . consult-buffer)            
          ;; M-g bindings in `goto-map'
@@ -491,16 +492,6 @@
   (prog-mode . hl-line-mode)
   (text-mode . hl-line-mode)
   (org-mode . (lambda () (hl-line-mode -1))))
-
-(use-package smartparens
-  :ensure t
-  :hook (prog-mode text-mode markdown-mode)
-  :config
-  (require 'smartparens-config)
-  (sp-with-modes 'org-mode
-    (sp-local-pair "=" "=" :wrap "C-=")
-    (sp-local-pair "\"" "\"" :wrap "C-\"")
-    (sp-local-pair "'" "'" :wrap "C-'")))
 
 (use-package eldoc
   :config
