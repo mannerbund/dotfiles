@@ -47,7 +47,7 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.package = pkgs.zsh-fast-syntax-highlighting;
-    defaultKeymap = "viins";
+    defaultKeymap = "emacs";
     dotDir = "${config.home.homeDirectory}/.config/zsh";
     history.path = "${config.home.homeDirectory}/.cache/zsh/history";
     history.size = 100000;
@@ -78,8 +78,7 @@
         lib.mkOrder 1000
         ''
           export KEYTIMEOUT=1
-
-          bindkey -v '^?' backward-delete-char
+          
           bindkey '`' autosuggest-accept
         '';
       zshConfigLast = ''
