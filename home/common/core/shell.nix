@@ -78,7 +78,7 @@
         lib.mkOrder 1000
         ''
           export KEYTIMEOUT=1
-          
+
           bindkey '`' autosuggest-accept
         '';
       zshConfigLast = ''
