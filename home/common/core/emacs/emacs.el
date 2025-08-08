@@ -36,7 +36,6 @@
 (use-package emacs
   :init
   (setopt confirm-kill-emacs 'y-or-n-p)
-  (delete-selection-mode t)
   ;; Backups
   (setopt backup-directory-alist `(("." . "~/.cache/backup")))
   (setopt backup-by-copying t)
