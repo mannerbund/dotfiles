@@ -122,7 +122,7 @@ in {
           command = [
             "swww"
             "img"
-            "${../gruvbox_city.png}"
+            "${../dorohedoro.jpg}"
           ];
         }
         {command = ["${lib.getExe pkgs.xwayland-satellite}"];}
