@@ -379,28 +379,6 @@
   :after magit
   :hook (git-commit-setup . flyspell-mode))
 
-(use-package emms
-  :ensure t
-  :bind
-  (:prefix "C-c m"
-   :prefix-map emms-prefix-map
-   ("b" . emms-smart-browse)
-   ("p" . emms-pause)
-   ("s" . emms-stop)
-   ("n" . emms-next)
-   ("r" . emms-previous))
-  :config
-  (require 'emms-setup)
-  (require 'emms-player-mpd)
-  (define-prefix-command 'emms-prefix-map)
-  (global-set-key (kbd "C-c m") 'emms-prefix-map)
-  (setopt emms-player-mpd-server-name "127.0.0.1")
-  (setopt emms-player-mpd-server-port "6601")
-  (setopt emms-player-mpd-music-directory "~/Music")
-  (setopt emms-player-list '(emms-player-mpd))
-  (setopt emms-info-functions '(emms-info-mpd))
-  (emms-all))
-
 ;; Miscellaneous 
 (use-package tramp
   :config
