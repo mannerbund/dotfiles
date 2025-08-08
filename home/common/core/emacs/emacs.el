@@ -96,11 +96,8 @@
 (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 160)
 
 ;; Windows Managements
-(use-package ace-window
-  :ensure t
-  :bind ("M-o" . ace-window)
-  :config
-  (ace-window-display-mode))
+(use-package windows
+  :bind ("M-o" . other-window))
 
 ;; Org-mode
 (use-package org
