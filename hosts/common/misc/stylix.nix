@@ -11,6 +11,8 @@
     iosevka
     aporetic
     noto-fonts-emoji
+    noto-fonts-cjk-sans
+    twemoji-color-font
   ];
 
   stylix = {
