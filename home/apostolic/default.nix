@@ -23,7 +23,7 @@
     ../common/misc/lf.nix
     ../common/misc/weechat.nix
     ../common/misc/newsraft.nix
-    ../common/misc/minecraft.nix
+    # ../common/misc/minecraft.nix
   ];
 
   home = {
