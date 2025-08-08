@@ -94,7 +94,7 @@
 (set-face-attribute 'default nil :family "Iosevka" :height 160)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 160)
 
-;; Windows Managements
+;; Windows Management
 (use-package windows
   :bind ("M-o" . other-window))
 
@@ -193,7 +193,7 @@
   (setopt org-agenda-include-diary t)
   (setopt org-agenda-log-mode 'clockcheck)
   (setopt org-agenda-log-mode-items '(clock closed))
-  ;;;; Refile settings
+  ;; Refile settings
   ;; Exclude DONE state tasks from refile targets
   (defun bh/verify-refile-target ()
     "Exclude todo keywords with a done state from refile targets"
@@ -204,7 +204,7 @@
   (setopt org-refile-use-outline-path 'file)
   (setopt org-outline-path-complete-in-steps nil)
   (setopt org-refile-allow-creating-parent-nodes (quote confirm))
-  ;;;; Archive settings
+  ;; Archive settings
   (setopt org-archive-mark-done nil)
   (setopt org-archive-location "~/Documents/Vault/agenda/archive/%s_archive::* Archived Tasks")
   ;; Appearance
