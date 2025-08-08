@@ -42,7 +42,7 @@ in {
           command = "niri-session";
           user = "apostolic";
         };
-        default_session.command = "${lib.getExe pkgs.tuigreet} --time --remember --cmd niri-session";
+        default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --time --remember --cmd niri-session";
       };
     };
   };
