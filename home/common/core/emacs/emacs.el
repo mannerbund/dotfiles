@@ -239,7 +239,7 @@
           org-journal-file-format "%Y-%m.org"
           org-journal-date-format "%A, %d %B %Y"
           org-journal-time-format "%H:%M"
-          org-journal-file-type 'monthly 
+          org-journal-file-type 'monthly
           org-journal-enable-cache t))
 
 (use-package org-roam
@@ -284,28 +284,27 @@
   :init
   (marginalia-mode))
 
+(use-package consult-flycheck
+  :ensure t)
+
 (use-package consult
   :ensure t
-  :bind (;; C-c bindings in `mode-specific-map'
-         ("C-c M-x" . consult-mode-command)
-         ;; C-x bindings in `ctl-x-map'
-         ("C-x b" . consult-buffer)            
-         ;; M-g bindings in `goto-map'
-         ("M-g e" . consult-compile-error)
-         ("M-g m" . consult-mark)
-         ("M-g k" . consult-global-mark)
-         ("M-g i" . consult-imenu)
-         ("M-g I" . consult-imenu-multi)
-         ;; M-s bindings in `search-map'
-         ("M-s r" . consult-ripgrep)
-         ("M-s l" . consult-line)
-         ;; Isearch integration
-         ("M-s e" . consult-isearch-history)
-         ;; Minibuffer history
-         :map minibuffer-local-map
-         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
-         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
-
+  :bind
+  (([remap bookmark-jump] . consult-bookmark)
+   ([remap goto-line] . consult-goto-line)
+   ([remap imenu] . consult-imenu)
+   ([remap jump-to-register] . consult-register)
+   ([remap point-to-register] . consult-register-store)
+   ([remap switch-to-buffer] . consult-buffer)
+   ([remap yank-pop] . consult-yank-pop)
+   ;; ([remap flycheck-list-errors] . consult-flycheck)
+   ("C-c k" . consult-kmacro)
+   ("C-x C-r" . consult-recent-file)
+   ;; ("M-g f" . consult-flycheck)
+   (:map search-map
+         ("r" . consult-ripgrep)
+         ("m" . consult-mark)
+         ("M-m" . consult-global-mark)))
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :init
   (advice-add #'register-preview :override #'consult-register-window)
@@ -378,7 +377,7 @@
   :after magit
   :hook (git-commit-setup . flyspell-mode))
 
-;; Miscellaneous 
+;; Miscellaneous
 (use-package tramp
   :config
   (setopt tramp-default-method "ssh")
@@ -405,31 +404,31 @@
 
 (defun apostolic/latex-prettify-symbols ()
   (setopt prettify-symbols-alist
-          '(("\\alpha"     . #x03B1)    
-            ("\\beta"      . #x03B2)    
-            ("\\gamma"     . #x03B3)    
-            ("\\delta"     . #x03B4)    
-            ("\\epsilon"   . #x03B5)    
-            ("\\zeta"      . #x03B6)    
-            ("\\eta"       . #x03B7)    
-            ("\\theta"     . #x03B8)    
-            ("\\lambda"    . #x03BB)    
-            ("\\mu"        . #x03BC)    
-            ("\\pi"        . #x03C0)    
-            ("\\phi"       . #x03C6)    
-            ("\\psi"       . #x03C8)    
-            ("\\Omega"     . #x03A9)    
-            ("\\infty"     . #x221E)    
-            ("\\rightarrow". #x2192)    
-            ("\\leftarrow" . #x2190)    
-            ("\\leq"       . #x2264)    
-            ("\\geq"       . #x2265)    
-            ("\\neq"       . #x2260)    
-            ("\\times"     . #x00D7)    
-            ("\\cdot"      . #x22C5)    
-            ("\\sum"       . #x2211)    
-            ("\\int"       . #x222B)    
-            ("\\to"        . #x2192)))  
+          '(("\\alpha"     . #x03B1)
+            ("\\beta"      . #x03B2)
+            ("\\gamma"     . #x03B3)
+            ("\\delta"     . #x03B4)
+            ("\\epsilon"   . #x03B5)
+            ("\\zeta"      . #x03B6)
+            ("\\eta"       . #x03B7)
+            ("\\theta"     . #x03B8)
+            ("\\lambda"    . #x03BB)
+            ("\\mu"        . #x03BC)
+            ("\\pi"        . #x03C0)
+            ("\\phi"       . #x03C6)
+            ("\\psi"       . #x03C8)
+            ("\\Omega"     . #x03A9)
+            ("\\infty"     . #x221E)
+            ("\\rightarrow". #x2192)
+            ("\\leftarrow" . #x2190)
+            ("\\leq"       . #x2264)
+            ("\\geq"       . #x2265)
+            ("\\neq"       . #x2260)
+            ("\\times"     . #x00D7)
+            ("\\cdot"      . #x22C5)
+            ("\\sum"       . #x2211)
+            ("\\int"       . #x222B)
+            ("\\to"        . #x2192)))
   (prettify-symbols-mode 1))
 
 (use-package auctex
