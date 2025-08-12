@@ -10,6 +10,8 @@
       ".cache"
       ".local/dotfiles"
       ".local/share/keyrings"
+      ".local/share/nix"
+      ".local/share/iwctl"
       ".ssh"
       "Desktop"
       "Documents"
