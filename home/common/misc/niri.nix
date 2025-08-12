@@ -27,6 +27,12 @@ in {
 
   services = {
     swww.enable = true;
+    gammastep = {
+      enable = true;
+      provider = "manual";
+      latitude = 55.7;
+      longitude = 37.6;
+    };
     mako = {
       enable = true;
       settings = {
