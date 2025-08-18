@@ -9,7 +9,6 @@
 (menu-bar-mode -1) ;; Don't display menu bar
 (tool-bar-mode -1) ;; Don't display tool bar
 (scroll-bar-mode -1) ;; Don't display scroll bar
-(blink-cursor-mode -1) ;; Don't blink the cursor
 
 ;; Wayland Clipboard
 (setopt select-active-regions nil)
@@ -43,9 +42,7 @@
   (setopt delete-old-versions t)
   (setopt delete-by-moving-to-trash t)
   ;; Bidirectional Display
-  (setopt bidi-inhibit-bpa t)
-  (setopt bidi-display-reordering 'left-to-right
-          bidi-paragraph-direction 'left-to-right)
+  (setopt bidi-display-reordering nil)
   ;; Tabs & Spaces
   (setopt indent-tabs-mode nil)
   (setopt tab-width 4)
@@ -59,6 +56,7 @@
   (setopt scroll-preserve-screen-position t)
   (setopt mouse-wheel-progressive-speed nil)
   (setopt mouse-wheel-follow-mouse t)
+  (setopt blink-cursor-mode nil) ;; Don't blink the cursor
   (setopt visible-cursor nil)
   (setopt minibuffer-prompt-properties
           ;; Do not allow the cursor in the minibuffer prompt
