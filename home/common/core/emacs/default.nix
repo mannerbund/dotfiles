@@ -50,14 +50,6 @@
           epkgs.nix-ts-mode
           epkgs.eglot-booster
         ];
-        override = epkgs:
-          epkgs
-          // {
-            eglot-booster = pkgs.callPackage ./eglot-booster.nix {
-              inherit (pkgs) fetchFromGitHub;
-              inherit (epkgs) trivialBuild;
-            };
-          };
       }
     );
   };
