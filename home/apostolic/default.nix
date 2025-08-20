@@ -23,6 +23,7 @@
     ../common/misc/lf.nix
     ../common/misc/weechat.nix
     ../common/misc/newsraft.nix
+    ../common/misc/games.nix
     # ../common/misc/minecraft.nix
   ];
 
