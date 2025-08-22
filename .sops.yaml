@@ -1,8 +1,7 @@
 keys:
-  age:
-    - &local age1qy2xnw79k2xuld9vdzffef05pa9u7uuvn9awlepp03pfvvwksd3ss6e372
+  - &chan age1qy2xnw79k2xuld9vdzffef05pa9u7uuvn9awlepp03pfvvwksd3ss6e372
 creation_rules:
-  - path_regex: hosts/common/secrets/.*
+  - path_regex: hosts/common/secrets/.+\.yaml$
     key_groups:
-      - age:
-        - *local
+    - age:
+      - *chan

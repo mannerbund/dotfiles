@@ -1,28 +1,27 @@
-{inputs, ...}: {
+{inputs, ...}: let
+  key_location = "/persist/var/lib/sops-nix/key.txt";
+in {
   imports = [inputs.sops-nix.nixosModules.sops];
 
-  environment.persistence."/persist".directories = [
-    {
-      directory = "/var/lib/sops-nix";
-      user = "root";
-      group = "keys";
-      mode = "0700";
-    }
-  ];
-
   sops = {
-    defaultSopsFile = ../secrets/default.yaml;
-    secrets = {
-      rss = {
-        sopsFile = ../secrets/rss.yaml;
-        group = "users";
-        mode = "0440";
-      };
+    defaultSopsFile = ../secrets/secrets.yaml;
+
+    secrets.apostolic-pass = {
+      neededForUsers = true;
+      key = "apostolic-pass";
+      group = "users";
+      mode = "0440";
     };
+
     age = {
-      keyFile = "/persist/var/lib/sops-nix/key.txt";
+      # key must be in persisted directory
+      keyFile = key_location;
       sshKeyPaths = [];
     };
     gnupg.sshKeyPaths = [];
+  };
+
+  environment.sessionVariables = {
+    SOPS_AGE_KEY_FILE = key_location;
   };
 }
