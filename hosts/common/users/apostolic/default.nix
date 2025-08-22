@@ -14,7 +14,7 @@ in {
     isNormalUser = true;
     createHome = true;
     uid = 1001;
-    hashedPasswordFile = config.sops.secrets.apostolic_passwd.path;
+    hashedPasswordFile = config.sops.secrets.apostolic-pass.path;
     extraGroups = ifTheyExist [
       "wheel"
       "video"
@@ -46,8 +46,6 @@ in {
       };
     };
   };
-
-  sops.secrets.apostolic_passwd.neededForUsers = true;
 
   security = {
     pki.certificateFiles = ["${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"];
