@@ -2,20 +2,23 @@
   description = "C/C++";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
 
-  outputs = {
-    self,
+  outputs = inputs @ {
     nixpkgs,
+    flake-parts,
     ...
-  }: let
-    pkgs = nixpkgs.legacyPackages."x86_64-linux";
-  in {
-    devShells.x86_64-linux.default = pkgs.mkShell {
-      packages = with pkgs; [
-        tinycc
-        gcc
-        gdb
-      ];
+  }:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux"];
+      perSystem = {pkgs, ...}: {
+        devShells.default = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
+            tinycc
+            gcc
+            gdb
+          ];
+        };
+      };
     };
-  };
 }
