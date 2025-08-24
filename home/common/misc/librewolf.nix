@@ -63,7 +63,7 @@
             }
             {
               name = "deepseek";
-              url = "https://deepseek.com";
+              url = "https://chat.deepseek.com";
             }
             {
               name = "qwen";
