@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -51,16 +51,6 @@
         linkConfig.RequiredForOnline = "no";
       };
     };
-  };
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [
-      vpl-gpu-rt
-      intel-ocl
-      intel-vaapi-driver
-    ];
   };
 
   system.stateVersion = "24.11";
