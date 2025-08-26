@@ -2,34 +2,36 @@
   description = "Python";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
 
-  outputs = {
-    self,
+  outputs = inputs @ {
     nixpkgs,
+    flake-parts,
     ...
-  }: let
-    pkgs = nixpkgs.legacyPackages."x86_64-linux";
-  in {
-    devShells.x86_64-linux.default = pkgs.mkShell {
-      packages = [
-        (pkgs.python313.withPackages (python-pkgs:
-          with python-pkgs; [
-            ipython
-            black
-            mypy
-            ruff
-            numpy
-            matplotlib
-            pandas
-            requests
-            scipy
-            statsmodels
-            sympy
-            seaborn
-            scikit-image
-            scikit-learn
-          ]))
-      ];
+  }:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux"];
+      perSystem = {pkgs, ...}: {
+        devShells.default = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
+            (pkgs.python313.withPackages (python-pkgs:
+              with python-pkgs; [
+                ipython
+                mypy
+                ruff
+                numpy
+                matplotlib
+                pandas
+                requests
+                scipy
+                statsmodels
+                sympy
+                seaborn
+                scikit-image
+                scikit-learn
+              ]))
+          ];
+        };
+      };
     };
-  };
 }
