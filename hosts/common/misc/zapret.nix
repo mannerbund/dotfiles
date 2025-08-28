@@ -6,6 +6,7 @@
     udpPorts = ["443"];
     configureFirewall = true;
     whitelist = [
+      "flibusta.is"
       "audiobookbay.lu"
       "goodreads.com"
       "cloudflare-ech.com"
