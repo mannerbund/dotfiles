@@ -238,7 +238,8 @@
           org-journal-date-format "%A, %d %B %Y"
           org-journal-time-format "%H:%M"
           org-journal-file-type 'monthly
-          org-journal-enable-cache t))
+          org-journal-enable-cache t
+          org-journal-enable-agenda-integration t))
 
 (use-package org-roam
   :ensure t
