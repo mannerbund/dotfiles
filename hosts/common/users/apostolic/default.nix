@@ -22,6 +22,7 @@ in {
       "systemd-journal"
       "pipewire"
       "gamemode"
+      "transmission"
     ];
   };
 
