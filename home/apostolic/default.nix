@@ -42,8 +42,8 @@
   home.packages = with pkgs; [
     anki-bin
     xdg-utils
-    sc-im
     libnotify
+    visidata
   ];
 
   home.sessionVariables = {
