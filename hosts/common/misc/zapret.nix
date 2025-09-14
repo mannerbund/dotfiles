@@ -58,6 +58,7 @@
       "betterttv.net"
       "7tv.app"
       "7tv.io"
+      "rr5---sn-5hne6n6l.googlevideo.com"
       "rr1---sn-4g5edndr.googlevideo.com"
       "rr2---sn-ug5onuxaxjvh-n8v6.googlevideo.com"
       "rr2---sn-ug5onuxaxjvh-n8vs.googlevideo.com"
