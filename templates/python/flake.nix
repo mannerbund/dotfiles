@@ -14,11 +14,11 @@
       perSystem = {pkgs, ...}: {
         devShells.default = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
+            basedpyright
             (pkgs.python313.withPackages (python-pkgs:
               with python-pkgs; [
                 ipython
-                mypy
-                ruff
+                black
                 numpy
                 matplotlib
                 pandas

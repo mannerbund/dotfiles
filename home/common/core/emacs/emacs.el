@@ -490,7 +490,8 @@
                `(nix-ts-mode . ("nil" :initializationOptions
                                 (:formatting (:command ["alejandra"])))))
   (add-to-list 'eglot-server-programs
-               '(python-mode . ("ruff" "server"))))
+               '((python-mode python-ts-mode)
+                 "basedpyright-langserver" "--stdio")))
 
 (use-package eglot-booster
   :after eglot
@@ -511,9 +512,6 @@
                  (side . right)
                  (window-width . 0.42)
                  (no-select . t))))
-
-(use-package flycheck-mypy
-  :ensure t)
 
 ;; Nix
 (use-package nix-ts-mode
