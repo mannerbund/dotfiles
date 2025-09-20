@@ -25,14 +25,24 @@
       bookmarks.force = true;
       bookmarks.settings = [
         {
-          name = "github";
-          url = "https://github.com";
-        }
-        {
-          name = "wikipedia";
-          tags = ["wiki"];
-          keyword = "wiki";
-          url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
+          name = "stuff";
+          toolbar = true;
+          bookmarks = [
+            {
+              name = "github";
+              url = "https://github.com";
+            }
+            {
+              name = "wikipedia";
+              tags = ["wiki"];
+              keyword = "wiki";
+              url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
+            }
+            {
+              name = "python docs";
+              url = "https://docs.python.org/3/index.html";
+            }
+          ];
         }
         {
           name = "nix sites";
