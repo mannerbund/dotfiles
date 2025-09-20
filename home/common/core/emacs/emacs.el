@@ -308,10 +308,11 @@
    ([remap point-to-register] . consult-register-store)
    ([remap switch-to-buffer] . consult-buffer)
    ([remap yank-pop] . consult-yank-pop)
-   ;; ([remap flycheck-list-errors] . consult-flycheck)
+   ([remap flycheck-list-errors] . consult-flycheck)
+   ([remap flymake-show-buffer-diagnostics] . consult-flymake)
    ("C-c k" . consult-kmacro)
    ("C-x C-r" . consult-recent-file)
-   ;; ("M-g f" . consult-flycheck)
+   ("M-g f" . consult-flymake)
    (:map search-map
          ("r" . consult-ripgrep)
          ("m" . consult-mark)
@@ -492,18 +493,26 @@
   (setopt eglot-autoshutdown t)
   (setopt eglot-autoreconnect t)
   (setopt eglot-code-action-indications nil)
-  :bind (:map eglot-mode-map
-              ("C-c l a" . eglot-code-actions)
-              ("C-c l f" . eglot-format-buffer)
-              ("C-c l r" . eglot-rename)
-              ("C-c l d" . eldoc))
+  (setopt eglot-sync-connect nil)
+  :bind
+  (:map eglot-mode-map :prefix-map eglot-prefix-map :prefix "C-. e"
+         ("a" . eglot-code-actions)
+         ("f" . eglot-format)
+         ("r" . eglot-rename)
+         ("q" . eglot-reconnect)
+         ("Q" . eglot-shutdown))
   :config
   (add-to-list 'eglot-server-programs
                `(nix-ts-mode . ("nil" :initializationOptions
                                 (:formatting (:command ["alejandra"])))))
   (add-to-list 'eglot-server-programs
                '((python-mode python-ts-mode)
-                 "basedpyright-langserver" "--stdio")))
+                 "basedpyright-langserver" "--stdio"))
+  (setopt eglot-workspace-configuration
+          '(:basedpyright (:typeCheckingMode "basic")
+                          :basedpyright.analysis (:diagnosticSeverityOverrides
+                                                  (:reportUnusedCallResult "none")
+                                                  :inlayHints (:callArgumentNames :json-false)))))
 
 (use-package eglot-booster
   :after eglot
