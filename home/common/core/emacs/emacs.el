@@ -217,6 +217,18 @@
   (setopt org-fontify-whole-heading-line t)
   (setopt org-fontify-todo-headline t)
   (setopt org-fontify-done-headline t)
+  ;; Addiitonal electric pairs
+  (defun apostolic/org-electric-pairs ()
+    (setq-local electric-pair-pairs
+                (append electric-pair-pairs '((?= . ?=)
+                                              (?* . ?*)
+                                              (?/ . ?/)
+                                              (?_ . ?_)
+                                              (?~ . ?~)
+                                              (?` . ?`)
+                                              (?$ . ?$))))
+    (setq-local electric-pair-text-pairs electric-pair-pairs))
+  (add-hook 'org-mode-hook #'apostolic/org-electric-pairs)
   ;; Vertico
   (advice-add #'org-make-tags-matcher :around #'vertico-enforce-basic-completion)
   (advice-add #'org-agenda-filter :around #'vertico-enforce-basic-completion)
