@@ -14,9 +14,15 @@
       perSystem = {pkgs, ...}: {
         devShells.default = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
+            pkg-config
             tinycc
             gcc
             gdb
+            ccls
+          ];
+          
+          buildInputs = with pkgs; [
+            sdl3
           ];
         };
       };
