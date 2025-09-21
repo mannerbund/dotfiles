@@ -436,16 +436,17 @@
   :mode ("\\.tex\\'" . LaTeX-mode)
   :hook ((LaTeX-mode . LaTeX-preview-setup)
          (LaTeX-mode . apostolic/latex-prettify-symbols)
-         (LaTeX-mode . flyspell-mode))
+         (LaTeX-mode . flyspell-mode)
+         (LaTeX-mode . TeX-source-correlate-mode))
   :config
+  (setq TeX-view-program-selection
+        '((output-pdf "Zathura")))
   (setopt TeX-auto-save t
           TeX-parse-self t
           TeX-save-query nil
           TeX-PDF-mode t
           TeX-source-correlate-method 'synctex
-          TeX-source-correlate-start-server t)
-  (setopt TeX-view-program-selection '((output-pdf "Zathura"))
-          TeX-view-program-list '(("Zathura" "zathura %o"))))
+          TeX-source-correlate-start-server t))
 
 (use-package cdlatex
   :ensure t
