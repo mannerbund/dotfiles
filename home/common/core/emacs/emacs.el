@@ -531,3 +531,13 @@
 ;; Nix
 (use-package nix-ts-mode
   :mode "\\.nix\\'")
+
+;; Proof-general
+(use-package proof-general
+  :ensure t
+  :config
+  (setq proof-splash-enable nil)
+  (setq proof-shell-kill-function-also-kills-associated-buffers t)
+  (setq proof-multiple-frames-enable nil))
+
+
