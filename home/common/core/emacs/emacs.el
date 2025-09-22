@@ -456,7 +456,7 @@
 
 (use-package embrace
   :ensure t
-  :bind ("C-\"" . embrace-commander))
+  :bind ("M-\\" . embrace-commander))
 
 (use-package envrc
   :ensure t
@@ -501,6 +501,7 @@
   (add-to-list 'eglot-server-programs
                '((python-mode python-ts-mode)
                  "basedpyright-langserver" "--stdio"))
+
   (setopt eglot-workspace-configuration
           '(:basedpyright (:typeCheckingMode "basic")
                           :basedpyright.analysis (:diagnosticSeverityOverrides
