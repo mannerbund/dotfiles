@@ -122,7 +122,8 @@
   ;; Agenda
   (setopt org-modules '(org-habit))
   (setopt org-habit-graph-column 60)
-  (setopt org-agenda-files '("~/Documents/Vault/agenda"))
+  (setopt org-agenda-files '("~/Documents/Vault/agenda"
+                             "~/Documents/Vault/journal"))
   (setopt org-default-notes-file "~/Documents/Vault/agenda/refile.org")
   (defun org-journal-find-location ()
     (org-journal-new-entry t)
@@ -230,7 +231,6 @@
 
 (use-package org-journal
   :ensure t
-  :defer t
   :bind ("C-c o j" . org-journal-new-entry)
   :config
   (setopt org-journal-dir "~/Documents/Vault/journal"
