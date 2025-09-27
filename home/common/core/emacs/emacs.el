@@ -501,13 +501,11 @@
   (add-to-list 'eglot-server-programs
                '((python-mode python-ts-mode)
                  "basedpyright-langserver" "--stdio"))
-
-  (setopt eglot-workspace-configuration
-          '(:basedpyright (:typeCheckingMode "basic")
-                          :basedpyright.analysis (:diagnosticSeverityOverrides
-                                                  (:reportUnusedCallResult "none")
-                                                  :inlayHints (:callArgumentNames :json-false)))))
-
+  (setq-default
+   eglot-workspace-configuration
+   '(:basedpyright (:typeCheckingMode "basic"
+                                      :analysis (:inlayHints (:variableTypes false))))))
+   
 (use-package eglot-booster
   :after eglot
   :config (eglot-booster-mode))
