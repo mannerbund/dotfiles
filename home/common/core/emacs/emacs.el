@@ -492,15 +492,11 @@
          ("Q" . eglot-shutdown))
   :config
   (add-to-list 'eglot-server-programs
-               `(nix-ts-mode . ("nil" :initializationOptions
+               '(nix-ts-mode . ("nil" :initializationOptions
                                 (:formatting (:command ["alejandra"])))))
+
   (add-to-list 'eglot-server-programs
-               '((python-mode python-ts-mode)
-                 "basedpyright-langserver" "--stdio"))
-  (setq-default
-   eglot-workspace-configuration
-   '(:basedpyright (:typeCheckingMode "basic"
-                                      :analysis (:inlayHints (:variableTypes false))))))
+               '(python-mode . ("pylsp"))))
    
 (use-package eglot-booster
   :after eglot
