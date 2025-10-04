@@ -283,9 +283,6 @@
   :init
   (marginalia-mode))
 
-(use-package consult-flycheck
-  :ensure t)
-
 (use-package consult
   :ensure t
   :bind
@@ -296,7 +293,6 @@
    ([remap point-to-register] . consult-register-store)
    ([remap switch-to-buffer] . consult-buffer)
    ([remap yank-pop] . consult-yank-pop)
-   ([remap flycheck-list-errors] . consult-flycheck)
    ([remap flymake-show-buffer-diagnostics] . consult-flymake)
    ("C-c k" . consult-kmacro)
    ("C-x C-r" . consult-recent-file)
@@ -509,11 +505,6 @@
 (use-package eglot-booster
   :after eglot
   :config (eglot-booster-mode))
-
-(use-package flycheck
-  :ensure t
-  :config
-  (global-flycheck-mode))
 
 ;; Python
 (use-package python
