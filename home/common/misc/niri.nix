@@ -174,8 +174,8 @@ in {
             "Mod+Ctrl+L".action = move-column-right;
             "Mod+Ctrl+H".action = move-column-left;
 
-            "Mod+J".action = focus-workspace-down;
-            "Mod+K".action = focus-workspace-up;
+            "Mod+J".action = focus-window-or-workspace-down;
+            "Mod+K".action = focus-window-or-workspace-up;
             "Mod+Ctrl+J".action = move-column-to-workspace-down;
             "Mod+Ctrl+K".action = move-column-to-workspace-up;
 
