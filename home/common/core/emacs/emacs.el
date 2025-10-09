@@ -283,44 +283,6 @@
   :init
   (marginalia-mode))
 
-(use-package consult
-  :ensure t
-  :bind
-  (([remap bookmark-jump] . consult-bookmark)
-   ([remap goto-line] . consult-goto-line)
-   ([remap imenu] . consult-imenu)
-   ([remap jump-to-register] . consult-register)
-   ([remap point-to-register] . consult-register-store)
-   ([remap switch-to-buffer] . consult-buffer)
-   ([remap yank-pop] . consult-yank-pop)
-   ([remap flymake-show-buffer-diagnostics] . consult-flymake)
-   ("C-c k" . consult-kmacro)
-   ("C-x C-r" . consult-recent-file)
-   ("M-g f" . consult-flymake)
-   (:map search-map
-         ("r" . consult-ripgrep)
-         ("m" . consult-mark)
-         ("M-m" . consult-global-mark)))
-  :hook (completion-list-mode . consult-preview-at-point-mode)
-  :init
-  (advice-add #'register-preview :override #'consult-register-window)
-  (setopt register-preview-delay 0.5)
-  ;; Use Consult to select xref locations with preview
-  (setopt xref-show-xrefs-function #'consult-xref
-          xref-show-definitions-function #'consult-xref)
-  ;; Enable recording recently-visited files
-  (recentf-mode)
-  :config
-  (consult-customize
-   consult-theme :preview-key '(:debounce 0.2 any)
-   consult-ripgrep consult-git-grep consult-grep consult-man
-   consult-bookmark consult-recent-file consult-xref
-   consult--source-bookmark consult--source-file-register
-   consult--source-recent-file consult--source-project-recent-file
-   ;; :preview-key "M-."
-   :preview-key '(:debounce 0.4 any))
-  (setopt consult-narrow-key "<"))
-
 (use-package savehist
   :init
   (savehist-mode))
@@ -333,9 +295,9 @@
   (setopt vertico-multiform-categories
           '((file grid reverse)
             (imenu buffer)
-            (consult-ripgrep buffer)))
+            (deadgrep buffer)))
   (setopt vertico-multiform-commands
-          '((consult-imenu buffer indexed)))
+          '((buffer indexed)))
   (setopt vertico-scroll-margin 0) ;; Different scroll margin
   (setopt vertico-count 12) ;; Show more candidates
   (setopt vertico-resize nil)) ;; Grow and shrink the Vertico minibuffer
@@ -364,6 +326,11 @@
   (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
+
+(use-package deadgrep
+  :ensure t
+  :bind (:map search-map
+              ("r" . deadgrep)))
 
 ;; Major Modes
 (use-package magit
