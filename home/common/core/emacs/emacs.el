@@ -439,6 +439,12 @@
   (setopt eldoc-idle-delay 0.5)
   (setopt eldoc-echo-area-use-multiline-p nil))
 
+(use-package flymake
+  :config
+  :bind
+  (:map flymake-mode-map
+        ("C-. !" . flymake-show-buffer-diagnostics)))
+
 (use-package eglot
   :defer t
   :hook ((python-mode . eglot-ensure)
