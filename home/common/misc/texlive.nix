@@ -5,9 +5,12 @@
       inherit
         (texlive)
         scheme-basic
+        collection-fontsrecommended
+        geometry
         standalone
         dvisvgm
         wrapfig
+        mathtools
         amsmath
         amsfonts
         ulem
@@ -18,7 +21,6 @@
         polynom
         longdivision
         pgf
-        collection-fontsrecommended
         ;
     };
   };
