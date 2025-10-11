@@ -89,7 +89,7 @@
   :config
   (load-theme 'gruvbox t))
 
-(set-face-attribute 'default nil :family "Iosevka" :height 160)
+(set-face-attribute 'default nil :family "Aporetic Sans Mono" :height 160)
 (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 160)
 
 ;; Windows Management
