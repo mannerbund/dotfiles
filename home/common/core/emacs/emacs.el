@@ -417,9 +417,17 @@
   :hook ((LaTeX-mode . cdlatex-mode)
          (LaTeX-mode . cdlatex-electricindex-mode)))
 
-(use-package embrace
+(use-package wrap-region
   :ensure t
-  :bind ("M-\\" . embrace-commander))
+  :config
+  (wrap-region-add-wrapper "$" "$" nil 'org-mode) 
+  (wrap-region-add-wrapper "*" "*" nil 'org-mode) 
+  (wrap-region-add-wrapper "/" "/" nil 'org-mode) 
+  (wrap-region-add-wrapper "_" "_" nil 'org-mode) 
+  (wrap-region-add-wrapper "=" "=" nil 'org-mode) 
+  (wrap-region-add-wrapper "~" "~" nil 'org-mode) 
+  (wrap-region-add-wrapper "+" "+" nil 'org-mode)
+  (wrap-region-global-mode t))
 
 (use-package envrc
   :ensure t
