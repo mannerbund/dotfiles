@@ -402,20 +402,27 @@
          (LaTeX-mode . flyspell-mode)
          (LaTeX-mode . TeX-source-correlate-mode))
   :config
-  (setq TeX-view-program-selection
-        '((output-pdf "Zathura")))
-  (setopt TeX-auto-save t
-          TeX-parse-self t
-          TeX-save-query nil
-          TeX-PDF-mode t
-          TeX-source-correlate-method 'synctex
-          TeX-source-correlate-start-server t))
+  (setq TeX-view-program-selection '((output-pdf "Zathura")))
+
+  (setq TeX-auto-save t
+        TeX-parse-self t
+        TeX-save-query nil
+        TeX-PDF-mode t
+        TeX-source-correlate-method 'synctex
+        TeX-source-correlate-start-server t
+        LaTeX-electric-left-right-brace t)
+
+  (setq LaTeX-indent-level 2      
+        LaTeX-item-indent 0       
+        TeX-brace-indent-level 2))
 
 (use-package cdlatex
   :ensure t
-  :after latex
+  :after (auctex)
   :hook ((LaTeX-mode . cdlatex-mode)
-         (LaTeX-mode . cdlatex-electricindex-mode)))
+         (LaTeX-mode . cdlatex-electricindex-mode))
+  :config
+  (setq cdlatex-env-indent t))
 
 (use-package wrap-region
   :ensure t
@@ -466,11 +473,11 @@
   (setopt eglot-sync-connect nil)
   :bind
   (:map eglot-mode-map :prefix-map eglot-prefix-map :prefix "C-. e"
-         ("a" . eglot-code-actions)
-         ("f" . eglot-format)
-         ("r" . eglot-rename)
-         ("q" . eglot-reconnect)
-         ("Q" . eglot-shutdown))
+        ("a" . eglot-code-actions)
+        ("f" . eglot-format)
+        ("r" . eglot-rename)
+        ("q" . eglot-reconnect)
+        ("Q" . eglot-shutdown))
   :config
   (add-to-list 'eglot-server-programs
                '(nix-ts-mode . ("nil" :initializationOptions
@@ -478,7 +485,7 @@
 
   (add-to-list 'eglot-server-programs
                '(python-mode . ("pylsp"))))
-   
+
 (use-package eglot-booster
   :after eglot
   :config (eglot-booster-mode))
