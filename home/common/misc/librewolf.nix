@@ -40,7 +40,7 @@
             }
             {
               name = "python docs";
-              url = "https://docs.python.org/3/index.html";
+              url = "file://${config.home.homeDirectory}/Documents/python-3.13-docs/index.html";
             }
           ];
         }
