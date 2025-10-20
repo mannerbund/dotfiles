@@ -20,7 +20,7 @@
             gdb
             ccls
           ];
-          
+
           buildInputs = with pkgs; [
             sdl3
           ];
