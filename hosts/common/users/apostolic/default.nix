@@ -21,6 +21,14 @@ in {
     ];
   };
 
+  nixpkgs = {
+    overlays = [
+      inputs.niri.overlays.niri
+      inputs.emacs-overlay.overlays.default
+      inputs.nixpkgs-wayland.overlay
+    ];
+  };
+
   users.users.apostolic = {
     shell = pkgs.zsh;
     isNormalUser = true;
