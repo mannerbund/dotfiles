@@ -42,6 +42,10 @@
               name = "python docs";
               url = "file://${config.home.homeDirectory}/Documents/python-3.13-docs/index.html";
             }
+            {
+              name = "rutracker";
+              url = "https://rutracker.org";
+            }
           ];
         }
         {
@@ -72,10 +76,6 @@
               url = "https://chatgpt.com";
             }
             {
-              name = "deepseek";
-              url = "https://chat.deepseek.com";
-            }
-            {
               name = "qwen";
               url = "https://chat.qwen.ai";
             }
@@ -100,20 +100,6 @@
             {
               name = "audiobookbay";
               url = "https://audiobookbay.lu";
-            }
-          ];
-        }
-        {
-          name = "trackers";
-          toolbar = true;
-          bookmarks = [
-            {
-              name = "rutracker";
-              url = "https://rutracker.org";
-            }
-            {
-              name = "thepiratebay";
-              url = "https://thepiratebay.org";
             }
           ];
         }
