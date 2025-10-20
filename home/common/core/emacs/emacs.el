@@ -273,8 +273,10 @@
   :ensure t
   :config
   (setopt completion-styles '(orderless basic))
-  (setopt completion-category-defaults nil)
-  (setopt completion-category-overrides '((file (styles partial-completion)))))
+  (setopt completion-category-overrides '((file (styles partial-completion))))
+  (setopt completion-pcm-leading-wildcard t)
+  ;; Vertico
+  (setopt completion-category-defaults nil))
 
 (use-package marginalia
   :ensure t
@@ -285,7 +287,9 @@
 
 (use-package savehist
   :init
-  (savehist-mode))
+  (savehist-mode)
+  :config
+  (setopt savehist-additional-variables '(minibuffer-history)))
 
 (use-package vertico
   :ensure t
@@ -339,6 +343,9 @@
 (use-package git-commit
   :after magit
   :hook (git-commit-setup . flyspell-mode))
+
+(use-package markdown-mode
+  :ensure t)
 
 ;; Miscellaneous
 (use-package tramp
@@ -420,9 +427,7 @@
   :ensure t
   :after (auctex)
   :hook ((LaTeX-mode . cdlatex-mode)
-         (LaTeX-mode . cdlatex-electricindex-mode))
-  :config
-  (setq cdlatex-env-indent t))
+         (LaTeX-mode . cdlatex-electricindex-mode)))
 
 (use-package wrap-region
   :ensure t
@@ -513,5 +518,3 @@
   (setq proof-splash-enable nil)
   (setq proof-shell-kill-function-also-kills-associated-buffers t)
   (setq proof-multiple-frames-enable nil))
-
-
