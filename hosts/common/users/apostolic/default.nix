@@ -10,7 +10,6 @@ in {
   imports = [inputs.home-manager.nixosModules.home-manager];
 
   nix.settings = {
-    trusted-users = ["apostolic"];
     trusted-substituters = [
       "https://nixpkgs-wayland.cachix.org"
       "https://niri.cachix.org/"
