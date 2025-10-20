@@ -11,6 +11,10 @@
         Hostname 192.168.31.100
         Port 22
         User apostolic
+
+      Host github.com
+       Hostname ssh.github.com
+       Port 443
     ";
   };
 }
