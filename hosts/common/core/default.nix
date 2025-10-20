@@ -34,9 +34,6 @@
   nixpkgs = {
     overlays = [
       inputs.self.overlays.default
-      inputs.niri.overlays.niri
-      inputs.emacs-overlay.overlays.default
-      inputs.nixpkgs-wayland.overlay
     ];
     config.allowUnfree = true;
   };
