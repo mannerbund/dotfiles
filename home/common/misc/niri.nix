@@ -42,7 +42,6 @@ in {
     };
     swayidle = {
       enable = true;
-      extraArgs = ["-w"];
       timeouts = [
         {
           timeout = 900;
@@ -211,6 +210,12 @@ in {
             "XF86MonBrightnessDown".action = sh "light -U 20";
 
             "Mod+Shift+Backspace".action = quit;
+
+            # Recovery from dead screen locker
+            "Mod+Alt+L" = {
+              action = spawn "swaylock";
+              allow-when-locked = true;
+            };
           }
         ];
     };
