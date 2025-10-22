@@ -41,8 +41,6 @@
 
   home.packages = with pkgs; [
     anki-bin
-    xdg-utils
-    libnotify
     visidata
   ];
 

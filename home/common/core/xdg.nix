@@ -1,4 +1,9 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
+  home.packages = [pkgs.xdg-utils];
   xdg = {
     enable = true;
     mimeApps.enable = true;

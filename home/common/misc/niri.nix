@@ -16,6 +16,7 @@ in {
   stylix.targets.niri.enable = true;
 
   home.packages = with pkgs; [
+    libnorify
     wl-clipboard
     wl-mirror
     wayland-utils
