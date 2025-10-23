@@ -23,6 +23,7 @@
     ../common/misc/lf.nix
     ../common/misc/weechat.nix
     ../common/misc/newsraft.nix
+    ../common/misc/anki.nix
     # ../common/misc/games.nix
     # ../common/misc/minecraft.nix
   ];
@@ -34,13 +35,11 @@
 
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [
-      ".local/share/Anki2"
       ".local/state/wireplumber"
     ];
   };
 
   home.packages = with pkgs; [
-    anki-bin
     visidata
   ];
 
@@ -49,7 +48,6 @@
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
     NPM_CONFIG_USERCONFIG = "${config.xdg.dataHome}/npm";
     XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
-    ANKI_WAYLAND = "1";
   };
 
   programs.home-manager.enable = true;
