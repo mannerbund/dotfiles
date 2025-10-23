@@ -18,6 +18,7 @@
               with python-pkgs; [
                 ipython
                 python-lsp-server
+                python-lsp-black
                 flake8
                 black
                 pytest
