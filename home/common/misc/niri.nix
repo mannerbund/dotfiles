@@ -16,7 +16,7 @@ in {
   stylix.targets.niri.enable = true;
 
   home.packages = with pkgs; [
-    libnorify
+    libnotify
     wl-clipboard
     wl-mirror
     wayland-utils
@@ -156,8 +156,8 @@ in {
             "Mod+Q".action = close-window;
             "Mod+Shift+Slash".action = show-hotkey-overlay;
 
-            "Print".action = screenshot;
-            "Shift+Print".action = screenshot-window;
+            "Print".action.screenshot = [];
+            "Shift+Print".action.screenshot-window = [];
 
             "Mod+V".action = switch-focus-between-floating-and-tiling;
             "Mod+Shift+V".action = toggle-window-floating;

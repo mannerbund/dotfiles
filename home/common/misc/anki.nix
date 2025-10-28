@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [
       ".local/share/Anki2"
@@ -12,5 +16,6 @@
   programs.anki = {
     enable = true;
     theme = "dark";
+    addons = [pkgs.ankiAddons.anki-connect];
   };
 }
