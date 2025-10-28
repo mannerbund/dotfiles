@@ -315,7 +315,7 @@
   :config
   (setopt corfu-max-width 24)
   (setopt corfu-auto t)
-  (setopt corfu-auto-prefix 5)
+  (setopt corfu-auto-prefix 3)
   (setopt corfu-auto-delay 0.07)
   (setopt corfu-count 8)
   (setopt corfu-cycle nil)
@@ -346,6 +346,12 @@
 
 (use-package markdown-mode
   :ensure t)
+
+(use-package calc-mode
+  :config
+  (setopt calc-group-digits t)
+  (setopt calc-group-char ","))
+
 
 ;; Miscellaneous
 (use-package tramp
@@ -518,3 +524,8 @@
   (setq proof-splash-enable nil)
   (setq proof-shell-kill-function-also-kills-associated-buffers t)
   (setq proof-multiple-frames-enable nil))
+
+;; Anki
+(use-package anki-editor
+  :ensure t)
+

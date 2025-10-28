@@ -9,6 +9,7 @@
         geometry
         standalone
         dvisvgm
+        dvipng
         wrapfig
         mathtools
         amsmath
