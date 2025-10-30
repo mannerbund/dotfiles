@@ -10,7 +10,7 @@
     nerd-fonts.symbols-only
     iosevka
     aporetic
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     noto-fonts-cjk-sans
     twemoji-color-font
   ];
