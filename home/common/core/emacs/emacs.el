@@ -1,14 +1,10 @@
 ;;; early-init.el --- Early Initialization -*- lexical-binding: t; -*-
-(setq inhibit-x-resources t)
-(setq inhibit-startup-screen t)
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
+
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024))
 
 (setq package-enable-at-startup nil) ;; Disable `package.el'
-
-(menu-bar-mode -1) ;; Don't display menu bar
-(tool-bar-mode -1) ;; Don't display tool bar
-(scroll-bar-mode -1) ;; Don't display scroll bar
+(setq initial-major-mode 'fundamental-mode)
 
 ;; Wayland Clipboard
 (setopt select-active-regions nil)
@@ -16,20 +12,29 @@
 (setopt select-enable-primary nil)
 (setopt interprogram-cut-function #'gui-select-text)
 
-;; From https://github.com/terlar/emacs-config/blob/eb245566b1484112c3768ce44d353a1688f4ee66/init.org
-(let ((normal-gc-cons-threshold gc-cons-threshold)
-      (normal-gc-cons-percentage gc-cons-percentage)
-      (normal-file-name-handler-alist file-name-handler-alist)
-      (init-gc-cons-threshold most-positive-fixnum)
-      (init-gc-cons-percentage 0.6))
-  (setq gc-cons-threshold init-gc-cons-threshold
-        gc-cons-percentage init-gc-cons-percentage
-        file-name-handler-alist nil)
-  (add-hook 'after-init-hook
-            `(lambda ()
-               (setq gc-cons-threshold ,normal-gc-cons-threshold
-                     gc-cons-percentage ,normal-gc-cons-percentage
-                     file-name-handler-alist ',normal-file-name-handler-alist))))
+(setq inhibit-x-resources t)
+(setq inhibit-startup-screen t)
+(setq inhibit-startup-message t)
+(setq inhibit-startup-buffer-menu t)
+(setq initial-scratch-message nil)
+
+(menu-bar-mode -1) ;; Don't display menu bar
+(tool-bar-mode -1) ;; Don't display tool bar
+(scroll-bar-mode -1) ;; Don't display scroll bar
+
+(custom-set-faces
+ ;; Default font for all text
+ '(default ((t (:family "Aporetic Sans Mono" :height 160))))
+ '(fixed-pitch ((t (:family "Aporetic Serif Mono" :height 160))))
+
+ ;; Current line number
+ '(line-number-current-line ((t (:foreground "yellow" :inherit line-number))))
+ '(mode-line ((t (:family "Aporetic Sans Mono" :weight Bold))))
+
+ ;; Comments italic
+ '(font-lock-function-name-face ((t (:family "Aporetic Sans Mono":slant italic))))
+ '(font-lock-variable-name-face ((t (:family "Aporetic Sans Mono":weight bold)))))
+
 
 ;;; init.el --- Initialization -*- lexical-binding: t; -*-
 (use-package emacs
@@ -71,7 +76,11 @@
   (setopt text-mode-ispell-word-completion nil)
   ;; Hide commands in M-x which do not work in the current mode.
   (setopt read-extended-command-predicate #'command-completion-default-include-p)
-  (setopt reb-re-syntax 'string))
+  (setopt reb-re-syntax 'string)
+  ;; Native-Comp
+  (setopt native-comp-speed 3)
+  (setopt native-comp-compiler-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
+  (setopt native-comp-driver-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin")))
 
 ;; Garbage Collection
 (use-package gcmh
@@ -88,9 +97,6 @@
   :ensure t
   :config
   (load-theme 'gruvbox t))
-
-(set-face-attribute 'default nil :family "Aporetic Sans Mono" :height 160)
-(set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 160)
 
 ;; Windows Management
 (use-package windows
@@ -320,8 +326,7 @@
   (setopt corfu-count 8)
   (setopt corfu-cycle nil)
   (setopt corfu-quit-no-match 'separator)
-  (setopt corfu-preselect 'prompt)
-  (keymap-unset corfu-map "RET"))
+  (setopt corfu-preselect 'prompt))
 
 (use-package dabbrev
   :config
@@ -345,6 +350,7 @@
   :hook (git-commit-setup . flyspell-mode))
 
 (use-package markdown-mode
+  :defer t
   :ensure t)
 
 (use-package calc-mode
@@ -352,9 +358,9 @@
   (setopt calc-group-digits t)
   (setopt calc-group-char ","))
 
-
 ;; Miscellaneous
 (use-package tramp
+  :defer t
   :config
   (setopt tramp-default-method "ssh")
   (setopt remote-file-name-inhibit-cache nil)
@@ -519,6 +525,7 @@
 ;; Proof-general
 (use-package proof-general
   :ensure t
+  :defer t
   :config
   (load-library "proof-general")
   (setq proof-splash-enable nil)
@@ -527,5 +534,6 @@
 
 ;; Anki
 (use-package anki-editor
+  :defer t
   :ensure t)
 
