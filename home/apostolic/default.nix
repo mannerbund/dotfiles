@@ -14,7 +14,7 @@
     ../common/misc/texlive.nix
     ../common/misc/imv.nix
     ../common/misc/direnv.nix
-    ../common/misc/zathura.nix
+    ../common/misc/docview.nix
     ../common/misc/yt-dlp.nix
     ../common/misc/mpv.nix
     ../common/misc/librewolf.nix
