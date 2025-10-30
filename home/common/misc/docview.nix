@@ -1,13 +1,16 @@
-{config, ...}: {
+{config, pkgs, ...}: {
   home.persistence."/persist/${config.home.homeDirectory}" = {
     directories = [
       ".local/share/zathura"
     ];
   };
 
+  home.packages = [pkgs.papers];
+
   xdg.mimeApps.defaultApplications = {
-    "application/pdf" = "org.pwmt.zathura.desktop";
-    "application/vnd.comicbook+zip" = "org.pwmt.zathura.desktop";
+    "application/epub+zip" = "org.pwmt.zathura.desktop";
+    "application/pdf" = "org.gnome.Papers.desktop";
+    "application/vnd.comicbook+zip" = "org.gnome.Papers.desktop";
   };
 
   programs.zathura = {
@@ -17,7 +20,7 @@
       statusbar-h-padding = 0;
       statusbar-v-padding = 0;
       page-padding = 1;
-      font = "Alegreya 16";
+      font = "DejaVu Sans 16";
     };
     mappings = {
       u = "scroll half-up";
