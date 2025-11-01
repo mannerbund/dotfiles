@@ -81,9 +81,11 @@
 
           bindkey '`' autosuggest-accept
         '';
-      zshConfigLast = ''
-        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh 2>/dev/null
-      '';
+      zshConfigLast =
+        lib.mkOrder 1500
+        ''
+          source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+        '';
     in
       lib.mkMerge [zshConfig zshConfigLast];
   };
