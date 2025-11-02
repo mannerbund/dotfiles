@@ -286,7 +286,7 @@
   :custom
   (org-roam-directory (file-truename "~/Documents/Vault/WIKI/notes"))
   (org-roam-database-connector 'sqlite-builtin)
-  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:25}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
 
 (use-package org-super-agenda
