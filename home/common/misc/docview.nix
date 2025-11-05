@@ -13,7 +13,8 @@
 
   xdg.mimeApps.defaultApplications = {
     "application/epub+zip" = "org.pwmt.zathura.desktop";
-    "application/pdf" = "org.gnome.Papers.desktop";
+    "application/pdf" = "org.pwmt.zathura.desktop";
+    "image/vnd.djvu+multipage" = "org.pwmt.zathura.desktop";
     "application/vnd.comicbook+zip" = "org.gnome.Papers.desktop";
   };
 
