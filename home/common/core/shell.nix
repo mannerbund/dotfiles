@@ -8,13 +8,21 @@
     directories = [
       ".config/zsh" # for .zcompdump
       ".local/share/zoxide"
+      ".local/share/stardict"
     ];
   };
 
   home.sessionVariables = {
     HISTFILE = "${config.home.homeDirectory}/.cache/history";
     INPUTRC = "${config.home.homeDirectory}/.local/share/inputrc";
+    STARDICT_DATA_DIR = "${config.home.homeDirectory}/.local/share/stardict";
+    SDCV_HIST = "${config.home.homeDirectory}/.local/share/stardict/sdcv_hist";
   };
+
+  home.packages = [
+    pkgs.sdcv
+    pkgs.html2text
+  ];
 
   home.file.".local/share/inputrc".text = ''
     set editing-mode vi
@@ -57,9 +65,8 @@
       rm = "rm -vI";
       mkd = "mkdir -pv";
       yta = "yt-dlp -xf bestaudio/best";
+      sd = "sdcv -c";
       ip = "ip -c=auto";
-      enru = "trans -t ru -e google --shell";
-      ruen = "trans -t en -e google --shell";
       ls = "eza";
       l = "eza --git-ignore $eza_params";
       ll = "eza --all --header --long";
@@ -70,7 +77,6 @@
       e = "emacsclient -nw -c";
       z = "zathura-sandbox";
       sct = "systemctl";
-      newsboat = "newsboat -u /run/secrets/rss";
       update = "nixos-rebuild switch --sudo -v -L --flake ~/.local/dotfiles";
     };
     initContent = let
@@ -80,6 +86,14 @@
           export KEYTIMEOUT=1
 
           bindkey '`' autosuggest-accept
+
+          sde() {
+            sdcv -0 -1 -n -c -u en-ru "$@" 2>&1 | html2text -utf8 -width 50
+          }
+
+          sdr() {
+            sdcv -0 -1 -n -c -u ru-en "$@" 2>&1 | html2text -utf8 -width 50
+          }
         '';
       zshConfigLast =
         lib.mkOrder 1500
@@ -235,18 +249,5 @@
     enable = true;
     enableZshIntegration = true;
     options = ["--cmd cd"];
-  };
-
-  programs.translate-shell = {
-    enable = true;
-    settings = {
-      translation = false;
-      language = false;
-      original = false;
-      original-phonetic = false;
-      translation-phonetic = false;
-      dictionary = true;
-      alternatives = true;
-    };
   };
 }
