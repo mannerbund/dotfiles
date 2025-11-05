@@ -97,8 +97,8 @@ in {
             on = "1 ";
           };
           state-icons = {
-            paused = "";
-            playing = "";
+            paused = "";
+            playing = "";
           };
         };
 
