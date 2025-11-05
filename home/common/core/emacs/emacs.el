@@ -471,7 +471,7 @@
 
 (use-package wrap-region
   :ensure t
-  :custom
+  :config
   (wrap-region-add-wrapper "$" "$" nil 'org-mode)
   (wrap-region-add-wrapper "*" "*" nil 'org-mode) 
   (wrap-region-add-wrapper "/" "/" nil 'org-mode) 
