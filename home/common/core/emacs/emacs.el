@@ -388,6 +388,12 @@
   :config
   (setopt calc-group-digits t))
 
+(use-package mhtml-mode
+  :hook (mhtml-mode . flyspell-mode)
+  :config
+  (define-key mhtml-mode-map (kbd "M-o") nil)
+  (define-key mhtml-mode-map (kbd "M-p") facemenu-keymap))
+
 ;; Miscellaneous
 (use-package tramp
   :custom
