@@ -31,6 +31,7 @@ in {
       "pipewire"
       "gamemode"
       "transmission"
+      "wireshark"
     ];
   };
 
