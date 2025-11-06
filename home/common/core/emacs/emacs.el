@@ -281,12 +281,11 @@
          ("C-c n c" . org-roam-capture)
          ("C-c n a" . org-roam-alias-add)
          ("C-c n d" . org-id-get-create))
-  :init
-  (setq org-roam-db-gc-threshold most-positive-fixnum)
   :custom
   (org-roam-directory (file-truename "~/Documents/Vault/WIKI/notes"))
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:25}" 'face 'org-tag)))
+  :config
   (org-roam-db-autosync-mode))
 
 (use-package org-super-agenda
@@ -327,15 +326,15 @@
   :init
   (vertico-mode)
   :custom
+  (vertico-preselect 'prompt)
   (vertico-multiform-categories
-   '((file grid reverse)
-     (imenu buffer)
-     (deadgrep buffer)))
-  (vertico-multiform-commands
-   '((buffer indexed)))
+   '((file (vertico-sort-function . vertico-sort-directories-first))
+     (imenu buffer)))
   (vertico-scroll-margin 0) ;; Different scroll margin
   (vertico-count 12) ;; Show more candidates
-  (vertico-resize nil)) ;; Grow and shrink the Vertico minibuffer
+  (vertico-resize nil) ;; Grow and shrink the Vertico minibuffer
+  :config
+  (vertico-multiform-mode))
 
 (use-package corfu
   :ensure t
