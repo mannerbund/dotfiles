@@ -104,6 +104,7 @@ in {
 
         "niri/language" = {
           format = "{shortDescription} ";
+          on-click = "niri msg action switch-layout next";
         };
 
         wireplumber = {
