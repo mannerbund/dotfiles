@@ -12,6 +12,7 @@
     ../common/misc/dnscrypt-proxy2.nix
     ../common/misc/stylix.nix
     ../common/misc/transmission.nix
+    ../common/misc/net-tools.nix
     # ../common/misc/gamemode.nix
     # ../common/misc/scx.nix
   ];
