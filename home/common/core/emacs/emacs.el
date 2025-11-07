@@ -564,7 +564,6 @@
 (use-package proof-general
   :ensure t
   :custom
-  (load-library "proof-general")
   (proof-splash-enable nil)
   (proof-shell-kill-function-also-kills-associated-buffers t)
   (proof-multiple-frames-enable nil))
