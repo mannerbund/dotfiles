@@ -557,6 +557,7 @@
 
 ;; Nix
 (use-package nix-ts-mode
+  :ensure t
   :mode "\\.nix\\'")
 
 ;; Proof-general
