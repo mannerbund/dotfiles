@@ -40,6 +40,7 @@
           (epkgs.treesit-grammars.with-grammars (grammars: [
             grammars.tree-sitter-python
             grammars.tree-sitter-go
+            grammars.tree-sitter-javascript
             grammars.tree-sitter-heex
             grammars.tree-sitter-json
             grammars.tree-sitter-json5
