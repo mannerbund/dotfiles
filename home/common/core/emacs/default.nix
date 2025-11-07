@@ -47,7 +47,6 @@
             grammars.tree-sitter-rust
             grammars.tree-sitter-yaml
           ]))
-          epkgs.nix-ts-mode
           epkgs.eglot-booster
         ];
       }
