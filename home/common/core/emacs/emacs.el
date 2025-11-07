@@ -3,14 +3,7 @@
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024))
 
-(setq package-enable-at-startup nil) ;; Disable `package.el'
 (setq initial-major-mode 'fundamental-mode)
-
-;; Wayland Clipboard
-(setq select-active-regions nil)
-(setq select-enable-clipboard 't)
-(setq select-enable-primary nil)
-(setq interprogram-cut-function #'gui-select-text)
 
 (setq inhibit-x-resources t)
 (setq inhibit-startup-screen t)
@@ -21,6 +14,8 @@
 (menu-bar-mode -1) ;; Don't display menu bar
 (tool-bar-mode -1) ;; Don't display tool bar
 (scroll-bar-mode -1) ;; Don't display scroll bar
+
+(setq package-enable-at-startup nil) ;; Disable `package.el'
 
 (custom-set-faces
  ;; Default font for all text
@@ -35,6 +30,12 @@
  '(font-lock-function-name-face ((t (:family "Aporetic Sans Mono":slant italic))))
  '(font-lock-variable-name-face ((t (:family "Aporetic Sans Mono":weight bold)))))
 
+;; Wayland Clipboard
+(setq select-active-regions nil)
+(setq select-enable-clipboard 't)
+(setq select-enable-primary nil)
+(setq interprogram-cut-function #'gui-select-text)
+
 ;;; init.el --- Initialization -*- lexical-binding: t; -*-
 (setopt confirm-kill-emacs 'y-or-n-p)
 
@@ -44,6 +45,7 @@
 (setopt create-lockfiles nil)
 (setopt delete-old-versions t)
 (setopt delete-by-moving-to-trash t)
+(recentf-mode 1)
 
 ;; Bidirectional Display
 (setopt bidi-display-reordering nil)
@@ -133,55 +135,55 @@
   (org-modules '(org-habit))
   (org-habit-graph-column 60)
   (org-agenda-files '("~/Documents/Vault/agenda"
-                     "~/Documents/Vault/journal"))
+                      "~/Documents/Vault/journal"))
   (org-default-notes-file "~/Documents/Vault/agenda/refile.org")
 
   (org-todo-keywords
-  '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-    (sequence "WAITING(w)" "HOLD(h)" "|" "CANCELED(c)")))
+   '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+     (sequence "WAITING(w)" "HOLD(h)" "|" "CANCELED(c)")))
 
   (org-todo-state-tags-triggers
-  '(("CANCELED" ("CANCELED" . t))
-    ("WAITING" ("WAITING" . t))
-    ("HOLD" ("WAITING") ("HOLD" . t))
-    (done ("WAITING") ("HOLD"))
-    ("TODO" ("WAITING") ("CANCELED") ("HOLD"))
-    ("NEXT" ("WAITING") ("CANCELED") ("HOLD"))
-    ("DONE" ("WAITING") ("CANCELED") ("HOLD"))))
+   '(("CANCELED" ("CANCELED" . t))
+     ("WAITING" ("WAITING" . t))
+     ("HOLD" ("WAITING") ("HOLD" . t))
+     (done ("WAITING") ("HOLD"))
+     ("TODO" ("WAITING") ("CANCELED") ("HOLD"))
+     ("NEXT" ("WAITING") ("CANCELED") ("HOLD"))
+     ("DONE" ("WAITING") ("CANCELED") ("HOLD"))))
 
   (org-todo-keyword-faces
-  '(("TODO" . (:background "DodgerBlue" :weight bold :foreground "black"))
-    ("NEXT" . (:background "BlueViolet" :weight bold :foreground "black"))
-    ("DONE" . (:background "LimeGreen" :weight bold :foreground "black"))
-    ("WAITING" . (:background "DarkOrange" :weight bold :foreground "black"))
-    ("HOLD" . (:background "SlateGray" :weight bold :foreground "black"))
-    ("CANCELED" . (:background "DarkRed" :weight bold :foreground "black"))))
+   '(("TODO" . (:background "DodgerBlue" :weight bold :foreground "black"))
+     ("NEXT" . (:background "BlueViolet" :weight bold :foreground "black"))
+     ("DONE" . (:background "LimeGreen" :weight bold :foreground "black"))
+     ("WAITING" . (:background "DarkOrange" :weight bold :foreground "black"))
+     ("HOLD" . (:background "SlateGray" :weight bold :foreground "black"))
+     ("CANCELED" . (:background "DarkRed" :weight bold :foreground "black"))))
 
   (org-agenda-custom-commands
-  '(("u" "Super View"
-     ((agenda "" ((org-super-agenda-groups
-                   '((:name "Today"
-                            :time-grid t
-                            :date today
-                            :scheduled today
-                            :order 1)
-                     (:discard (:habit t))))))
-      (alltodo "" ((org-agenda-overriding-header "")
-                   (org-super-agenda-groups
-                    '((:discard (:habit t))
-                      (:name "Important"
-                             :priority "A"
-                             :order 0)
-                      (:name "Next to do"
-                             :todo "NEXT"
-                             :order 0)
-                      (:name "Refile"
-                             :tag "REFILE"
-                             :order 2)
-                      (:name "Low Priority"
-                             :priority "C"
-                             :order 100)
-                      (:auto-category t)))))))))
+   '(("u" "Super View"
+      ((agenda "" ((org-super-agenda-groups
+                    '((:name "Today"
+                             :time-grid t
+                             :date today
+                             :scheduled today
+                             :order 1)
+                      (:discard (:habit t))))))
+       (alltodo "" ((org-agenda-overriding-header "")
+                    (org-super-agenda-groups
+                     '((:discard (:habit t))
+                       (:name "Important"
+                              :priority "A"
+                              :order 0)
+                       (:name "Next to do"
+                              :todo "NEXT"
+                              :order 0)
+                       (:name "Refile"
+                              :tag "REFILE"
+                              :order 2)
+                       (:name "Low Priority"
+                              :priority "C"
+                              :order 100)
+                       (:auto-category t)))))))))
 
   (org-enforce-todo-dependencies t)
   (org-agenda-start-on-weekday nil)
@@ -198,7 +200,7 @@
   ;; Refile
   (org-refile-target-verify-function 'bh/verify-refile-target)
   (org-refile-targets '((nil :maxlevel . 9)
-                       (org-agenda-files :maxlevel . 9)))
+                        (org-agenda-files :maxlevel . 9)))
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
   (org-refile-allow-creating-parent-nodes 'confirm)
@@ -226,7 +228,6 @@
   (org-latex-compiler "pdflatex")
   (org-preview-latex-default-process 'dvisvgm)
   (org-highlight-latex-and-related '(latex script entities))
-  
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -245,6 +246,10 @@
           ("n" "Note" entry (file "~/Documents/Vault/agenda/refile.org")
            "* %? :note:\n%u\n")))
 
+  ;; Vertico
+  (advice-add #'org-make-tags-matcher :around #'vertico-enforce-basic-completion)
+  (advice-add #'org-agenda-filter :around #'vertico-enforce-basic-completion)
+
   ;; Custom
   (defun org-journal-find-location ()
     (org-journal-new-entry t)
@@ -254,10 +259,7 @@
 
   (defun bh/verify-refile-target ()
     "Exclude todo keywords with a done state from refile targets"
-    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-
-  (advice-add #'org-make-tags-matcher :around #'vertico-enforce-basic-completion)
-  (advice-add #'org-agenda-filter :around #'vertico-enforce-basic-completion))
+    (not (member (nth 2 (org-heading-components)) org-done-keywords))))
 
 (use-package org-journal
   :ensure t
