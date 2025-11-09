@@ -24,6 +24,7 @@
     ../common/misc/weechat.nix
     ../common/misc/newsraft.nix
     ../common/misc/anki.nix
+    ../common/misc/sdcv.nix
     # ../common/misc/games.nix
     # ../common/misc/minecraft.nix
   ];
