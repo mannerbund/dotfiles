@@ -548,6 +548,7 @@
 (use-package python
   :custom
   (python-indent-guess-indent-offset-verbose nil)
+  :config
   (add-to-list 'display-buffer-alist
                '("\\*Python\\*"
                  (display-buffer-in-side-window)
