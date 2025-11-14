@@ -210,11 +210,12 @@ in {
             "XF86MonBrightnessUp".action = sh "light -A 20";
             "XF86MonBrightnessDown".action = sh "light -U 20";
 
+            "Mod+Backspace".action = toggle-overview;
             "Mod+Shift+Backspace".action = quit;
 
             # Recovery from dead screen locker
             "Mod+Alt+L" = {
-              action = spawn "swaylock";
+              action = spawn "${pkgs.swaylock}/bin/swaylock";
               allow-when-locked = true;
             };
           }
