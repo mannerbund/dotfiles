@@ -47,6 +47,7 @@
             grammars.tree-sitter-nix
             grammars.tree-sitter-rust
             grammars.tree-sitter-yaml
+            grammars.tree-sitter-commonlisp
           ]))
           epkgs.eglot-booster
         ];

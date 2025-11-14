@@ -572,3 +572,9 @@
 ;; Anki
 (use-package anki-editor
   :ensure t)
+
+;; Lisp
+(use-package sly
+  :ensure t
+  :custom
+  (inferior-lisp-program "sbcl"))
