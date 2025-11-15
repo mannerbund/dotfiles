@@ -79,6 +79,9 @@
 (tooltip-mode -1)
 (setopt ring-bell-function 'ignore)
 
+;; Tree-sitter
+(setopt treesit-font-lock-level 4)
+
 ;; Disable Ispell completion function.
 (setopt text-mode-ispell-word-completion nil)
 
@@ -389,11 +392,17 @@
   :config
   (setopt calc-group-digits t))
 
-(use-package mhtml-mode
-  :hook (mhtml-mode . flyspell-mode)
-  :config
-  (define-key mhtml-mode-map (kbd "M-o") nil)
-  (define-key mhtml-mode-map (kbd "M-p") facemenu-keymap))
+;; Proof-general
+(use-package proof-general
+  :ensure t
+  :custom
+  (proof-splash-enable nil)
+  (proof-shell-kill-function-also-kills-associated-buffers t)
+  (proof-multiple-frames-enable nil))
+
+;; Anki
+(use-package anki-editor
+  :ensure t)
 
 ;; Miscellaneous
 (use-package tramp
@@ -512,12 +521,16 @@
   (:map flymake-mode-map
         ("C-. !" . flymake-show-buffer-diagnostics)))
 
+(setopt major-mode-remap-alist
+        '((js-mode . js-ts-mode)
+          (js-json-mode . json-ts-mode)
+          (python-mode . python-ts-mode)))
+
 (use-package eglot
   :defer t
-  :hook ((python-mode . eglot-ensure)
-         (c-mode . eglot-ensure)
-         (c++-mode . eglot-ensure)
-         (nix-ts-mode . eglot-ensure))
+  :hook
+  ((c-mode . eglot-ensure)
+   (c++-mode . eglot-ensure))
   :bind
   (:map eglot-mode-map
         :prefix-map eglot-prefix-map
@@ -538,7 +551,7 @@
                                 :initializationOptions
                                 (:formatting (:command ["alejandra"])))))
   (add-to-list 'eglot-server-programs
-               '(python-mode . ("pylsp"))))
+               '(python-ts-mode . ("pylsp"))))
 
 (use-package eglot-booster
   :after eglot
@@ -546,8 +559,8 @@
 
 ;; Python
 (use-package python
-  :custom
-  (python-indent-guess-indent-offset-verbose nil)
+  :hook
+  (python-ts-mode . eglot-ensure)
   :config
   (add-to-list 'display-buffer-alist
                '("\\*Python\\*"
@@ -559,22 +572,27 @@
 ;; Nix
 (use-package nix-ts-mode
   :ensure t
-  :mode "\\.nix\\'")
-
-;; Proof-general
-(use-package proof-general
-  :ensure t
-  :custom
-  (proof-splash-enable nil)
-  (proof-shell-kill-function-also-kills-associated-buffers t)
-  (proof-multiple-frames-enable nil))
-
-;; Anki
-(use-package anki-editor
-  :ensure t)
+  :mode "\\.nix\\'"
+  :hook
+  (nix-ts-mode . eglot-ensure))
 
 ;; Lisp
 (use-package sly
   :ensure t
   :custom
   (inferior-lisp-program "sbcl"))
+
+;; JavaScript
+(use-package js
+  :mode
+  ("\\.js[mx]?\\'" . js-ts-mode)
+  ("\\.har\\'" . js-ts-mode)
+  :hook
+  (js-ts-mode . eglot-ensure))
+
+;; HTML&CSS
+(use-package mhtml-mode
+  :hook (mhtml-mode . flyspell-mode)
+  :config
+  (define-key mhtml-mode-map (kbd "M-o") nil)
+  (define-key mhtml-mode-map (kbd "M-p") facemenu-keymap))
