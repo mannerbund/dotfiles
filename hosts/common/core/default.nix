@@ -8,7 +8,7 @@
     ./nix.nix
     ./journald.nix
     ./locale.nix
-    ./ntpd-rs.nix
+    ./timesyncd.nix
     ./openssh.nix
     ./pipewire.nix
     ./systemd-boot.nix
