@@ -151,10 +151,6 @@
           installation_mode = "force_installed";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi";
         };
-        "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-          installation_mode = "force_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/latestvimium-ff/latest.xpi";
-        };
         "addon@darkreader.org" = {
           installation_mode = "force_installed";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
