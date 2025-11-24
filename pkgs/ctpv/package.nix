@@ -27,32 +27,32 @@ stdenv.mkDerivation rec {
     hash = "sha256-3BQi4m44hBmPkJBFNCg6d9YKRbDZwLxdzBb/NDWTQP4=";
   };
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = [
     file # libmagic
     openssl
   ];
 
-  patches = [./chafa.patch];
+  patches = [ ./chafa.patch ];
 
-  makeFlags = ["PREFIX=$(out)"];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   preFixup = ''
     wrapProgram $out/bin/ctpv \
       --prefix PATH ":" "${
-      lib.makeBinPath [
-        atool # for archive files
-        bat
-        chafa # for image files on Wayland
-        delta # for diff files
-        ffmpeg
-        ffmpegthumbnailer
-        fontforge
-        glow # for markdown files
-        imagemagick
-        jq # for json files
-      ]
-    }";
+        lib.makeBinPath [
+          atool # for archive files
+          bat
+          chafa # for image files on Wayland
+          delta # for diff files
+          ffmpeg
+          ffmpegthumbnailer
+          fontforge
+          glow # for markdown files
+          imagemagick
+          jq # for json files
+        ]
+      }";
   '';
 }

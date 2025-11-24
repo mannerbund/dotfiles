@@ -1,16 +1,12 @@
 {
-  description = "ICE";
+  description = "NixOS in non-gay way";
 
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"
-      "https://nixpkgs-wayland.cachix.org"
-      "https://niri.cachix.org/"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
     ];
   };
 
@@ -19,18 +15,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     flake-parts.url = "github:hercules-ci/flake-parts";
     impermanence.url = "github:nix-community/impermanence";
-    niri.url = "github:sodiboo/niri-flake";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    stylix = {
-      url = "github:danth/stylix/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
@@ -41,38 +27,46 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # niri.url = "github:sodiboo/niri-flake";
+    # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
   };
 
-  outputs = inputs @ {
-    flake-parts,
-    nixpkgs,
-    home-manager,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      flake = let
-        lib = nixpkgs.lib // home-manager.lib;
-      in {
-        overlays = import ./overlays {inherit inputs;};
+  outputs =
+    inputs@{
+      flake-parts,
+      nixpkgs,
+      ...
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      flake = {
+        overlays = import ./overlays { inherit inputs; };
+        # nixosModules = import ./modules { inherit inputs; };
         nixosConfigurations = {
-          chan = lib.nixosSystem {
-            modules = [./hosts/chan];
+          chan = nixpkgs.lib.nixosSystem {
+            modules = [ ./hosts/chan ];
             specialArgs = {
               inherit inputs;
             };
           };
         };
       };
-      systems = ["x86_64-linux"];
-      perSystem = {pkgs, ...}: {
-        formatter = pkgs.alejandra;
-        devShells.default = with pkgs;
-          mkShell {
-            nativeBuildInputs = [
-              sops
-              age
-            ];
-          };
-      };
+      systems = [ "x86_64-linux" ];
+      perSystem =
+        { pkgs, ... }:
+        {
+          formatter = pkgs.nixfmt-tree;
+          devShells.default =
+            with pkgs;
+            mkShell {
+              nativeBuildInputs = [
+                sops
+                age
+              ];
+            };
+        };
     };
 }

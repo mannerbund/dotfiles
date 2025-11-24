@@ -5,9 +5,11 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.impermanence.nixosModules.impermanence
     inputs.disko.nixosModules.disko
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
   ];
@@ -16,10 +18,19 @@
     "xhci_pci"
     "nvme"
   ];
-  boot.initrd.kernelModules = [];
+  boot.initrd.kernelModules = [ ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+
+  boot.loader = {
+    systemd-boot = {
+      enable = true;
+      consoleMode = "max";
+    };
+    efi.canTouchEfiVariables = true;
+    systemd-boot.configurationLimit = 8;
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -33,10 +44,41 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings.General = {
+        ControllerMode = "bredr";
+        Experimental = true;
+      };
+    };
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
   };
+
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 100;
+  };
+
+  services = {
+    upower.enable = true;
+    libinput.enable = true;
+  };
+
+  # impermanence + disko
+  environment.persistence."/persist" = {
+    directories = [
+      "/var"
+    ];
+    files = [ "/etc/machine-id" ];
+  };
+
+  programs.fuse.userAllowOther = true;
 
   disko.devices = {
     disk = {
@@ -53,7 +95,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = ["umask=0077"];
+                mountOptions = [ "umask=0077" ];
               };
             };
             luks = {
@@ -80,7 +122,7 @@
             size = "100%FREE";
             content = {
               type = "btrfs";
-              extraArgs = ["-f"];
+              extraArgs = [ "-f" ];
               subvolumes = {
                 "/root" = {
                   mountOptions = [
