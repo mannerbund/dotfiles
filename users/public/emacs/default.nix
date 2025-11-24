@@ -51,6 +51,45 @@
         allow-loopback-pinentry
       '';
 
+      home.file.".emacs.d/early-init.el".text = ''
+        ;;; early-init.el --- Early Initialization -*- lexical-binding: t; -*-
+
+        (setq gc-cons-threshold 100000000)
+        (setq read-process-output-max (* 1024 1024))
+
+        (setq initial-major-mode 'fundamental-mode)
+
+        ;; (setq inhibit-x-resources t)
+        (setq inhibit-startup-screen t)
+        (setq inhibit-startup-message t)
+        (setq inhibit-startup-buffer-menu t)
+        (setq initial-scratch-message nil)
+
+        (menu-bar-mode -1) ;; Don't display menu bar
+        (tool-bar-mode -1) ;; Don't display tool bar
+        (scroll-bar-mode -1) ;; Don't display scroll bar
+
+        (custom-set-faces
+         ;; Default font for all text
+         '(default ((t (:family "Aporetic Sans Mono" :height 120))))
+         '(fixed-pitch ((t (:family "Aporetic Serif Mono" :height 120))))
+
+         ;; Current line number
+         '(line-number-current-line ((t (:foreground "yellow" :inherit line-number))))
+         '(mode-line ((t (:family "Aporetic Sans Mono" :weight Bold))))
+
+         ;; Comments italic
+         '(font-lock-function-name-face ((t (:family "Aporetic Sans Mono":slant italic))))
+         '(font-lock-variable-name-face ((t (:family "Aporetic Sans Mono":weight bold)))))
+
+        ;; Wayland Clipboard
+        ;; (setq select-active-regions nil)
+        ;; (setq select-enable-clipboard 't)
+        ;; (setq select-enable-primary nil)
+        ;; (setq interprogram-cut-function #'gui-select-text)
+        ;;; early-init.el ends here
+      '';
+
       programs = {
         info.enable = true;
         emacs = {

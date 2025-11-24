@@ -1,42 +1,4 @@
-;;; early-init.el --- Early Initialization -*- lexical-binding: t; -*-
-
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024))
-
-(setq initial-major-mode 'fundamental-mode)
-
-;; (setq inhibit-x-resources t)
-(setq inhibit-startup-screen t)
-(setq inhibit-startup-message t)
-(setq inhibit-startup-buffer-menu t)
-(setq initial-scratch-message nil)
-
-(menu-bar-mode -1) ;; Don't display menu bar
-(tool-bar-mode -1) ;; Don't display tool bar
-(scroll-bar-mode -1) ;; Don't display scroll bar
-
-(setq package-enable-at-startup nil) ;; Disable `package.el'
-
-(custom-set-faces
- ;; Default font for all text
- '(default ((t (:family "Aporetic Sans Mono" :height 120))))
- '(fixed-pitch ((t (:family "Aporetic Serif Mono" :height 120))))
-
- ;; Current line number
- '(line-number-current-line ((t (:foreground "yellow" :inherit line-number))))
- '(mode-line ((t (:family "Aporetic Sans Mono" :weight Bold))))
-
- ;; Comments italic
- '(font-lock-function-name-face ((t (:family "Aporetic Sans Mono":slant italic))))
- '(font-lock-variable-name-face ((t (:family "Aporetic Sans Mono":weight bold)))))
-
-;; Wayland Clipboard
-;; (setq select-active-regions nil)
-;; (setq select-enable-clipboard 't)
-;; (setq select-enable-primary nil)
-;; (setq interprogram-cut-function #'gui-select-text)
-
-;;; init.el --- Initialization -*- lexical-binding: t; -*-
+;;; emacs.el --- Initialization -*- lexical-binding: t; -*-
 (setopt confirm-kill-emacs 'y-or-n-p)
 (setopt confirm-kill-processes nil)
 
@@ -79,9 +41,6 @@
 ;; Visual
 (tooltip-mode -1)
 (setopt ring-bell-function 'ignore)
-
-;; Tree-sitter
-;; (setopt treesit-fpont-lock-level 4)
 
 ;; Disable Ispell completion function.
 (setopt text-mode-ispell-word-completion nil)
@@ -674,3 +633,4 @@
   :config
   (define-key mhtml-mode-map (kbd "M-o") nil)
   (define-key mhtml-mode-map (kbd "M-p") facemenu-keymap))
+;;; emacs.el ends here
