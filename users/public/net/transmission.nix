@@ -2,6 +2,7 @@
   config,
   pkgs,
   username,
+  ...
 }:
 {
   environment.persistence."/persist".directories = [

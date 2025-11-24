@@ -1,6 +1,7 @@
 {
   username,
   pkgs,
+  ...
 }:
 {
 
@@ -23,7 +24,7 @@
         yt-dlp = {
           enable = true;
           extraConfig = ''
-              --ignore-errors
+            --ignore-errors
             -o ~/Music/yt-dlp/%(title)s.%(ext)s
           '';
         };

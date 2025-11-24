@@ -1,5 +1,6 @@
 {
   username,
+  ...
 }:
 {
   imports = [ ./default.nix ];
@@ -8,19 +9,20 @@
     { pkgs, ... }:
     {
 
-      home.sessionVariables = {
-        _JAVA_AWT_WM_NONREPARENTING = "1";
-        MOZ_USE_XINPUT2 = 1; # Mozilla smooth scrolling/touchpads.
+      home = {
+        sessionVariables = {
+          _JAVA_AWT_WM_NONREPARENTING = "1";
+          MOZ_USE_XINPUT2 = 1; # Mozilla smooth scrolling/touchpads.
+        };
+        packages = with pkgs; [
+          libnotify
+        ];
       };
 
       xsession = {
         enable = true;
-        windowManager.command = "exec dbus-launch --exit-with-session emacs -mm --debug-init";
+        windowManager.command = "exec dbus-launch --exit-with-session emacs -mm";
       };
-
-      home.packages = with pkgs; [
-        libnotify
-      ];
 
       services = {
         gammastep = {

@@ -1,6 +1,5 @@
 {
   inputs,
-  config,
   lib,
   pkgs,
   ...
@@ -11,39 +10,46 @@ in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    (
+      { ... }:
+      {
+        config._module.args = { inherit username; };
+      }
+    )
+
     # user secrets including password
-    (import ../public/sops.nix { inherit inputs config username; })
+    ../public/sops.nix
+    ../public/cli/pass.nix
     ../public/core
 
     # desktop env
-    (import ../public/desktop/xorg/exwm.nix { inherit username; })
-    (import ../public/emacs { inherit username inputs; })
+    ../public/desktop/xorg/exwm.nix
+    ../public/emacs
 
     # shell
-    (import ../public/cli/zsh.nix { inherit username pkgs; })
-    (import ../public/cli { inherit username pkgs; })
+    ../public/cli/zsh.nix
+    ../public/cli
 
     # audio
-    (import ../public/pipewire.nix { inherit username; })
+    ../public/pipewire.nix
 
     # network stuff
-    (import ../public/net/ssh.nix { inherit username; })
-    (import ../public/net/transmission.nix { inherit pkgs config username; })
-    (import ../public/net/wireguard.nix { inherit lib; })
+    ../public/net/ssh.nix
+    ../public/net/transmission.nix
+    ../public/net/wireguard.nix
     ../public/net/dnscrypt-proxy2.nix
     ../public/net/zapret.nix
 
     # misc
-    (import ../public/cli/git.nix { inherit username; })
-    (import ../public/gpg.nix { inherit username; })
-    (import ../public/texlive.nix { inherit username; })
-    (import ../public/cli/pass.nix { inherit username; })
-    (import ../public/xdg.nix { inherit username; })
-    (import ../public/browsers/librewolf.nix { inherit username; })
-    (import ../public/media/mpv.nix { inherit username; })
-    (import ../public/media/music.nix { inherit username; })
-    (import ../public/direnv.nix { inherit username; })
-    (import ../public/zathura.nix { inherit username; })
+    ../public/cli/git.nix
+    ../public/gpg.nix
+    ../public/texlive.nix
+    ../public/xdg.nix
+    ../public/browsers/librewolf.nix
+    ../public/media/mpv.nix
+    ../public/media/music.nix
+    ../public/direnv.nix
+    ../public/zathura.nix
   ];
 
   fonts = {
@@ -123,6 +129,5 @@ in
 
         home.stateVersion = "24.11";
       };
-
   };
 }
