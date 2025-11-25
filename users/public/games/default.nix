@@ -5,6 +5,8 @@
   programs.gamemode.enable = true;
   programs.gamescope.enable = true;
 
+  users.users.${username}.extraGroups = [ "gamemode" ];
+
   home-manager.users.${username} =
     { config, pkgs, ... }:
     {

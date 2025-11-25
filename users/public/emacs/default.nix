@@ -42,11 +42,6 @@
         ];
       };
 
-      # TODO: also for fish
-      programs.zsh.shellAliases = {
-        e = "emacsclient -nw -c";
-      };
-
       services.gpg-agent.extraConfig = ''
         allow-emacs-pinentry
         allow-loopback-pinentry
@@ -91,27 +86,35 @@
         ;;; early-init.el ends here
       '';
 
-      programs = {
-        info.enable = true;
-        emacs = {
-          enable = true;
-          package = (
-            pkgs.emacsWithPackagesFromUsePackage {
-              package = pkgs.emacs-git;
-              config = ./emacs.el;
-              defaultInitFile = true;
-              extraEmacsPackages = epkgs: [
-                (epkgs.treesit-grammars.with-grammars (grammars: [
-                  grammars.tree-sitter-python
-                  grammars.tree-sitter-javascript
-                  grammars.tree-sitter-json
-                  grammars.tree-sitter-nix
-                ]))
-                epkgs.eglot-booster
-              ];
-            }
-          );
+      programs =
+        let
+          al = {
+            e = "emacsclient -nw -c";
+          };
+        in
+        {
+          zsh.shellAliases = al;
+          fish.shellAliases = al;
+          info.enable = true;
+          emacs = {
+            enable = true;
+            package = (
+              pkgs.emacsWithPackagesFromUsePackage {
+                package = pkgs.emacs-git;
+                config = ./emacs.el;
+                defaultInitFile = true;
+                extraEmacsPackages = epkgs: [
+                  (epkgs.treesit-grammars.with-grammars (grammars: [
+                    grammars.tree-sitter-python
+                    grammars.tree-sitter-javascript
+                    grammars.tree-sitter-json
+                    grammars.tree-sitter-nix
+                  ]))
+                  epkgs.eglot-booster
+                ];
+              }
+            );
+          };
         };
-      };
     };
 }

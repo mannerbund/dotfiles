@@ -17,10 +17,11 @@ in
       }
     )
 
+    ../public/core
+
     # user secrets including password
     ../public/sops.nix
     ../public/cli/pass.nix
-    ../public/core
 
     # desktop env
     ../public/desktop/xorg/exwm.nix
@@ -42,12 +43,13 @@ in
 
     # misc
     ../public/cli/git.nix
-    ../public/gpg.nix
-    ../public/texlive.nix
-    ../public/xdg.nix
+    ../public/cli/lf.nix
     ../public/browsers/librewolf.nix
     ../public/media/mpv.nix
     ../public/media/music.nix
+    ../public/gpg.nix
+    ../public/texlive.nix
+    ../public/xdg.nix
     ../public/direnv.nix
     ../public/zathura.nix
   ];
@@ -73,11 +75,8 @@ in
       "video"
       "input"
       "systemd-journal"
+      # "wireshark"
     ];
-    # extraGroups = ifTheyExist [
-    #   "gamemode"
-    #   "wireshark"
-    # ];
   };
 
   home-manager = {
@@ -91,19 +90,19 @@ in
         imports = [
           inputs.impermanence.homeManagerModules.impermanence
         ];
+
         home = {
           username = lib.mkDefault "apostolic";
           homeDirectory = lib.mkDefault "/home/${config.home.username}";
-        };
-        home.packages = with pkgs; [
-          visidata
-        ];
-
-        home.sessionVariables = {
-          LESS = "-R --mouse";
-          CARGO_HOME = "${config.xdg.dataHome}/cargo";
-          NPM_CONFIG_USERCONFIG = "${config.xdg.dataHome}/npm";
-          XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
+          packages = with pkgs; [
+            visidata
+          ];
+          sessionVariables = {
+            LESS = "-R --mouse";
+            CARGO_HOME = "${config.xdg.dataHome}/cargo";
+            NPM_CONFIG_USERCONFIG = "${config.xdg.dataHome}/npm";
+            XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
+          };
         };
 
         home.persistence."/persist/${config.home.homeDirectory}" = {
