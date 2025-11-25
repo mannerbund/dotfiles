@@ -388,11 +388,6 @@
   (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
 
-(use-package deadgrep
-  :ensure t
-  :bind (:map search-map
-              ("r" . deadgrep)))
-
 ;; Major Modes
 (use-package magit
   :ensure t)
