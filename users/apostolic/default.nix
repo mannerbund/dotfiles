@@ -29,6 +29,7 @@ in
 
     # shell
     ../public/cli/zsh.nix
+    ../public/cli/sdcv.nix
     ../public/cli
 
     # audio
