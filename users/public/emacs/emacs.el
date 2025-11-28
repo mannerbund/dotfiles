@@ -10,9 +10,6 @@
 (setopt delete-by-moving-to-trash t)
 (recentf-mode 1)
 
-;; Bidirectional Display
-(setopt bidi-display-reordering nil)
-
 ;; Tabs & Spaces
 (setopt indent-tabs-mode nil)
 (setopt tab-width 4)
@@ -113,6 +110,16 @@
   (exwm-randr-mode)
   (exwm-wm-mode))
 
+(defun screenshot ()
+  "Take a screenshot."
+  (interactive)
+  (start-process "scrot" nil "scrot" "-e" "mv $f ~/Pictures/Screenshots; emacsclient -n ~/Pictures/Screenshots/$f"))
+
+(defun snip ()
+  "Copy an area of the screen to an image."
+  (interactive)
+  (start-process "scrot" nil "scrot" "-s" "-e" "mv $f ~/Pictures/Screenshots; emacsclient -n ~/Pictures/Screenshots/$f"))
+
 ;; Windows Management
 (use-package ace-window
   :ensure t
@@ -137,13 +144,19 @@
   :config
   (load-theme 'gruvbox t))
 
+(defun apostolic/reference ()
+  (interactive)
+  (find-file "~/Documents/Vault/agenda/reference.org"))
+
 ;; Org-mode
 (use-package org
   :ensure t
+  :mode ("\\.org\\'" . org-mode)
   :hook ((org-mode . visual-line-mode)
          (org-mode . flyspell-mode)
          (org-mode . turn-on-org-cdlatex))
   :bind (([f12] . org-agenda)
+         ([S-f12] . apostolic/reference)
          ([f11] . org-clock-goto)
          ([C-f11] . org-clock-in)
          ("C-c c" . org-capture))
@@ -424,10 +437,12 @@
 
 ;; Terminal
 (use-package vterm
-  :ensure t)
+  :ensure t
+  :commands (vterm))
 
 ;; Pass
 (use-package pass
+  :defer 3
   :ensure t)
 
 ;; Miscellaneous
@@ -608,11 +623,24 @@
   :ensure t
   :mode "\\.nix\\'")
 
-;; Lisp
+;; Common Lisp
 (use-package sly
   :ensure t
   :custom
   (inferior-lisp-program "sbcl"))
+
+;; Scheme
+(use-package geiser
+  :ensure t
+  :defer t
+  :config
+  (setq geiser-default-implementation 'guile)
+  (setq geiser-repl-use-other-window t)
+  (add-hook 'scheme-mode-hook #'geiser-mode))
+
+(use-package geiser-guile
+  :ensure t
+  :after geiser)
 
 ;; JavaScript
 (use-package js

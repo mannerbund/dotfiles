@@ -39,6 +39,7 @@
           graphviz
           emacs-lsp-booster
           nixd
+          scrot
         ];
       };
 
@@ -49,17 +50,24 @@
 
       home.file.".emacs.d/early-init.el".text = ''
         ;;; early-init.el --- Early Initialization -*- lexical-binding: t; -*-
-
-        (setq gc-cons-threshold 100000000)
+        (setq gc-cons-threshold most-positive-fixnum)
+        (setq gc-cons-percentage 1.0)
         (setq read-process-output-max (* 1024 1024))
+
+        (setenv "LSP_USE_PLISTS" "true")
+        (setq lsp-use-plists t)
+
+        (setq package-quickstart t)
 
         (setq initial-major-mode 'fundamental-mode)
 
         ;; (setq inhibit-x-resources t)
+        (setq inhibit-splash-screen t)
         (setq inhibit-startup-screen t)
         (setq inhibit-startup-message t)
         (setq inhibit-startup-buffer-menu t)
         (setq initial-scratch-message nil)
+        (setq bidi-inhibit-bpa t)
 
         (menu-bar-mode -1) ;; Don't display menu bar
         (tool-bar-mode -1) ;; Don't display tool bar
@@ -85,6 +93,11 @@
         ;; (setq interprogram-cut-function #'gui-select-text)
         ;;; early-init.el ends here
       '';
+
+      services.emacs = {
+        enable = true;
+        client.enable = true;
+      };
 
       programs =
         let
