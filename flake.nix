@@ -31,8 +31,6 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # niri.url = "github:sodiboo/niri-flake";
-    # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
   };
 
   outputs =
