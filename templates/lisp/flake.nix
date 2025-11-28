@@ -6,7 +6,6 @@
 
   outputs =
     inputs@{
-      nixpkgs,
       flake-parts,
       ...
     }:
@@ -18,6 +17,7 @@
           devShells.default = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [
               sbcl
+              guile
             ];
           };
         };
