@@ -46,8 +46,8 @@
           rm = "rm -vI";
           mkd = "mkdir -pv";
           ip = "ip -c=auto";
-          ls = "ls --color";
-          ll = "ls --color -al";
+          ls = "ls --color --group-directories-first -v";
+          ll = "ls --color -al --group-directories-first -v";
           sct = "systemctl";
           update = "nixos-rebuild switch --sudo -v -L --flake ~/.local/dotfiles";
 
