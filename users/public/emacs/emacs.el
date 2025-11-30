@@ -445,8 +445,8 @@
 (use-package elfeed
   :ensure t
   :bind ([f11] . elfeed)
-  :custom
-  (elfeed-summary-length 250))
+  :config
+  (setq elfeed-search-title-max-width 120))
 
 (use-package elfeed-org
   :ensure t
