@@ -80,7 +80,6 @@
                 trap cleanup HUP INT QUIT TERM EXIT
                 lf "$@" 3>&-
             fi
-
           '';
         };
       };
@@ -119,11 +118,6 @@
 
           # Editor
           map e !emacsclient -nw "$f"
-
-          # Eza
-          cmd on-select &{{
-              lf -remote "send $id set statfmt \"$(${lib.getExe pkgs.eza} -ld --color=always "$f" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
-          }}
         '';
         previewer = {
           keybinding = "i";
