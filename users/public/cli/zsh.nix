@@ -50,8 +50,6 @@
           ll = "ls --color -al --group-directories-first -v";
           sct = "systemctl";
           update = "nixos-rebuild switch --sudo -v -L --flake ~/.local/dotfiles";
-
-          # z = "zathura-sandbox";
         };
         initContent =
           let
