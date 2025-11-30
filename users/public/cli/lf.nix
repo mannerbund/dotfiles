@@ -38,7 +38,7 @@
         ".config/lf/cleaner" = {
           executable = true;
           text = ''
-              #!/bin/sh
+            #!/bin/sh
 
             ueberzugpp cmd -s $UB_SOCKET -a remove -i PREVIEW
           '';
@@ -46,7 +46,7 @@
         ".local/bin/lfub" = {
           executable = true;
           text = ''
-              #!/bin/sh
+            #!/bin/sh
 
             # This is a wrapper script for lf that allows it to create image previews with
             # ueberzug. This works in concert with the lf configuration file and the
