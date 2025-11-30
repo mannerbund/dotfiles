@@ -157,8 +157,8 @@
          (org-mode . turn-on-org-cdlatex))
   :bind (([f12] . org-agenda)
          ([S-f12] . apostolic/reference)
-         ([f11] . org-clock-goto)
-         ([C-f11] . org-clock-in)
+         ([f10] . org-clock-goto)
+         ([C-f10] . org-clock-in)
          ("C-c c" . org-capture))
   :custom
   ;; Babel
@@ -440,6 +440,20 @@
 (use-package pass
   :defer 3
   :ensure t)
+
+;; RSS
+(use-package elfeed
+  :ensure t
+  :bind ([f11] . elfeed)
+  :custom
+  (elfeed-summary-length 250))
+
+(use-package elfeed-org
+  :ensure t
+  :after elfeed
+  :config
+  (setq rmh-elfeed-org-files '("~/Documents/Vault/agenda/reference.org"))
+  (elfeed-org))
 
 ;; Miscellaneous
 (use-package tramp
