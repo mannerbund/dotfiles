@@ -46,6 +46,9 @@
 (setopt read-extended-command-predicate #'command-completion-default-include-p)
 (setopt reb-re-syntax 'string)
 
+;; Dired
+(setq dired-listing-switches "-aBhlv  --group-directories-first")
+
 ;; Native-Comp
 (setopt native-comp-speed 3)
 ;; (setopt native-comp-compiler-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
