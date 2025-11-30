@@ -70,7 +70,7 @@
   :custom
   (exwm-workspace-warp-cursor t)
   :config
-  (require 'exwm)
+  (require 'exwm-randr)
   (setq x-no-window-manager t)
   (setq exwm-workspace-number 4)
   (setq exwm-input-simulation-keys
@@ -431,10 +431,6 @@
   (proof-shell-kill-function-also-kills-associated-buffers t)
   (proof-multiple-frames-enable nil))
 
-;; Anki
-(use-package anki-editor
-  :ensure t)
-
 ;; Terminal
 (use-package vterm
   :ensure t
@@ -589,10 +585,6 @@
   :config
   (add-to-list 'eglot-server-programs
                '(nix-ts-mode . ("nixd")))
-  ;; (add-to-list 'eglot-server-programs
-  ;;              '(nix-ts-mode . ("nil"
-  ;;                               :initializationOptions
-  ;;                               (:formatting (:command ["alejandra"])))))
   (add-to-list 'eglot-server-programs
                '(python-ts-mode . ("pylsp"))))
 
