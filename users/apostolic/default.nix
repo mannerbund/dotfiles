@@ -41,6 +41,7 @@ in
     ../public/net/wireguard.nix
     ../public/net/dnscrypt-proxy2.nix
     ../public/net/zapret.nix
+    ../public/net/syncthing.nix
 
     # misc
     ../public/cli/git.nix
