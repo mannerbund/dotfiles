@@ -77,28 +77,21 @@ in
       "video"
       "input"
       "systemd-journal"
-      # "wireshark"
     ];
   };
 
   home-manager = {
     useGlobalPkgs = true;
-    extraSpecialArgs = {
-      inherit inputs username;
-    };
+    extraSpecialArgs = { inherit inputs; };
     users.${username} =
       { config, ... }:
       {
-        imports = [
-          inputs.impermanence.homeManagerModules.impermanence
-        ];
+        imports = [ inputs.impermanence.homeManagerModules.impermanence ];
 
         home = {
-          username = lib.mkDefault "apostolic";
-          homeDirectory = lib.mkDefault "/home/${config.home.username}";
-          packages = with pkgs; [
-            visidata
-          ];
+          username = lib.mkDefault "${username}";
+          homeDirectory = lib.mkDefault "/home/${username}";
+          packages = with pkgs; [ visidata ];
           sessionVariables = {
             LESS = "-R --mouse";
             CARGO_HOME = "${config.xdg.dataHome}/cargo";
