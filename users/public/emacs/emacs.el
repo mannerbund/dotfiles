@@ -449,7 +449,8 @@
   :ensure t
   :bind ([f11] . elfeed)
   :config
-  (setq elfeed-search-title-max-width 120))
+  (setq elfeed-search-title-max-width 120)
+  (setq elfeed-db-directory "~/.cache"))
 
 (use-package elfeed-org
   :ensure t
