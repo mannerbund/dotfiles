@@ -20,15 +20,15 @@
           };
           folders = {
             documents = {
-              path = "~/Documents";
+              path = "/persist/home/${username}/Documents";
               devices = [ "phone" ];
             };
             library = {
-              path = "~/Library";
+              path = "/persist/home/${username}/Library";
               devices = [ "phone" ];
             };
             music = {
-              path = "~/Music";
+              path = "/persist/home/${username}/Music";
               devices = [ "phone" ];
             };
           };
