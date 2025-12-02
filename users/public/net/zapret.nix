@@ -6,6 +6,8 @@
     udpPorts = [ "443" ];
     configureFirewall = true;
     whitelist = [
+      "myanimelist.net"
+      "soundcloud.com"
       "musicbrainz.org"
       "picard.musicbrainz.org"
       "flibusta.is"
@@ -14,6 +16,7 @@
       "cloudflare-ech.com"
       "news.google.com"
       "zona.media"
+      "svtv.org"
       "catbox.moe"
       "dis.gd"
       "discord-attachments-uploads-prd.storage.googleapis.com"
