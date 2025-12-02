@@ -94,11 +94,6 @@
         ;;; early-init.el ends here
       '';
 
-      services.emacs = {
-        enable = true;
-        client.enable = true;
-      };
-
       programs =
         let
           al = {
