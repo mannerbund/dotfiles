@@ -19,54 +19,42 @@ in
 
     ../public/core
 
-    # user secrets including password
-    ../public/sops.nix
-    ../public/cli/pass.nix
+    # security/secrets/passwords
+    ../public/security
+    ../public/security/gpg.nix
+    ../public/security/sops.nix
+    ../public/security/pass.nix
 
-    # desktop env
-    ../public/desktop/xorg/exwm.nix
+    # desktop environment
     ../public/emacs
+    ../public/desktop/xorg/exwm.nix
 
     # shell
+    ../public/cli
     ../public/cli/zsh.nix
     ../public/cli/sdcv.nix
-    ../public/cli
+    ../public/cli/direnv.nix
 
     # audio
     ../public/pipewire.nix
 
     # network stuff
     ../public/net/ssh.nix
-    ../public/net/transmission.nix
-    ../public/net/wireguard.nix
-    ../public/net/dnscrypt-proxy2.nix
     ../public/net/zapret.nix
-    ../public/net/syncthing.nix
+    ../public/net/transmission.nix
+    ../public/net/dnscrypt-proxy2.nix
 
     # misc
-    ../public/cli/git.nix
+    ../public/xdg.nix
     ../public/cli/lf.nix
-    ../public/browsers/librewolf.nix
+    ../public/cli/git.nix
+    ../public/texlive.nix
+    ../public/zathura.nix
     ../public/media/mpv.nix
     ../public/media/music.nix
-    ../public/gpg.nix
-    ../public/texlive.nix
-    ../public/xdg.nix
-    ../public/direnv.nix
-    ../public/zathura.nix
-  ];
+    ../public/browsers/librewolf.nix
 
-  fonts = {
-    packages = with pkgs; [
-      dejavu_fonts
-      nerd-fonts.symbols-only
-      iosevka
-      aporetic
-      noto-fonts-color-emoji
-      noto-fonts-cjk-sans
-      twemoji-color-font
-    ];
-  };
+  ];
 
   users.users.${username} = {
     isNormalUser = true;
