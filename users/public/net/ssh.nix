@@ -12,25 +12,24 @@
     };
   };
 
-  # TODO: rewrite, this is host specific
+  users.users.${username}.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC3iQZ1SnReJfbr9u3LMJPm4Sfy6Mz5NlndCE/Zpw4tX u0_a228@localhost"
+  ];
+
   home-manager.users.${username} = {
     programs.ssh = {
       enable = true;
-      extraConfig = "
-        Host chan-wlan
-        Hostname 192.168.31.200
-        Port 22
-        User ${username}
-
-      Host chan-eth
-        Hostname 192.168.31.100
-        Port 22
-        User ${username}
-
-      Host github.com
-       Hostname ssh.github.com
-       Port 443
-    ";
+      matchBlocks = {
+        "github.com" = {
+          hostname = "ssh.github.com";
+          port = 443;
+        };
+        "pixel" = {
+          hostname = "192.168.31.240";
+          user = "pixel";
+          port = 58530;
+        };
+      };
     };
   };
 
