@@ -41,6 +41,7 @@ in
     # network stuff
     ../public/net/ssh.nix
     ../public/net/zapret.nix
+    ../public/net/syncthing.nix
     ../public/net/transmission.nix
     ../public/net/dnscrypt-proxy2.nix
 
