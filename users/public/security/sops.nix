@@ -8,12 +8,10 @@ let
   key_location = "/persist/var/lib/sops-nix/key.txt";
 in
 {
-  imports = [
-    inputs.sops-nix.nixosModules.sops
-  ];
+  imports = [ inputs.sops-nix.nixosModules.sops ];
 
   sops = {
-    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFile = ../../../secrets/secrets.yaml;
 
     secrets."${username}-pass" = {
       neededForUsers = true;

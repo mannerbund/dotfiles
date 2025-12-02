@@ -1,9 +1,22 @@
 {
   username,
+  pkgs,
   ...
 }:
 {
   imports = [ ./default.nix ];
+
+  fonts = {
+    packages = with pkgs; [
+      dejavu_fonts
+      nerd-fonts.symbols-only
+      iosevka
+      aporetic
+      noto-fonts-color-emoji
+      noto-fonts-cjk-sans
+      twemoji-color-font
+    ];
+  };
 
   home-manager.users.${username} =
     { pkgs, ... }:
