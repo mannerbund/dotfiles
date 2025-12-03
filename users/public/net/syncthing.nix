@@ -12,6 +12,7 @@
       services.syncthing = {
         enable = true;
         settings = {
+          gui.theme = "dark";
           devices = {
             phone = {
               name = "Pixel";
@@ -26,10 +27,12 @@
             library = {
               path = "/persist/home/${username}/Library";
               devices = [ "phone" ];
+              type = "sendonly";
             };
             music = {
               path = "/persist/home/${username}/Music";
               devices = [ "phone" ];
+              type = "sendonly";
             };
           };
           options = {
