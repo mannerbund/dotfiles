@@ -662,8 +662,5 @@
 
 ;; HTML&CSS
 (use-package mhtml-mode
-  :hook (mhtml-mode . flyspell-mode)
-  :config
-  (define-key mhtml-mode-map (kbd "M-o") nil)
-  (define-key mhtml-mode-map (kbd "M-p") facemenu-keymap))
+  :hook (mhtml-mode . flyspell-mode))
 ;;; emacs.el ends here
