@@ -5,7 +5,6 @@
 {
   home-manager.users.${username} =
     {
-      lib,
       config,
       pkgs,
       ...
@@ -105,19 +104,15 @@
           gp = "cd ~/Pictures";
           gv = "cd ~/Videos";
           gr = "cd /";
-          e = "emacsclient -nw $f";
         };
         extraConfig = ''
-            # Make sure cache folder exists
+          # Make sure cache folder exists
           %mkdir -p ${config.home.homeDirectory}/.cache/lf
 
           # Follow symbolic links
           cmd follow-link %{{
             lf -remote "send $id select \"$(readlink -- "$f" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
           }}
-
-          # Editor
-          map e !emacsclient -nw "$f"
         '';
         previewer = {
           keybinding = "i";
