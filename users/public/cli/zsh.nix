@@ -26,7 +26,6 @@
         };
         sessionVariables = {
           HISTFILE = "${config.home.homeDirectory}/.cache/history";
-          # INPUTRC = "${config.home.homeDirectory}/.local/share/inputrc";
         };
       };
 
