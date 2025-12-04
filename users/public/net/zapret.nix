@@ -6,6 +6,7 @@
     udpPorts = [ "443" ];
     configureFirewall = true;
     whitelist = [
+      "medium.com"
       "myanimelist.net"
       "soundcloud.com"
       "musicbrainz.org"
