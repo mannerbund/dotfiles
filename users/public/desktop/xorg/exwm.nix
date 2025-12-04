@@ -29,6 +29,7 @@
         };
         packages = with pkgs; [
           libnotify
+          xclip
           nsxiv
         ];
       };
