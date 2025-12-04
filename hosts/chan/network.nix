@@ -18,7 +18,6 @@
     useDHCP = false;
     wireless.iwd.enable = true;
   };
-  services.resolved.enable = false;
   systemd.network = {
     enable = true;
     networks = {
