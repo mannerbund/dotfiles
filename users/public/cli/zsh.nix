@@ -22,7 +22,6 @@
         persistence."/persist/${config.home.homeDirectory}" = {
           directories = [
             ".config/zsh" # for .zcompdump
-            ".local/share/zoxide"
           ];
         };
         sessionVariables = {
