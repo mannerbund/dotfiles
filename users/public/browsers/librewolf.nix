@@ -136,11 +136,6 @@
             Cryptomining = true;
             Fingerprinting = true;
           };
-          DNSOverHTTPS = {
-            Enabled = true;
-            Locked = true;
-            Fallback = false;
-          };
           FirefoxSuggest = {
             SponsoredSuggestions = false;
             Locked = true;
