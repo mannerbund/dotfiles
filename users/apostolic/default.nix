@@ -54,7 +54,6 @@ in
     ../public/media/mpv.nix
     ../public/media/music.nix
     ../public/browsers/librewolf.nix
-
   ];
 
   users.users.${username} = {
@@ -80,7 +79,10 @@ in
         home = {
           username = lib.mkDefault "${username}";
           homeDirectory = lib.mkDefault "/home/${username}";
-          packages = with pkgs; [ visidata ];
+          packages = with pkgs; [
+            visidata
+            gtypist
+          ];
           sessionVariables = {
             LESS = "-R --mouse";
             CARGO_HOME = "${config.xdg.dataHome}/cargo";
