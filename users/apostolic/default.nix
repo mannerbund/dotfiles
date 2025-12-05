@@ -47,12 +47,12 @@ in
 
     # misc
     ../public/xdg.nix
-    ../public/cli/lf.nix
     ../public/cli/git.nix
     ../public/texlive.nix
     ../public/zathura.nix
     ../public/media/mpv.nix
     ../public/media/music.nix
+    ../public/media/ncmpcpp.nix
     ../public/browsers/librewolf.nix
   ];
 
