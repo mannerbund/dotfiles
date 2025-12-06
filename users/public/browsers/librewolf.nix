@@ -78,24 +78,6 @@
               ];
             }
             {
-              name = "chatbots";
-              toolbar = true;
-              bookmarks = [
-                {
-                  name = "chatgpt";
-                  url = "https://chatgpt.com";
-                }
-                {
-                  name = "qwen";
-                  url = "https://chat.qwen.ai";
-                }
-                {
-                  name = "perplexity";
-                  url = "https://www.perplexity.ai";
-                }
-              ];
-            }
-            {
               name = "books";
               toolbar = true;
               bookmarks = [
