@@ -17,8 +17,6 @@ in
       }
     )
 
-    ../public/core
-
     # security/secrets/passwords
     ../public/security
     ../public/security/gpg.nix
