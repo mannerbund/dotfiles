@@ -6,6 +6,7 @@
     udpPorts = [ "443" ];
     configureFirewall = true;
     whitelist = [
+      "x.com"
       "mail.proton.me"
       "proton.me"
       "medium.com"
