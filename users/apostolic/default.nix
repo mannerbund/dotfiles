@@ -53,6 +53,9 @@ in
     ../public/media/music.nix
     ../public/media/ncmpcpp.nix
     ../public/browsers/librewolf.nix
+
+    # games
+    ../public/games
   ];
 
   users.users.${username} = {

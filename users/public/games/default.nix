@@ -1,5 +1,6 @@
 {
   username,
+  ...
 }:
 {
   programs.gamemode.enable = true;
@@ -19,8 +20,9 @@
 
       home.packages = with pkgs; [
         lutris
-        wineWowPackages.waylandFull
+        wineWowPackages.stable
         winetricks
+        # wineWowPackages.waylandFull
       ];
     };
 }

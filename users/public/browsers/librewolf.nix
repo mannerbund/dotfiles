@@ -46,8 +46,8 @@
                   url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
                 }
                 {
-                  name = "python docs";
-                  url = "file://${config.home.homeDirectory}/Documents/python-3.13-docs/index.html";
+                  name = "python313 docs";
+                  url = "https://docs.python.org/3.13/index.html";
                 }
                 {
                   name = "rutracker";
