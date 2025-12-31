@@ -97,7 +97,7 @@
       programs =
         let
           al = {
-            e = "emacsclient -nw -c";
+            e = "emacsclient";
           };
         in
         {
