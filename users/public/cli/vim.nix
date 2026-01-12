@@ -8,7 +8,7 @@ let
 in
 {
   # TODO: rewrite this
-  home.persistence."/persist/${config.home.homeDirectory}" = {
+  home.persistence."/persist" = {
     directories = [
       ".local/share/vim"
     ];

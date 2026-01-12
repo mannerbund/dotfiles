@@ -11,7 +11,7 @@
   home-manager.users.${username} =
     { config, pkgs, ... }:
     {
-      home.persistence."/persist/${config.home.homeDirectory}" = {
+      home.persistence."/persist" = {
         directories = [
           ".local/share/lutris"
           ".local/share/Games"

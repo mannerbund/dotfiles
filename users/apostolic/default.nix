@@ -76,8 +76,6 @@ in
     users.${username} =
       { config, ... }:
       {
-        imports = [ inputs.impermanence.homeManagerModules.impermanence ];
-
         home = {
           username = lib.mkDefault "${username}";
           homeDirectory = lib.mkDefault "/home/${username}";
@@ -93,7 +91,7 @@ in
           };
         };
 
-        home.persistence."/persist/${config.home.homeDirectory}" = {
+        home.persistence."/persist" = {
           directories = [
             ".cache"
             ".local/dotfiles"
@@ -109,7 +107,6 @@ in
             "Pictures"
             "Videos"
           ];
-          allowOther = true;
         };
 
         programs.home-manager.enable = true;

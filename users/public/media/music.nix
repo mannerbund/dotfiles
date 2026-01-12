@@ -7,7 +7,7 @@
       ...
     }:
     {
-      home.persistence."/persist/${config.home.homeDirectory}" = {
+      home.persistence."/persist" = {
         directories = [
           ".local/share/mpd"
           ".local/share/beets"
