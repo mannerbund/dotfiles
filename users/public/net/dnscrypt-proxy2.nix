@@ -1,11 +1,4 @@
-let
-  StateDirectory = "dnscrypt-proxy";
-in
 {
-  environment.persistence."/persist".directories = [
-    "/var/lib/${StateDirectory}"
-  ];
-
   services.dnscrypt-proxy = {
     enable = true;
     upstreamDefaults = true;

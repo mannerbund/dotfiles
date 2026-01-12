@@ -12,14 +12,13 @@
 
   home-manager.users.${username} =
     {
-      config,
       pkgs,
       ...
     }:
     {
 
       home = {
-        persistence."/persist/${config.home.homeDirectory}" = {
+        persistence."/persist" = {
           directories = [ ".emacs.d" ];
         };
         sessionVariables = {

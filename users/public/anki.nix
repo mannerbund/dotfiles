@@ -1,22 +1,26 @@
 {
   config,
   pkgs,
+  username,
   ...
 }:
 {
-  home.persistence."/persist/${config.home.homeDirectory}" = {
-    directories = [
-      ".local/share/Anki2"
-    ];
-  };
+  home-manager.users.${username} = {
 
-  home.sessionVariables = {
-    ANKI_WAYLAND = "1";
-  };
+    home.persistence."/persist" = {
+      directories = [
+        ".local/share/Anki2"
+      ];
+    };
 
-  programs.anki = {
-    enable = true;
-    theme = "dark";
-    addons = [ pkgs.ankiAddons.anki-connect ];
+    home.sessionVariables = {
+      ANKI_WAYLAND = "1";
+    };
+
+    programs.anki = {
+      enable = true;
+      theme = "dark";
+      addons = [ pkgs.ankiAddons.anki-connect ];
+    };
   };
 }

@@ -19,7 +19,7 @@
     }:
     {
       home = {
-        persistence."/persist/${config.home.homeDirectory}" = {
+        persistence."/persist" = {
           directories = [
             ".config/zsh" # for .zcompdump
           ];
