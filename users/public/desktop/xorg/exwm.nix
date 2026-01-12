@@ -18,10 +18,14 @@
     ];
   };
 
+  services.displayManager.ly.settings = {
+    auto_login_user = "${username}";
+    xsession = "/home/${username}/.xsession";
+  };
+
   home-manager.users.${username} =
     { pkgs, ... }:
     {
-
       home = {
         sessionVariables = {
           _JAVA_AWT_WM_NONREPARENTING = "1";
