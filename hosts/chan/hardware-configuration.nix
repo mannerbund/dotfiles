@@ -67,7 +67,10 @@
 
   services = {
     upower.enable = true;
-    libinput.enable = true;
+    libinput = {
+      enable = true;
+      mouse.accelProfile = "flat";
+    };
   };
 
   # impermanence + disko
