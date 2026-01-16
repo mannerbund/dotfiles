@@ -15,16 +15,11 @@
     wireplumber.enable = true;
   };
 
-  home-manager.users.${username} =
-    {
-      config,
-      ...
-    }:
-    {
-      home.persistence."/persist" = {
-        directories = [
-          ".local/state/wireplumber"
-        ];
-      };
+  home-manager.users.${username} = {
+    home.persistence."/persist" = {
+      directories = [
+        ".local/state/wireplumber"
+      ];
     };
+  };
 }
