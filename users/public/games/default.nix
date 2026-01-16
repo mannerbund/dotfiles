@@ -9,7 +9,7 @@
   users.users.${username}.extraGroups = [ "gamemode" ];
 
   home-manager.users.${username} =
-    { config, pkgs, ... }:
+    { pkgs, ... }:
     {
       home.persistence."/persist" = {
         directories = [
@@ -22,6 +22,7 @@
         lutris
         wineWowPackages.stable
         winetricks
+        gamescope
         # wineWowPackages.waylandFull
       ];
     };

@@ -1,4 +1,3 @@
-{ config, ... }:
 {
   home.persistence."/persist" = {
     directories = [ ".local/share/qutebrowser" ];

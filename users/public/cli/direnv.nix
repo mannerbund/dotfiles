@@ -1,18 +1,16 @@
 { username, ... }:
 {
-  home-manager.users.${username} =
-    { config, ... }:
-    {
-      home.persistence."/persist" = {
-        directories = [
-          ".local/share/direnv"
-        ];
-      };
-
-      programs.direnv = {
-        enable = true;
-        nix-direnv.enable = true;
-        silent = true;
-      };
+  home-manager.users.${username} = {
+    home.persistence."/persist" = {
+      directories = [
+        ".local/share/direnv"
+      ];
     };
+
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      silent = true;
+    };
+  };
 }

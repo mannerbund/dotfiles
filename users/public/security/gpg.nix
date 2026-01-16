@@ -5,7 +5,6 @@
 {
   home-manager.users.${username} =
     {
-      config,
       pkgs,
       ...
     }:
