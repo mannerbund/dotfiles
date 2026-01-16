@@ -1,3 +1,8 @@
+let
+  LISTS = "/var/lib/zapret/lists";
+  FAKE = "/var/lib/zapret/fake";
+  GameFilter = "1024-65535";
+in
 {
   services.zapret = {
     enable = true;
@@ -5,94 +10,16 @@
     udpSupport = true;
     udpPorts = [ "443" ];
     configureFirewall = true;
-    whitelist = [
-      "thepiratebay.org"
-      "x.com"
-      "mail.proton.me"
-      "proton.me"
-      "medium.com"
-      "myanimelist.net"
-      "soundcloud.com"
-      "musicbrainz.org"
-      "picard.musicbrainz.org"
-      "flibusta.is"
-      "audiobookbay.lu"
-      "goodreads.com"
-      "cloudflare-ech.com"
-      "news.google.com"
-      "zona.media"
-      "svtv.org"
-      "catbox.moe"
-      "cloudflare-ech.com"
-      "encryptedsni.com"
-      "cloudflareaccess.com"
-      "cloudflareapps.com"
-      "cloudflarebolt.com"
-      "cloudflareclient.com"
-      "cloudflareinsights.com"
-      "cloudflareok.com"
-      "cloudflarepartners.com"
-      "cloudflareportal.com"
-      "cloudflarepreview.com"
-      "cloudflareresolve.com"
-      "cloudflaressl.com"
-      "cloudflarestatus.com"
-      "cloudflarestorage.com"
-      "cloudflarestream.com"
-      "cloudflaretest.com"
-      "dis.gd"
-      "discord-attachments-uploads-prd.storage.googleapis.com"
-      "discord.app"
-      "discord.co"
-      "discord.com"
-      "discord.design"
-      "discord.dev"
-      "discord.gift"
-      "discord.gifts"
-      "discord.gg"
-      "discord.media"
-      "discord.new"
-      "discord.store"
-      "discord.status"
-      "discord-activities.com"
-      "discordactivities.com"
-      "discordapp.com"
-      "discordapp.net"
-      "discordcdn.com"
-      "discordmerch.com"
-      "discordpartygames.com"
-      "discordsays.com"
-      "discordsez.com"
-      "frankerfacez.com"
-      "ffzap.com"
-      "betterttv.net"
-      "7tv.app"
-      "7tv.io"
-      "yt3.ggpht.com"
-      "yt4.ggpht.com"
-      "yt3.googleusercontent.com"
-      "googlevideo.com"
-      "jnn-pa.googleapis.com"
-      "stable.dl2.discordapp.net"
-      "wide-youtube.l.google.com"
-      "youtube-nocookie.com"
-      "youtube-ui.l.google.com"
-      "youtube.com"
-      "youtubeembeddedplayer.googleapis.com"
-      "youtubekids.com"
-      "youtubei.googleapis.com"
-      "youtu.be"
-      "yt-video-upload.l.google.com"
-      "ytimg.com"
-      "ytimg.l.google.com"
-    ];
     params = [
-      "--dpi-desync=fake,disorder2"
-      "--dpi-desync-ttl=1"
-      "--dpi-desync-autottl=-1"
-      "--dpi-desync-fooling=badsum,badseq,md5sig,ts"
-      "--dpi-desync-fake-tls=0x00000000"
-      "--dpi-desync-repeats=6"
+      ''--filter-udp=443 --hostlist="${LISTS}/list-general.txt" --hostlist-exclude="${LISTS}/list-exclude.txt" --ipset-exclude="${LISTS}/ipset-exclude.txt" --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic="${FAKE}/quic_initial_www_google_com.bin" --new''
+      "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-repeats=6 --new"
+      ''--filter-tcp=2053,2083,2087,2096,8443 --hostlist-domains=discord.media --dpi-desync=fake,fakedsplit --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fakedsplit-pattern=0x00 --dpi-desync-fake-tls="${FAKE}/tls_clienthello_www_google_com.bin" --new''
+      ''--filter-tcp=443 --hostlist="${LISTS}/list-google.txt" --ip-id=zero --dpi-desync=fake,fakedsplit --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fakedsplit-pattern=0x00 --dpi-desync-fake-tls="${FAKE}/tls_clienthello_www_google_com.bin" --new''
+      ''--filter-tcp=80,443 --hostlist="${LISTS}/list-general.txt" --hostlist-exclude="${LISTS}/list-exclude.txt" --ipset-exclude="${LISTS}/ipset-exclude.txt" --dpi-desync=fake,fakedsplit --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fakedsplit-pattern=0x00 --dpi-desync-fake-tls="${FAKE}/tls_clienthello_www_google_com.bin" --new''
+      ''--filter-udp=443 --ipset="${LISTS}/ipset-all.txt" --hostlist-exclude="${LISTS}/list-exclude.txt" --ipset-exclude="${LISTS}/ipset-exclude.txt" --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic="${FAKE}/quic_initial_www_google_com.bin" --new''
+      ''--filter-tcp=80,443,${GameFilter} --ipset="${LISTS}/ipset-all.txt" --hostlist-exclude="${LISTS}/list-exclude.txt" --ipset-exclude="${LISTS}/ipset-exclude.txt" --dpi-desync=fake,fakedsplit --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fakedsplit-pattern=0x00 --dpi-desync-fake-tls="${FAKE}/tls_clienthello_www_google_com.bin" --new''
+      ''--filter-udp=${GameFilter} --ipset="${LISTS}/ipset-all.txt" --ipset-exclude="${LISTS}/ipset-exclude.txt" --dpi-desync=fake --dpi-desync-autottl=2 --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp="${FAKE}/quic_initial_www_google_com.bin" --dpi-desync-cutoff=n3 --new''
+      ''--filter-tcp=8090 --dpi-desync=syndata --dpi-desync-fake-syndata="${FAKE}/tls_clienthello_4pda_to.bin" --new ''
     ];
   };
 }
