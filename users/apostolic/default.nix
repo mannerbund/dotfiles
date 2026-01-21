@@ -42,7 +42,6 @@ in
     ../public/net/syncthing.nix
     ../public/net/wireguard.nix
     ../public/net/transmission.nix
-    ../public/net/dnscrypt-proxy2.nix
 
     # misc
     ../public/xdg.nix
