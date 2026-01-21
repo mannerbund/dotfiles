@@ -38,6 +38,7 @@ in
 
     # network stuff
     ../public/net/ssh.nix
+    ../public/net/warp.nix
     ../public/net/zapret.nix
     ../public/net/syncthing.nix
     ../public/net/wireguard.nix
