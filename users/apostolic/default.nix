@@ -48,7 +48,7 @@ in
     ../public/xdg.nix
     ../public/cli/git.nix
     ../public/texlive.nix
-    ../public/zathura.nix
+    ../public/media/zathura.nix
     ../public/media/mpv.nix
     ../public/media/music.nix
     ../public/media/ncmpcpp.nix
