@@ -38,7 +38,6 @@
           graphviz
           emacs-lsp-booster
           nixd
-          scrot
         ];
       };
 
@@ -60,7 +59,7 @@
 
         (setq initial-major-mode 'fundamental-mode)
 
-        ;; (setq inhibit-x-resources t)
+        (setq inhibit-x-resources t)
         (setq inhibit-splash-screen t)
         (setq inhibit-startup-screen t)
         (setq inhibit-startup-message t)
@@ -74,8 +73,8 @@
 
         (custom-set-faces
          ;; Default font for all text
-         '(default ((t (:family "Aporetic Sans Mono" :height 120))))
-         '(fixed-pitch ((t (:family "Aporetic Serif Mono" :height 120))))
+         '(default ((t (:family "Aporetic Sans Mono" :height 140))))
+         '(fixed-pitch ((t (:family "Aporetic Serif Mono" :height 140))))
 
          ;; Current line number
          '(line-number-current-line ((t (:foreground "yellow" :inherit line-number))))
@@ -86,10 +85,18 @@
          '(font-lock-variable-name-face ((t (:family "Aporetic Sans Mono":weight bold)))))
 
         ;; Wayland Clipboard
-        ;; (setq select-active-regions nil)
-        ;; (setq select-enable-clipboard 't)
-        ;; (setq select-enable-primary nil)
-        ;; (setq interprogram-cut-function #'gui-select-text)
+        (setq select-active-regions nil)
+        (setq select-enable-clipboard 't)
+        (setq select-enable-primary nil)
+        (setq interprogram-cut-function #'gui-select-text)
+
+        ;; River
+        (setq default-frame-alist
+          '((undecorated . t)
+          (vertical-scroll-bars . nil)
+          (horizontal-scroll-bars . nil)
+          (menu-bar-lines . 0)
+          (tool-bar-lines . 0)))
         ;;; early-init.el ends here
       '';
 
@@ -107,8 +114,8 @@
             enable = true;
             package = (
               pkgs.emacsWithPackagesFromUsePackage {
-                package = pkgs.emacs-git;
-                config = ./emacs.el;
+                package = pkgs.emacs-pgtk;
+                config = ./emacs.w.el;
                 defaultInitFile = true;
                 extraEmacsPackages = epkgs: [
                   (epkgs.treesit-grammars.with-grammars (grammars: [

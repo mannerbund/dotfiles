@@ -51,8 +51,8 @@
 
 ;; Native-Comp
 (setopt native-comp-speed 3)
-(setopt native-comp-compiler-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
-(setopt native-comp-driver-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
+;; (setopt native-comp-compiler-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
+;; (setopt native-comp-driver-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
 
 ;; Pinentry
 (use-package pinentry
@@ -66,62 +66,6 @@
   (require 'org-crypt)
   (org-crypt-use-before-save-magic)
   (pinentry-start))
-
-;; Exwm
-(use-package exwm
-  :ensure t
-  :custom
-  (exwm-workspace-warp-cursor t)
-  :config
-  (require 'exwm-randr)
-  (setq x-no-window-manager t)
-  (setq exwm-workspace-number 4)
-  (setq exwm-input-simulation-keys
-        '(([?\C-b] . [left])
-          ([?\M-b] . [M-left])
-          ([?\C-f] . [right])
-          ([?\M-f] . [M-right])
-          ([?\C-p] . [up])
-          ([?\C-n] . [down])
-          ([?\C-a] . [home])
-          ([?\C-e] . [end])
-          ([?\M-v] . [prior])
-          ([?\C-v] . [next])
-          ([?\C-d] . [delete])
-          ([?\C-k] . [S-end delete])
-          ([?\C-w] . [?\C-x])
-          ([?\M-w] . [?\C-c])
-          ([?\C-y] . [?\C-v])
-          ([?\C-s] . [?\C-f])))
-  (setq display-time-default-load-average nil)
-  (display-time-mode t)
-  
-  ;; Global keybindings.
-  (setq exwm-input-global-keys
-        `(([?\s-r] . exwm-reset) ;; s-r: Reset (to line-mode).
-          ([?\s-w] . exwm-workspace-switch) ;; s-w: Switch workspace.
-          ([?\s-&] . (lambda (cmd) ;; s-&: Launch application.
-                       (interactive (list (read-shell-command "$ ")))
-                       (start-process-shell-command cmd nil cmd)))
-          ;; s-N: Switch to certain workspace.
-          ,@(mapcar (lambda (i)
-                      `(,(kbd (format "s-%d" i)) .
-                        (lambda ()
-                          (interactive)
-                          (exwm-workspace-switch-create ,i))))
-                    (number-sequence 0 3))))
-  (exwm-randr-mode)
-  (exwm-wm-mode))
-
-(defun screenshot ()
-  "Take a screenshot."
-  (interactive)
-  (start-process "scrot" nil "scrot" "-e" "mv $f ~/Pictures/Screenshots; emacsclient -n ~/Pictures/Screenshots/$f"))
-
-(defun snip ()
-  "Copy an area of the screen to an image."
-  (interactive)
-  (start-process "scrot" nil "scrot" "-s" "-e" "mv $f ~/Pictures/Screenshots; emacsclient -n ~/Pictures/Screenshots/$f"))
 
 ;; Windows Management
 (use-package ace-window
@@ -427,17 +371,12 @@
   (setopt calc-group-digits t))
 
 ;; Proof-general
-(use-package proof-general
-  :ensure t
-  :custom
-  (proof-splash-enable nil)
-  (proof-shell-kill-function-also-kills-associated-buffers t)
-  (proof-multiple-frames-enable nil))
-
-;; Terminal
-(use-package vterm
-  :ensure t
-  :commands (vterm))
+;; (use-package proof-general
+;;   :ensure t
+;;   :custom
+;;   (proof-splash-enable nil)
+;;   (proof-shell-kill-function-also-kills-associated-buffers t)
+;;   (proof-multiple-frames-enable nil))
 
 ;; Pass
 (use-package pass
