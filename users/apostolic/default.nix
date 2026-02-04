@@ -25,7 +25,7 @@ in
 
     # desktop environment
     ../public/emacs
-    ../public/desktop/xorg/exwm.nix
+    ../public/desktop/wayland/river.nix
 
     # shell
     ../public/cli
