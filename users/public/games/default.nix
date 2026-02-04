@@ -20,10 +20,7 @@
 
       home.packages = with pkgs; [
         lutris
-        wineWowPackages.stable
         winetricks
-        gamescope
-        # wineWowPackages.waylandFull
       ];
     };
 }
