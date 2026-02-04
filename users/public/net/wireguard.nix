@@ -12,7 +12,7 @@
       peers = [
         {
           publicKey = "";
-          allowedIPs = [  ];
+          allowedIPs = [ ];
           endpoint = "";
           persistentKeepalive = 25;
         }
