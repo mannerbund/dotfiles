@@ -15,7 +15,7 @@
         { pkgs, ... }:
         {
           devShells.default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [
+            packages = with pkgs; [
               (pkgs.python313.withPackages (
                 python-pkgs: with python-pkgs; [
                   ipython
@@ -29,11 +29,11 @@
                   pandas
                   requests
                   scipy
-                  statsmodels
                   sympy
-                  seaborn
-                  scikit-image
-                  scikit-learn
+                  # statsmodels
+                  # seaborn
+                  # scikit-image
+                  # scikit-learn
                 ]
               ))
             ];

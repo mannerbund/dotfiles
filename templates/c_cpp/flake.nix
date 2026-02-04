@@ -6,7 +6,6 @@
 
   outputs =
     inputs@{
-      nixpkgs,
       flake-parts,
       ...
     }:
@@ -16,7 +15,7 @@
         { pkgs, ... }:
         {
           devShells.default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [
+            packages = with pkgs; [
               pkg-config
               tinycc
               gcc

@@ -8,7 +8,6 @@
 
   outputs =
     inputs@{
-      nixpkgs,
       flake-parts,
       ...
     }:
@@ -18,7 +17,7 @@
         { pkgs, ... }:
         {
           devShells.default = pkgs.mkShell {
-            buildInputs = with pkgs; [
+            programs = with pkgs; [
               rocq-core
               rocqPackages.stdlib
             ];

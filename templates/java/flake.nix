@@ -15,7 +15,7 @@
         { pkgs, ... }:
         {
           devShells.default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [
+            programs = with pkgs; [
               jdk
               jdt-language-server
             ];
