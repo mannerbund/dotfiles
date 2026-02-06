@@ -25,7 +25,7 @@ in
 
     # desktop environment
     ../public/emacs
-    ../public/desktop/wayland/river.nix
+    ../public/desktop/wayland/river
 
     # shell
     ../public/cli
@@ -53,9 +53,6 @@ in
     ../public/media/music.nix
     ../public/media/ncmpcpp.nix
     ../public/browsers/librewolf.nix
-
-    # games
-    ../public/games
   ];
 
   users.users.${username} = {

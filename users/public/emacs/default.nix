@@ -1,6 +1,7 @@
 {
   username,
   inputs,
+  pkgs,
   ...
 }:
 {
@@ -9,6 +10,10 @@
       inputs.emacs-overlay.overlays.default
     ];
   };
+
+  fonts.packages = with pkgs; [
+    aporetic
+  ];
 
   home-manager.users.${username} =
     {
