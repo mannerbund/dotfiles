@@ -4,12 +4,15 @@
   ...
 }:
 {
+  imports = [
+    ../../../terminals/foot.nix
+    ../../../public/media/imv.nix
+  ];
+
   fonts = {
     packages = with pkgs; [
       dejavu_fonts
       nerd-fonts.symbols-only
-      iosevka
-      aporetic
       noto-fonts-color-emoji
       noto-fonts-cjk-sans
       twemoji-color-font
@@ -21,6 +24,71 @@
   home-manager.users.${username} =
     { lib, pkgs, ... }:
     {
+
+      home.packages = with pkgs; [
+        libnotify
+        wl-clipboard
+        wayland-utils
+        wdisplays
+        xsel
+        creek
+        wineWowPackages.waylandFull
+        scrot
+        bemenu
+      ];
+
+      programs = {
+        bemenu.enable = true;
+      };
+      services = {
+        gpg-agent = {
+          pinentry.package = lib.mkForce pkgs.wayprompt;
+          pinentry.program = lib.mkForce "pinentry-wayprompt";
+        };
+        gammastep = {
+          enable = true;
+          provider = "manual";
+          latitude = 55.7;
+          longitude = 37.6;
+        };
+        mako = {
+          enable = true;
+          settings = {
+            default-timeout = 7000;
+            ignore-timeout = true;
+          };
+        };
+      };
+
+      gtk = {
+        gtk4 = {
+          extraConfig = ''
+            [Settings]
+            gtk-dialogs-use-header=false
+          '';
+        };
+        gtk3 = {
+          extraConfig = ''
+            [Settings]
+            gtk-dialogs-use-header=false
+          '';
+          extraCss = ''
+              /* No (default) title bar on wayland */
+            headerbar.default-decoration {
+              /* You may need to tweak these values depending on your GTK theme */
+              margin-bottom: 50px;
+              margin-top: -100px;
+            }
+
+            /* rm -rf window shadows */
+            window.csd,             /* gtk4? */
+            window.csd decoration { /* gtk3 */
+              box-shadow: none;
+            }
+          '';
+        };
+      };
+
       wayland.windowManager.river = {
         enable = true;
         systemd.enable = true;
@@ -42,9 +110,6 @@
               accel-profile = "adaptive";
             };
           };
-          background-color = "0x002b36";
-          border-color-focused = "0x93a1a1";
-          border-color-unfocused = "0x586e75";
 
           map = {
             normal = {
@@ -56,6 +121,8 @@
               "Mod4 4" = "set-focused-tags 8";
               "Mod4 K" = "focus-view previous";
               "Mod4 J" = "focus-view next";
+              "Mod4+Shift K" = "swap previous";
+              "Mod4+Shift J" = "swap next";
               "Mod4 Z" = "zoom";
               "Mod4 F" = "toggle-fullscreen";
 
@@ -110,52 +177,5 @@
         };
       };
 
-      home.packages = with pkgs; [
-        libnotify
-        wl-clipboard
-        wayland-utils
-        wdisplays
-        xsel
-        creek
-        wineWowPackages.waylandFull
-      ];
-
-      programs = {
-        bemenu.enable = true;
-        foot = {
-          enable = true;
-          settings = {
-            main = {
-              term = "xterm-256color";
-              font = "Aporetic Sans Mono:size=14";
-            };
-            key-bindings = {
-              show-urls-copy = "Control+Shift+y";
-            };
-            mouse = {
-              hide-when-typing = "yes";
-            };
-          };
-        };
-      };
-      services = {
-        gpg-agent = {
-          pinentry.package = lib.mkDefault pkgs.wayprompt;
-          pinentry.program = lib.mkDefault "pinentry-wayprompt";
-        };
-        gammastep = {
-          enable = true;
-          provider = "manual";
-          latitude = 55.7;
-          longitude = 37.6;
-        };
-        mako = {
-          enable = true;
-          settings = {
-            default-timeout = 7000;
-            ignore-timeout = true;
-          };
-        };
-      };
     };
 }
