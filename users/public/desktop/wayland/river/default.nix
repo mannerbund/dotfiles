@@ -6,7 +6,7 @@
 {
   imports = [
     ../../../terminals/foot.nix
-    ../../../public/media/imv.nix
+    ../../../media/imv.nix
   ];
 
   fonts = {
