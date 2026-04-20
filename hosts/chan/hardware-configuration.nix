@@ -138,7 +138,6 @@
         "xhci_pci"
         "nvme"
       ];
-      luks.devices."crypted".device = "/dev/disk/by-partlabel/luks";
       systemd = {
         enable = true;
         extraBin = {
