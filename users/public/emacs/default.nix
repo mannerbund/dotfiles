@@ -13,6 +13,9 @@
 
   fonts.packages = with pkgs; [
     aporetic
+    (iosevka-bin.override { variant = "Aile"; })
+    (iosevka-bin.override { variant = "CurlySlab"; })
+    (iosevka-bin.override { variant = "Etoile"; })
   ];
 
   home-manager.users.${username} =
@@ -76,18 +79,30 @@
         (tool-bar-mode -1) ;; Don't display tool bar
         (scroll-bar-mode -1) ;; Don't display scroll bar
 
+        (setq line-spacing 0.35)
+
+        ;; 2. Face Configuration
         (custom-set-faces
-         ;; Default font for all text
-         '(default ((t (:family "Aporetic Sans Mono" :height 140))))
-         '(fixed-pitch ((t (:family "Aporetic Serif Mono" :height 140))))
+         ;; Default font for all text (Updated to Iosevka Curly Slab, Height 140)
+         '(default ((t (:family "Iosevka Curly Slab" :height 140))))
+         '(fixed-pitch ((t (:family "Iosevka Curly Slab" :height 140))))
+         '(variable-pitch ((t (:family "Iosevka Aile" :height 140))))
+         
+         ;; Added Serif face from your variables
+         '(serif ((t (:family "Iosevka Etoile" :height 140))))
 
          ;; Current line number
          '(line-number-current-line ((t (:foreground "yellow" :inherit line-number))))
-         '(mode-line ((t (:family "Aporetic Sans Mono" :weight Bold))))
+         '(mode-line ((t (:family "Iosevka Curly Slab" :weight bold))))
 
-         ;; Comments italic
-         '(font-lock-function-name-face ((t (:family "Aporetic Sans Mono":slant italic))))
-         '(font-lock-variable-name-face ((t (:family "Aporetic Sans Mono":weight bold)))))
+         ;; Syntax Highlighting (Fixed syntax errors & updated fonts)
+         '(font-lock-function-name-face ((t (:family "Iosevka Curly Slab" :slant italic))))
+         '(font-lock-variable-name-face ((t (:family "Iosevka Curly Slab" :weight bold)))))
+
+        ;; 3. Fallback Fonts (Cannot be set inside custom-set-faces)
+        (set-fontset-font t 'unicode "Noto Sans Mono" nil 'append)
+        (dolist (font '("Noto Emoji" "Symbola"))
+          (set-fontset-font t 'symbol font nil 'append))
 
         ;; Wayland Clipboard
         (setq select-active-regions nil)
@@ -128,6 +143,7 @@
                     grammars.tree-sitter-javascript
                     grammars.tree-sitter-json
                     grammars.tree-sitter-nix
+                    grammars.tree-sitter-lua
                   ]))
                   epkgs.eglot-booster
                 ];

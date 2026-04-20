@@ -13,6 +13,7 @@
         };
         init.defaultBranch = "main";
       };
+      signing.format = "openpgp";
       ignores = [
         ".direnv"
       ];

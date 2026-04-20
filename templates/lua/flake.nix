@@ -1,5 +1,5 @@
 {
-  description = "Lisp";
+  description = "Lua";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
@@ -16,8 +16,7 @@
         {
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
-              sbcl
-              guile
+              lua
             ];
           };
         };

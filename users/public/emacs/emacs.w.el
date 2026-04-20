@@ -54,6 +54,12 @@
 ;; (setopt native-comp-compiler-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
 ;; (setopt native-comp-driver-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
 
+;; Clipboard
+(setopt select-active-regions nil)
+(setopt select-enable-clipboard 't)
+(setopt select-enable-primary nil)
+(setopt interprogram-cut-function #'gui-select-text)
+
 ;; Pinentry
 (use-package pinentry
   :ensure t
@@ -590,6 +596,13 @@
 (use-package geiser-guile
   :ensure t
   :after geiser)
+
+;; Lua
+(use-package lua-ts-mode
+  :mode "\\.lua\\'"
+  :interpreter "lua"
+  :hook
+  (lua-ts-mode . eglot-ensure))
 
 ;; JavaScript
 (use-package js

@@ -38,10 +38,9 @@ in
 
     # network stuff
     ../public/net/ssh.nix
-    ../public/net/warp.nix
-    ../public/net/zapret.nix
+    # ../public/net/zapret.nix
     ../public/net/syncthing.nix
-    ../public/net/wireguard.nix
+    # ../public/net/wireguard.nix
     ../public/net/transmission.nix
 
     # misc
@@ -53,6 +52,9 @@ in
     ../public/media/music.nix
     ../public/media/ncmpcpp.nix
     ../public/browsers/librewolf.nix
+
+    # ../public/games
+    # ../public/games/minecraft.nix
   ];
 
   users.users.${username} = {

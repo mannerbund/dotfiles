@@ -1,21 +1,72 @@
+{ pkgs, ... }:
 {
   networking = {
     hostName = "chan";
+    enableIPv6 = true;
     useNetworkd = true;
-    resolvconf.useLocalResolver = true;
-    useDHCP = false;
     wireless.iwd.enable = true;
-    firewall = {
-      allowedTCPPorts = [
-        51413
-        53317
-        22000
-      ];
-      allowedUDPPorts = [
-        51413
-        53317
-        22000
-      ];
+    resolvconf.useLocalResolver = true;
+    firewall.enable = false;
+    useDHCP = false;
+    nftables = {
+      enable = true;
+      ruleset = ''
+        flush ruleset
+
+        table inet filter {
+        	chain input {
+        		type filter hook input priority 0; policy drop;
+        		ct state {established, related} counter accept comment "accept all connections related to connections made by us"
+        		icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+        		ct state invalid counter drop comment "early drop of invalid packets"
+        		iif lo accept comment "accept loopback"
+        		iif != lo ip daddr 127.0.0.1/8 counter drop comment "drop connections to loopback not coming from loopback"
+        		iif != lo ip6 daddr ::1/128 counter drop comment "drop connections to loopback not coming from loopback"
+                udp sport 67 udp dport 68 counter accept comment "DHCP client replies"
+        		ip protocol icmp counter accept comment "accept all ICMP types"
+        		meta l4proto ipv6-icmp counter accept comment "accept all ICMP types"
+        		udp dport 53 ip daddr 127.0.0.1 counter accept comment "UDP IPv4 local DNS"
+        		tcp dport 53 ip daddr 127.0.0.1 counter accept comment "TCP IPv4 local DNS"
+          		udp dport 53 ip6 daddr ::1 counter accept comment "UDP IPv6 local DNS"
+        		tcp dport 53 ip6 daddr ::1 counter accept comment "TCP IPv6 local DNS"
+
+                iifname { "enp0s31f6", "wlan0" } tcp dport 53317 accept
+                iifname { "enp0s31f6", "wlan0" } udp dport 53317 accept
+                iifname { "enp0s31f6", "wlan0" } ip daddr 224.0.0.0/4 udp dport 53317 accept
+
+                # Do something with this
+        		# tcp dport 58530 counter accept comment "accept SSH"
+                # Syncthing
+                tcp dport 22000 accept
+                udp dport { 22000, 21027 } accept
+
+        		counter comment "count dropped packets"
+        	}
+
+        	chain forward {
+        		type filter hook forward priority 0; policy drop;
+        		counter comment "count dropped packets"
+        	}
+
+
+            chain output {
+              type filter hook output priority mangle; policy accept;
+              oifname "lo" accept
+
+              tcp dport 2234 accept comment "TCP SoulSeek"
+
+              tcp dport 53317 accept comment "TCP LocalSend"
+              udp dport 53317 accept comment "UDP LocalSend"
+
+              tcp dport 22000 accept comment "TCP Syncthing"
+              udp dport { 22000, 21027 } accept comment "UDP Syncthing"
+              
+              tcp dport {80, 443, 1024-65535} queue num 220 comment "TCP Zapret QNUM"
+              udp dport {443, 1024-65535} queue num 220 comment "UDP Zapret QNUM"
+            }
+        }
+      '';
+
     };
   };
 
@@ -37,18 +88,30 @@
   };
 
   services = {
-    resolved.enable = false;
+    openssh = {
+      enable = true;
+      ports = [ 58530 ];
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+        UseDns = true;
+      };
+    };
+
     dnscrypt-proxy = {
       enable = true;
       upstreamDefaults = true;
       settings = {
-        listen_addresses = [ "127.0.0.1:53" ];
+        listen_addresses = [
+          "127.0.0.1:53"
+          "[::1]:53"
+        ];
         require_dnssec = true;
         require_nofilter = true;
         require_nolog = true;
-
-        block_ipv6 = true;
-        ipv6_servers = false;
+        doh_servers = true;
+        block_ipv6 = false;
 
         cache_size = 2048;
         cache_min_ttl = 3600;
@@ -63,8 +126,10 @@
             stamp = "sdns://AgEAAAAAAAAAAAAOZG5zLm5leHRkbnMuaW8HL2M4ZGYyNw";
           };
         };
+        cloaking_rules = pkgs.writeText "cloaking-rules.txt" ''
+
+        '';
       };
     };
   };
-
 }

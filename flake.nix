@@ -1,5 +1,5 @@
 {
-  description = "my dots'dingo";
+  description = "dots'dingo";
 
   nixConfig = {
     extra-substituters = [
@@ -41,15 +41,11 @@
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       flake = {
-        overlays.default =
-          final: prev:
-          prev.lib.packagesFromDirectoryRecursive {
-            inherit (prev) callPackage;
-            directory = ./pkgs;
-          };
         nixosConfigurations = {
           chan = nixpkgs.lib.nixosSystem {
-            modules = [ ./hosts/chan ];
+            modules = [
+              ./hosts/chan
+            ];
             specialArgs = {
               inherit inputs;
             };
@@ -58,7 +54,7 @@
       };
       systems = [ "x86_64-linux" ];
       perSystem =
-        { pkgs, ... }:
+        { pkgs, lib, ... }:
         {
           formatter = pkgs.nixfmt-tree;
           devShells.default =
@@ -69,6 +65,10 @@
                 age
               ];
             };
+          packages.default = lib.packagesFromDirectoryRecursive {
+            inherit (lib) callPackage;
+            directory = ./pkgs;
+          };
         };
     };
 }

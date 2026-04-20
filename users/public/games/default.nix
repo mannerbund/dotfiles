@@ -15,6 +15,7 @@
         directories = [
           ".local/share/lutris"
           ".local/share/Games"
+          ".config/StardewValley"
         ];
       };
 

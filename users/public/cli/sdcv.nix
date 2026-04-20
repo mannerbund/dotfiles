@@ -48,6 +48,11 @@
             sdcv -0 -1 -n -c -u ru-en "$@" 2>&1 \
             | html2text -utf8 -width 50
           }
+
+          sdeu() {
+            sdcv -0 -1 -n -c -u duden "$@" 2>&1 \
+            | html2text -utf8 -width 50
+          }
         '';
       };
     };

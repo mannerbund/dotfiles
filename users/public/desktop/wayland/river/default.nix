@@ -7,6 +7,7 @@
   imports = [
     ../../../terminals/foot.nix
     ../../../media/imv.nix
+    ../sandbar.nix
   ];
 
   fonts = {
@@ -31,14 +32,20 @@
         wayland-utils
         wdisplays
         xsel
-        creek
-        wineWowPackages.waylandFull
-        scrot
-        bemenu
+        wineWow64Packages.waylandFull
+        grim
+        slurp
+        brightnessctl
+        pwvucontrol
       ];
 
       programs = {
-        bemenu.enable = true;
+        bemenu = {
+          enable = true;
+          settings = {
+            line-height = 28;
+          };
+        };
       };
       services = {
         gpg-agent = {
@@ -60,33 +67,24 @@
         };
       };
 
-      gtk = {
-        gtk4 = {
-          extraConfig = ''
-            [Settings]
-            gtk-dialogs-use-header=false
-          '';
-        };
-        gtk3 = {
-          extraConfig = ''
-            [Settings]
-            gtk-dialogs-use-header=false
-          '';
-          extraCss = ''
-              /* No (default) title bar on wayland */
-            headerbar.default-decoration {
-              /* You may need to tweak these values depending on your GTK theme */
-              margin-bottom: 50px;
-              margin-top: -100px;
-            }
+      gtk.gtk3 = {
+        extraCss = ''
+          headerbar.titlebar.default-decoration {
+            background: transparent;
+            padding: 0;
+            margin: 0 0 -17px 0;
+            border: 0;
+            min-height: 0;
+            font-size: 0;
+            box-shadow: none;
+          }
 
-            /* rm -rf window shadows */
-            window.csd,             /* gtk4? */
-            window.csd decoration { /* gtk3 */
-              box-shadow: none;
-            }
-          '';
-        };
+          /* rm -rf window shadows */
+          window.csd,             /* gtk4? */
+          window.csd decoration { /* gtk3 */
+            box-shadow: none;
+          }
+        '';
       };
 
       wayland.windowManager.river = {
@@ -115,32 +113,61 @@
             normal = {
               "Mod4 Q" = "close";
               "Mod4 Space" = "toggle-float";
+
+              "Mod4 P" = "focus-view previous";
+              "Mod4 N" = "focus-view next";
+              "Mod4+Shift P" = "swap previous";
+              "Mod4+Shift N" = "swap next";
+              "Mod4 H" = "resize horizontal -100";
+              "Mod4 J" = "resize vertical 100";
+              "Mod4 K" = "resize vertical -100";
+              "Mod4 L" = "resize horizontal 100";
+              "Mod4 Z" = "zoom";
+              "Mod4 F" = "toggle-fullscreen";
+
+              "Mod4 Return" = "spawn 'foot'";
+              "Mod4 D" = "spawn 'bemenu-run'";
+              "Mod4 E" = "spawn 'emacsclient -c'";
+              "Mod4 W" = "spawn 'librewolf'";
+
+              "None Print" = ''
+                spawn 'grim -g "$(slurp)" - | wl-copy'
+              '';
+              "Shift Print" = ''
+                spawn 'grim -g "$(slurp)" - | tee "$(xdg-user-dir SCREENSHOTS)/$(date "+%Y-%m-%d_%H-%M-%S_screenshot.png")" | wl-copy'
+              '';
+
               "Mod4 1" = "set-focused-tags 1";
               "Mod4 2" = "set-focused-tags 2";
               "Mod4 3" = "set-focused-tags 4";
               "Mod4 4" = "set-focused-tags 8";
-              "Mod4 K" = "focus-view previous";
-              "Mod4 J" = "focus-view next";
-              "Mod4+Shift K" = "swap previous";
-              "Mod4+Shift J" = "swap next";
-              "Mod4 Z" = "zoom";
-              "Mod4 F" = "toggle-fullscreen";
-
-              "Mod4+Shift Return" = "spawn 'foot'";
-              "Mod4+Shift D" = "spawn 'bemenu-run'";
-              "Mod4+Shift E" = "spawn 'emacsclient -c'";
-              "Mod4+Shift W" = "spawn 'librewolf'";
+              "Mod4 5" = "set-focused-tags 16";
+              "Mod4 6" = "set-focused-tags 32";
+              "Mod4 7" = "set-focused-tags 64";
+              "Mod4 8" = "set-focused-tags 128";
+              "Mod4 9" = "set-focused-tags 256";
+              "Mod4 0" = "set-focused-tags 512";
+              "Mod4+Shift 1" = "set-view-tags 1";
+              "Mod4+Shift 2" = "set-view-tags 2";
+              "Mod4+Shift 3" = "set-view-tags 4";
+              "Mod4+Shift 4" = "set-view-tags 8";
+              "Mod4+Shift 5" = "set-view-tags 16";
+              "Mod4+Shift 6" = "set-view-tags 32";
+              "Mod4+Shift 7" = "set-view-tags 64";
+              "Mod4+Shift 8" = "set-view-tags 128";
+              "Mod4+Shift 9" = "set-view-tags 256";
+              "Mod4+Shift 0" = "set-view-tags 512";
 
               "None XF86AudioMute" = "spawn 'wpctl set-mute @DEFAULT_SINK@ toggle'";
               "None XF86AudioLowerVolume" = "spawn 'wpctl set-volume @DEFAULT_SINK@ 5%-'";
               "None XF86AudioRaiseVolume" = "spawn 'wpctl set-volume @DEFAULT_SINK@ 5%+'";
 
-              "None XF86MonBrightnessUp" = "spawn 'light -A 5'";
-              "None XF86MonBrightnessDown" = "spawn 'light -U 5'";
+              "None XF86MonBrightnessUp" = "spawn 'brightnessctl s +10%'";
+              "None XF86MonBrightnessDown" = "spawn 'brightnessctl s 10%-'";
 
               # Xwayland clipboard fix from https://github.com/YaLTeR/niri/wiki/Xwayland
-              "Mod4 W" = "spawn 'env DISPLAY=:0 xsel -ob | wl-copy'";
-              "Mod4 Y" = "spawn 'wl-paste -n | env DISPLAY=:0 xsel -ib'";
+              "Mod4+Shift W" = "spawn 'env DISPLAY=:0 xsel -ob | wl-copy'";
+              "Mod4+Shift Y" = "spawn 'wl-paste -n | env DISPLAY=:0 xsel -ib'";
 
               "Mod4 Backspace" = "exit";
             };
@@ -157,20 +184,15 @@
           set-cursor-warp = "on-output-change";
           set-repeat = "30 200";
 
-          rule-add = {
-            "-app-id" = {
-              "creek" = "csd";
-            };
-          };
-
           spawn = [
-            "'creek -fn Aporetic:size=16 -hg 22 -nf 0xffffff -nb 0x000000'"
+            "$HOME/.config/river/status"
+            "$HOME/.config/river/bar"
           ];
         };
 
         extraConfig = ''
           riverctl default-layout rivertile &
-          rivertile -view-padding 6 -outer-padding 6 &
+          rivertile -view-padding 6 -outer-padding 6
         '';
         extraSessionVariables = {
           MOZ_ENABLE_WAYLAND = "1";
