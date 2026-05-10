@@ -87,6 +87,14 @@
         '';
       };
 
+      home.pointerCursor = {
+        package = pkgs.adwaita-icon-theme;
+        name = "Adwaita";
+        size = 24;
+        dotIcons.enable = false;
+        gtk.enable = true;
+      };
+
       wayland.windowManager.river = {
         enable = true;
         systemd.enable = true;
@@ -113,7 +121,6 @@
             normal = {
               "Mod4 Q" = "close";
               "Mod4 Space" = "toggle-float";
-
               "Mod4 P" = "focus-view previous";
               "Mod4 N" = "focus-view next";
               "Mod4+Shift P" = "swap previous";
@@ -125,7 +132,9 @@
               "Mod4 Z" = "zoom";
               "Mod4 F" = "toggle-fullscreen";
 
-              "Mod4 Return" = "spawn 'foot'";
+              "Mod4 G" = "toggle-focused-tags $((1 << 10))";
+              "Mod4+Shift G" = "set-view-tags $((1 << 10))";
+              "Mod4 Return" = "spawn 'footclient'";
               "Mod4 D" = "spawn 'bemenu-run'";
               "Mod4 E" = "spawn 'emacsclient -c'";
               "Mod4 W" = "spawn 'librewolf'";
@@ -137,16 +146,16 @@
                 spawn 'grim -g "$(slurp)" - | tee "$(xdg-user-dir SCREENSHOTS)/$(date "+%Y-%m-%d_%H-%M-%S_screenshot.png")" | wl-copy'
               '';
 
-              "Mod4 1" = "set-focused-tags 1";
-              "Mod4 2" = "set-focused-tags 2";
-              "Mod4 3" = "set-focused-tags 4";
-              "Mod4 4" = "set-focused-tags 8";
-              "Mod4 5" = "set-focused-tags 16";
-              "Mod4 6" = "set-focused-tags 32";
-              "Mod4 7" = "set-focused-tags 64";
-              "Mod4 8" = "set-focused-tags 128";
-              "Mod4 9" = "set-focused-tags 256";
-              "Mod4 0" = "set-focused-tags 512";
+              "Mod4 1" = "set-focused-tags $((1 << 0))";
+              "Mod4 2" = "set-focused-tags $((1 << 1))";
+              "Mod4 3" = "set-focused-tags $((1 << 2))";
+              "Mod4 4" = "set-focused-tags $((1 << 3))";
+              "Mod4 5" = "set-focused-tags $((1 << 4))";
+              "Mod4 6" = "set-focused-tags $((1 << 5))";
+              "Mod4 7" = "set-focused-tags $((1 << 6))";
+              "Mod4 8" = "set-focused-tags $((1 << 7))";
+              "Mod4 9" = "set-focused-tags $((1 << 8))";
+              "Mod4 0" = "set-focused-tags $((1 << 9))";
               "Mod4+Shift 1" = "set-view-tags 1";
               "Mod4+Shift 2" = "set-view-tags 2";
               "Mod4+Shift 3" = "set-view-tags 4";
@@ -187,12 +196,18 @@
           spawn = [
             "$HOME/.config/river/status"
             "$HOME/.config/river/bar"
+            "footclient -N -a scratch-term"
           ];
         };
 
         extraConfig = ''
-          riverctl default-layout rivertile &
-          rivertile -view-padding 6 -outer-padding 6
+          riverctl default-layout rivertile 
+          rivertile -view-padding 6 -outer-padding 6 &
+          # riverctl rule-add -app-id scratch-term csd 
+          riverctl rule-add -app-id scratch-term float 
+          riverctl rule-add -app-id scratch-term position 360 140
+          riverctl rule-add -app-id scratch-term dimensions 1200 800 
+          riverctl rule-add -app-id scratch-term tags $((1 << 10))
         '';
         extraSessionVariables = {
           MOZ_ENABLE_WAYLAND = "1";
