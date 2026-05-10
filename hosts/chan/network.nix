@@ -14,56 +14,42 @@
         flush ruleset
 
         table inet filter {
-        	chain input {
-        		type filter hook input priority 0; policy drop;
-        		ct state {established, related} counter accept comment "accept all connections related to connections made by us"
-        		icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
-        		ct state invalid counter drop comment "early drop of invalid packets"
-        		iif lo accept comment "accept loopback"
-        		iif != lo ip daddr 127.0.0.1/8 counter drop comment "drop connections to loopback not coming from loopback"
-        		iif != lo ip6 daddr ::1/128 counter drop comment "drop connections to loopback not coming from loopback"
-                udp sport 67 udp dport 68 counter accept comment "DHCP client replies"
-        		ip protocol icmp counter accept comment "accept all ICMP types"
-        		meta l4proto ipv6-icmp counter accept comment "accept all ICMP types"
-        		udp dport 53 ip daddr 127.0.0.1 counter accept comment "UDP IPv4 local DNS"
-        		tcp dport 53 ip daddr 127.0.0.1 counter accept comment "TCP IPv4 local DNS"
-          		udp dport 53 ip6 daddr ::1 counter accept comment "UDP IPv6 local DNS"
-        		tcp dport 53 ip6 daddr ::1 counter accept comment "TCP IPv6 local DNS"
+          chain input {
+        	type filter hook input priority 0; policy drop;
+        	ct state {established, related} counter accept comment "accept all connections related to connections made by us"
+        	icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+        	ct state invalid counter drop comment "early drop of invalid packets"
+        	iif lo accept comment "accept loopback"
+        	iif != lo ip daddr 127.0.0.1/8 counter drop comment "drop connections to loopback not coming from loopback"
+        	iif != lo ip6 daddr ::1/128 counter drop comment "drop connections to loopback not coming from loopback"
+            udp sport 67 udp dport 68 counter accept comment "DHCP client replies"
+        	ip protocol icmp counter accept comment "accept all ICMP types"
+        	meta l4proto ipv6-icmp counter accept comment "accept all ICMP types"
+        	udp dport 53 ip daddr 127.0.0.1 counter accept comment "UDP IPv4 local DNS"
+        	tcp dport 53 ip daddr 127.0.0.1 counter accept comment "TCP IPv4 local DNS"
+          	udp dport 53 ip6 daddr ::1 counter accept comment "UDP IPv6 local DNS"
+        	tcp dport 53 ip6 daddr ::1 counter accept comment "TCP IPv6 local DNS"
+            iifname { "enp0s31f6", "wlan0" } tcp dport 53317 accept
+            iifname { "enp0s31f6", "wlan0" } udp dport 53317 accept
+            iifname { "enp0s31f6", "wlan0" } ip daddr 224.0.0.0/4 udp dport 53317 accept
+            # tcp dport 58530 counter accept comment "accept SSH"
+            tcp dport 22000 accept comment "Syncthing"
+            udp dport { 22000, 21027 } accept comment "Syncthing"
+        	counter comment "count dropped packets"
+          }
 
-                iifname { "enp0s31f6", "wlan0" } tcp dport 53317 accept
-                iifname { "enp0s31f6", "wlan0" } udp dport 53317 accept
-                iifname { "enp0s31f6", "wlan0" } ip daddr 224.0.0.0/4 udp dport 53317 accept
-
-                # Do something with this
-        		# tcp dport 58530 counter accept comment "accept SSH"
-                # Syncthing
-                tcp dport 22000 accept
-                udp dport { 22000, 21027 } accept
-
-        		counter comment "count dropped packets"
-        	}
-
-        	chain forward {
-        		type filter hook forward priority 0; policy drop;
-        		counter comment "count dropped packets"
-        	}
+          chain forward {
+            type filter hook forward priority 0; policy drop;
+            counter comment "count dropped packets"
+          }
 
 
-            chain output {
-              type filter hook output priority mangle; policy accept;
-              oifname "lo" accept
-
-              tcp dport 2234 accept comment "TCP SoulSeek"
-
-              tcp dport 53317 accept comment "TCP LocalSend"
-              udp dport 53317 accept comment "UDP LocalSend"
-
-              tcp dport 22000 accept comment "TCP Syncthing"
-              udp dport { 22000, 21027 } accept comment "UDP Syncthing"
-              
-              tcp dport {80, 443, 1024-65535} queue num 220 comment "TCP Zapret QNUM"
-              udp dport {443, 1024-65535} queue num 220 comment "UDP Zapret QNUM"
-            }
+          chain output {
+            type filter hook output priority 0; policy accept;
+            oifname "lo" accept
+            tcp dport {80, 443, 1024-65535} queue num 220 comment "TCP Zapret QNUM"
+            udp dport {443, 1024-65535} queue num 220 comment "UDP Zapret QNUM"
+          }
         }
       '';
 
