@@ -28,6 +28,7 @@
                   matplotlib
                   pandas
                   requests
+                  beautifulsoup4
                   scipy
                   sympy
                   # statsmodels
