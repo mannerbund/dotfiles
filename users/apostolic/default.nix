@@ -25,7 +25,7 @@ in
 
     # desktop environment
     ../public/emacs
-    ../public/desktop/wayland/river
+    ../public/desktop/wayland/mangowm
 
     # shell
     ../public/cli
