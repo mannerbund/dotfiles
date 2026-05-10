@@ -55,6 +55,7 @@ in
 
     # ../public/games
     # ../public/games/minecraft.nix
+    ../public/vm.nix
   ];
 
   users.users.${username} = {
