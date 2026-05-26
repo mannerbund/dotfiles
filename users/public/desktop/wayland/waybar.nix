@@ -55,14 +55,14 @@
             #   "niri/workspaces"
             #   "niri/window"
             # ];
-            # modules-right = [
-            #   "tray"
-            #   "mpd"
-            #   "wireplumber"
-            #   "niri/language"
-            #   "battery"
-            #   "clock"
-            # ];
+            modules-right = [
+              "tray"
+              "mpd"
+              # "wireplumber"
+              # "niri/language"
+              "battery"
+              "clock"
+            ];
 
             # "niri/workspaces" = {
             #   format = mkSpanWorkspace "${config.lib.stylix.colors.base07}";
@@ -88,44 +88,34 @@
             #   icon-size = 20;
             # };
 
-            # clock = {
-            #   calendar = {
-            #     format = {
-            #       days = mkSpan "${config.lib.stylix.colors.base0A}";
-            #       months = mkSpan "${config.lib.stylix.colors.base0D}";
-            #       today = mkSpan "${config.lib.stylix.colors.base0D}";
-            #       weekdays = mkSpan "${config.lib.stylix.colors.base05}";
-            #     };
-            #     mode = "month";
-            #     on-scroll = 1;
-            #   };
-            #   format = "{:%H:%M}";
-            #   tooltip-format = "{calendar}";
-            # };
+            clock = {
+              format = "{:%H:%M}";
+              tooltip-format = "{calendar}";
+            };
 
-            # tray = {
-            #   spacing = 10;
-            # };
+            tray = {
+              spacing = 10;
+            };
 
-            # mpd = {
-            #   inherit server port;
-            #   format = "{stateIcon} {randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%H:%M}/{totalTime:%H:%M})";
-            #   on-click = "${lib.getExe pkgs.mpc} --host ${server} -p ${toString port} toggle";
-            #   unknown-tag = "";
-            #   random-icons = {
-            #     on = " ";
-            #   };
-            #   repeat-icons = {
-            #     on = " ";
-            #   };
-            #   single-icons = {
-            #     on = "1 ";
-            #   };
-            #   state-icons = {
-            #     paused = "";
-            #     playing = "";
-            #   };
-            # };
+            mpd = {
+              inherit server port;
+              format = "{stateIcon} {randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%H:%M}/{totalTime:%H:%M})";
+              on-click = "${lib.getExe pkgs.mpc} --host ${server} -p ${toString port} toggle";
+              unknown-tag = "";
+              random-icons = {
+                on = " ";
+              };
+              repeat-icons = {
+                on = " ";
+              };
+              single-icons = {
+                on = "1 ";
+              };
+              state-icons = {
+                paused = "";
+                playing = "";
+              };
+            };
 
             # "niri/language" = {
             #   format = "{shortDescription} ";
@@ -143,22 +133,22 @@
             #   ];
             # };
 
-            # battery = {
-            #   states = {
-            #     warning = 30;
-            #     critical = 15;
-            #   };
-            #   format = "{icon}";
-            #   format-alt = "{capacity}% {icon}";
-            #   format-icons = [
-            #     ""
-            #     ""
-            #     ""
-            #     ""
-            #     ""
-            #   ];
-            #   max-length = 25;
-            # };
+            battery = {
+              states = {
+                warning = 30;
+                critical = 15;
+              };
+              format = "{icon}";
+              format-alt = "{capacity}% {icon}";
+              format-icons = [
+                ""
+                ""
+                ""
+                ""
+                ""
+              ];
+              max-length = 25;
+            };
           };
         };
         # style = ''
