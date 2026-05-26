@@ -59,6 +59,7 @@
 
   systemd.network = {
     enable = true;
+    wait-online.enable = false;
     networks = {
       "10-wireless" = {
         name = "wlan0";
@@ -74,6 +75,8 @@
     };
   };
 
+  boot.initrd.systemd.network.wait-online.enable = false;
+
   services = {
     openssh = {
       enable = true;
@@ -84,7 +87,16 @@
         PermitRootLogin = "no";
         UseDns = true;
       };
+      tailscale = {
+        enable = true;
+        port = 41641;
+      };
+
     };
+
+    systemd.services.tailscaled.serviceConfig.Environment = [
+      "TS_DEBUG_FIREWALL_MODE=nftables"
+    ];
 
     dnscrypt-proxy = {
       enable = true;
