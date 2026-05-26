@@ -515,6 +515,13 @@
   (eldoc-idle-delay 0.5)
   (eldoc-echo-area-use-multiline-p nil))
 
+(use-package eldoc-box
+  :ensure t
+  :custom
+  (eldoc-box-clear-with-C-g t)
+  (eldoc-box-max-pixel-width 700)
+  (eldoc-box-offset '(16 16 16)))
+
 (use-package flymake
   :defer t
   :bind
@@ -536,8 +543,8 @@
         :prefix-map eglot-prefix-map
         :prefix "C-. e"
         ("a" . eglot-code-actions)
-        ("f" . eglot-format)
         ("r" . eglot-rename)
+        ("b" . eldoc-box-help-at-point)
         ("q" . eglot-reconnect)
         ("Q" . eglot-shutdown))
   :custom
@@ -554,6 +561,11 @@
 (use-package eglot-booster
   :after eglot
   :config (eglot-booster-mode))
+
+(use-package apheleia
+  :ensure t
+  :hook
+  (prog-mode . apheleia-mode))
 
 ;; Python
 (use-package python
