@@ -2,6 +2,7 @@
   config,
   pkgs,
   username,
+  lib,
   ...
 }:
 {
@@ -15,4 +16,6 @@
   };
 
   users.users.${username}.extraGroups = [ "transmission" ];
+
+  systemd.services.transmission.wantedBy = lib.mkForce [ ];
 }
