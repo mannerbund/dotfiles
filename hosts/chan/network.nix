@@ -12,7 +12,6 @@
       enable = true;
       ruleset = ''
         flush ruleset
-
         table inet filter {
           chain input {
         	type filter hook input priority 0; policy drop;
@@ -40,16 +39,14 @@
             udp dport { 22000, 21027 } accept comment "Syncthing"
         	counter comment "count dropped packets"
           }
-
           chain forward {
             type filter hook forward priority 0; policy drop;
             counter comment "count dropped packets"
           }
-
           chain output {
             type filter hook output priority 0; policy accept;
-            tcp dport {80, 443} queue num 220 comment "TCP Zapret QNUM"
-            udp dport 443 queue num 220 comment "UDP Zapret QNUM"
+            tcp dport {80,443,2053,2083,2087,2096,8443} queue num 220 comment "TCP Zapret QNUM"
+            udp dport {443,19294-19344,50000-50100} queue num 220 comment "UDP Zapret QNUM"
           }
         }
       '';
