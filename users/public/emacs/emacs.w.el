@@ -556,7 +556,7 @@
   (add-to-list 'eglot-server-programs
                '(nix-ts-mode . ("nixd")))
   (add-to-list 'eglot-server-programs
-               '(python-ts-mode . ("pylsp"))))
+               '(python-ts-mode . ("pyright-langserver" "--stdio"))))
 
 (use-package eglot-booster
   :after eglot

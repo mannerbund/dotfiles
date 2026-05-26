@@ -16,12 +16,10 @@
         {
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
+              pyright
               (pkgs.python313.withPackages (
                 python-pkgs: with python-pkgs; [
                   ipython
-                  python-lsp-server
-                  python-lsp-black
-                  flake8
                   black
                   pytest
                   numpy
