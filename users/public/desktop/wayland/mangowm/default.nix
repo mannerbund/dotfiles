@@ -126,7 +126,10 @@
           windowrule = "isnamedscratchpad:1,width:1280,height:800,appid:scratch-foot";
           sloppyfocus = 0;
           hotarea_corner = 0;
-          exec-once = "waybar";
+          exec-once = [
+            "waybar"
+            "gammastep"
+          ];
           mousebind = [
             "SUPER,btn_left,moveresize,curmove"
             "SUPER,btn_right,moveresize,curresize"
