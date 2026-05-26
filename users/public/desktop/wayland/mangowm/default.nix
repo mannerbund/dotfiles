@@ -7,6 +7,7 @@
   imports = [
     ../../../terminals/foot.nix
     ../../../media/imv.nix
+    ../waybar.nix
   ];
 
   fonts = {
@@ -121,9 +122,11 @@
           repeat_rate = 30;
           repeat_delay = 200;
           xkb_rules_layout = "us,ru";
-          xkb_rules_options = "ctrl:nocaps,grp:toggle,compose:rctrl";
+          xkb_rules_options = "ctrl:nocaps,grp:toggle";
           windowrule = "isnamedscratchpad:1,width:1280,height:800,appid:scratch-foot";
+          sloppyfocus = 0;
           hotarea_corner = 0;
+          exec-once = "waybar";
           mousebind = [
             "SUPER,btn_left,moveresize,curmove"
             "SUPER,btn_right,moveresize,curresize"
@@ -150,22 +153,23 @@
             "SUPER,8,view,8"
             "SUPER,9,view,9"
 
-            "SUPER+SHIFT,1,tag,1"
-            "SUPER+SHIFT,2,tag,2"
-            "SUPER+SHIFT,3,tag,3"
-            "SUPER+SHIFT,4,tag,4"
-            "SUPER+SHIFT,5,tag,5"
-            "SUPER+SHIFT,6,tag,6"
-            "SUPER+SHIFT,7,tag,7"
-            "SUPER+SHIFT,8,tag,8"
-            "SUPER+SHIFT,9,tag,9"
+            "SUPER+SHIFT,1,tagsilent,1"
+            "SUPER+SHIFT,2,tagsilent,2"
+            "SUPER+SHIFT,3,tagsilent,3"
+            "SUPER+SHIFT,4,tagsilent,4"
+            "SUPER+SHIFT,5,tagsilent,5"
+            "SUPER+SHIFT,6,tagsilent,6"
+            "SUPER+SHIFT,7,tagsilent,7"
+            "SUPER+SHIFT,8,tagsilent,8"
+            "SUPER+SHIFT,9,tagsilent,9"
 
             "SUPER,space,togglefloating"
             "SUPER,f,togglefullscreen"
 
             "SUPER,s,toggle_named_scratchpad,scratch-foot,none,foot -a scratch-foot"
-            "SUPER+CTRL,s,restore_minimized"
-            "SUPER+SHIFT,s,minimized"
+            "SUPER,a,toggle_scratchpad"
+            "SUPER+SHIFT,a,minimized"
+            "SUPER+CTRL,a,restore_minimized"
 
             "SUPER,h,focusdir,left"
             "SUPER,j,focusdir,down"
@@ -188,6 +192,8 @@
             "NONE,XF86AudioRaiseVolume,spawn,wpctl set-volume @DEFAULT_SINK@ 5%+"
             "NONE,XF86MonBrightnessUp,spawn,brightnessctl s +10%"
             "NONE,XF86MonBrightnessDown,spawn,brightnessctl s 10%-"
+
+            "SUPER+SHIFT,BackSpace,quit"
           ];
         };
       };
