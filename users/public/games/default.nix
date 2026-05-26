@@ -20,8 +20,9 @@
       };
 
       home.packages = with pkgs; [
-        lutris
+        wineWow64Packages.waylandFull
         winetricks
+        lutris
       ];
     };
 }

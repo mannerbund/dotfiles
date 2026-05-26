@@ -32,15 +32,12 @@ in
     ../public/cli/zsh.nix
     ../public/cli/sdcv.nix
     ../public/cli/direnv.nix
-
     # audio
     ../public/pipewire.nix
 
     # network stuff
     ../public/net/ssh.nix
-    # ../public/net/zapret.nix
     ../public/net/syncthing.nix
-    # ../public/net/wireguard.nix
     ../public/net/transmission.nix
 
     # misc

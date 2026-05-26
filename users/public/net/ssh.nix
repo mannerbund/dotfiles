@@ -3,7 +3,7 @@
   home-manager.users.${username} = {
     programs.ssh = {
       enable = true;
-      matchBlocks = {
+      settings = {
         "github.com" = {
           hostname = "ssh.github.com";
           port = 443;
