@@ -17,9 +17,10 @@
           chain input {
         	type filter hook input priority 0; policy drop;
         	ct state {established, related} counter accept comment "accept all connections related to connections made by us"
-        	icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
         	ct state invalid counter drop comment "early drop of invalid packets"
         	iif lo accept comment "accept loopback"
+            iifname "tailscale0" accept comment "Tailscale"
+            udp dport 41641 accept comment "Tailscale UDP"
         	iif != lo ip daddr 127.0.0.1/8 counter drop comment "drop connections to loopback not coming from loopback"
         	iif != lo ip6 daddr ::1/128 counter drop comment "drop connections to loopback not coming from loopback"
             udp sport 67 udp dport 68 counter accept comment "DHCP client replies"
@@ -29,10 +30,12 @@
         	tcp dport 53 ip daddr 127.0.0.1 counter accept comment "TCP IPv4 local DNS"
           	udp dport 53 ip6 daddr ::1 counter accept comment "UDP IPv6 local DNS"
         	tcp dport 53 ip6 daddr ::1 counter accept comment "TCP IPv6 local DNS"
-            iifname { "enp0s31f6", "wlan0" } tcp dport 53317 accept
-            iifname { "enp0s31f6", "wlan0" } udp dport 53317 accept
+            iifname { "enp0s31f6", "wlan0" } tcp dport 53317 accept comment "TCP LocalSend"
+            iifname { "enp0s31f6", "wlan0" } udp dport 53317 accept comment "UDP LocalSend"
             iifname { "enp0s31f6", "wlan0" } ip daddr 224.0.0.0/4 udp dport 53317 accept
-            # tcp dport 58530 counter accept comment "accept SSH"
+            #iifname { "enp0s31f6", "wlan0" } tcp dport 1200 accept comment "Python TCP HTTP server"
+            #iifname { "enp0s31f6", "wlan0" } udp dport 1200 accept comment "Python UDP"
+            tcp dport 58530 iffname "tailscale0" accept comment "accept Tailscale SSH"
             tcp dport 22000 accept comment "Syncthing"
             udp dport { 22000, 21027 } accept comment "Syncthing"
         	counter comment "count dropped packets"
@@ -43,12 +46,10 @@
             counter comment "count dropped packets"
           }
 
-
           chain output {
             type filter hook output priority 0; policy accept;
-            oifname "lo" accept
-            tcp dport {80, 443, 1024-65535} queue num 220 comment "TCP Zapret QNUM"
-            udp dport {443, 1024-65535} queue num 220 comment "UDP Zapret QNUM"
+            tcp dport {80, 443} queue num 220 comment "TCP Zapret QNUM"
+            udp dport 443 queue num 220 comment "UDP Zapret QNUM"
           }
         }
       '';
