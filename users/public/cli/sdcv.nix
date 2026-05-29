@@ -31,30 +31,30 @@
 
       programs.zsh = {
         shellAliases = {
-          sd = "sdcv -c";
+          sd = "sdcv --color";
         };
         initContent = lib.mkOrder 1100 ''
           oed() {
-            sdcv -0 -1 -n -c -u oed2 "$@" 2>&1 \
+            sdcv --color -n -u oed2 "$@" 2>&1 \
             | html2text -utf8 -width 75
           }
 
           soed() {
-            sdcv -0 -1 -n -c -u soed6 "$@" 2>&1 \
+            sdcv --color -n -u soed6 "$@" 2>&1 \
             | html2text -utf8 -width 75
           }
 
           sdeu() {
-            sdcv -0 -1 -n -c -u duden "$@" 2>&1 \
+            sdcv --color -n -u duden "$@" 2>&1 \
             | html2text -utf8 -width 75
           }
 
           sdal() {
-            sdcv -0 -1 -n -c -u dal "$@" 2>&1
+            sdcv --color -n -u dal "$@" 2>&1
           }
 
           sdalabbrev() {
-            sdcv -0 -1 -n -c -u dalabbrev "$@" 2>&1
+            sdcv --color -n -u dalabbrev "$@" 2>&1
           }
         '';
       };
