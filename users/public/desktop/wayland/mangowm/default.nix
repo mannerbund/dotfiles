@@ -7,6 +7,7 @@
   imports = [
     ../../../terminals/foot.nix
     ../../../media/imv.nix
+    ../../dark-theme.nix
     ../waybar.nix
   ];
 
