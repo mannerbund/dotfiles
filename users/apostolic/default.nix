@@ -41,6 +41,7 @@ in
     ../public/net/transmission.nix
 
     # misc
+    ../public/qmapshack.nix
     ../public/xdg.nix
     ../public/cli/git.nix
     ../public/texlive.nix
@@ -50,9 +51,11 @@ in
     ../public/media/ncmpcpp.nix
     ../public/browsers/librewolf.nix
 
-    # ../public/games
-    # ../public/games/minecraft.nix
     ../public/vm.nix
+
+    ../public/games
+    ../public/games/steam.nix
+    ../public/games/minecraft.nix
   ];
 
   users.users.${username} = {
@@ -88,12 +91,14 @@ in
           packages = with pkgs; [
             visidata
             gtypist
+            localsend
           ];
           sessionVariables = {
             LESS = "-R --mouse";
             CARGO_HOME = "${config.xdg.dataHome}/cargo";
             NPM_CONFIG_USERCONFIG = "${config.xdg.dataHome}/npm";
             XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
+
           };
         };
 

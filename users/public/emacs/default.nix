@@ -134,7 +134,7 @@
             enable = true;
             package = (
               pkgs.emacsWithPackagesFromUsePackage {
-                package = pkgs.emacs-pgtk;
+                package = pkgs.emacs-unstable-pgtk;
                 config = ./emacs.w.el;
                 defaultInitFile = true;
                 extraEmacsPackages = epkgs: [
