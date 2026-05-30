@@ -32,6 +32,7 @@ in
     ../public/cli/zsh.nix
     ../public/cli/sdcv.nix
     ../public/cli/direnv.nix
+
     # audio
     ../public/pipewire.nix
 
@@ -49,9 +50,9 @@ in
     ../public/media/music.nix
     ../public/media/ncmpcpp.nix
     ../public/browsers/librewolf.nix
-
     ../public/vm.nix
 
+    # games
     ../public/games
     ../public/games/steam.nix
     ../public/games/minecraft.nix

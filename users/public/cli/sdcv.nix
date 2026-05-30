@@ -30,17 +30,14 @@
       };
 
       programs.zsh = {
-        shellAliases = {
-          sd = "sdcv --color";
-        };
         initContent = lib.mkOrder 1100 ''
-          oed() {
-            sdcv --color -n -u oed2 "$@" 2>&1 \
+          sd() {
+            sdcv --color -n -u soed6 "$@" 2>&1 \
             | html2text -utf8 -width 75
           }
 
-          soed() {
-            sdcv --color -n -u soed6 "$@" 2>&1 \
+          oed() {
+            sdcv --color -n -u oed2 "$@" 2>&1 \
             | html2text -utf8 -width 75
           }
 
