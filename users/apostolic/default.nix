@@ -41,7 +41,6 @@ in
     ../public/net/transmission.nix
 
     # misc
-    ../public/qmapshack.nix
     ../public/xdg.nix
     ../public/cli/git.nix
     ../public/texlive.nix
@@ -92,6 +91,7 @@ in
             visidata
             gtypist
             localsend
+            kdePackages.marble
           ];
           sessionVariables = {
             LESS = "-R --mouse";
