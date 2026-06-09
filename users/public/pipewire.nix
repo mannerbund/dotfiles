@@ -1,5 +1,6 @@
 {
   username,
+  pkgs,
   ...
 }:
 {
@@ -12,7 +13,14 @@
     alsa.support32Bit = true;
     jack.enable = true;
     pulse.enable = true;
-    wireplumber.enable = true;
+    wireplumber = {
+      enable = true;
+      configPackages = [
+        (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-bluez.conf" ''
+          bluetooth.autoswitch-to-headset-profile = false
+        '')
+      ];
+    };
   };
 
   home-manager.users.${username} = {
