@@ -144,6 +144,8 @@
                     grammars.tree-sitter-json
                     grammars.tree-sitter-nix
                     grammars.tree-sitter-lua
+                    grammars.tree-sitter-markdown
+                    grammars.tree-sitter-markdown-inline
                   ]))
                   epkgs.eglot-booster
                 ];

@@ -343,14 +343,6 @@
   :after magit
   :hook (git-commit-setup . flyspell-mode))
 
-(use-package markdown-mode
-  :ensure t
-  :mode ("README\\.md\\'" . gfm-mode)
-  :bind (:map markdown-mode-map
-              ("C-c C-e" . markdown-do))
-  :custom
-  (markdown-command "multimarkdown"))
-
 (use-package calc
   :custom
   (calc-group-char ",")
@@ -603,4 +595,7 @@
 ;; HTML&CSS
 (use-package mhtml-mode
   :hook (mhtml-mode . flyspell-mode))
+
+(use-package markdown-ts-mode
+  :mode ("README\\(?:\\.md\\)?\\'" . markdown-ts-mode))
 ;;; emacs.el ends here
