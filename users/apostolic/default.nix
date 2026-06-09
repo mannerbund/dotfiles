@@ -70,15 +70,6 @@ in
     ];
   };
 
-  # Openldap temporary fix
-  nixpkgs.overlays = [
-    (_: prev: {
-      openldap = prev.openldap.overrideAttrs {
-        doCheck = !prev.stdenv.hostPlatform.isi686;
-      };
-    })
-  ];
-
   home-manager = {
     useGlobalPkgs = true;
     extraSpecialArgs = { inherit inputs; };
@@ -99,7 +90,6 @@ in
             CARGO_HOME = "${config.xdg.dataHome}/cargo";
             NPM_CONFIG_USERCONFIG = "${config.xdg.dataHome}/npm";
             XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
-
           };
         };
 

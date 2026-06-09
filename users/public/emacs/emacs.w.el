@@ -51,27 +51,8 @@
 
 ;; Native-Comp
 (setopt native-comp-speed 3)
-;; (setopt native-comp-compiler-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
-;; (setopt native-comp-driver-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
-
-;; Clipboard
-(setopt select-active-regions nil)
-(setopt select-enable-clipboard 't)
-(setopt select-enable-primary nil)
-(setopt interprogram-cut-function #'gui-select-text)
-
-;; Pinentry
-(use-package pinentry
-  :ensure t
-  :config
-  (setenv "GPG_AGENT_INFO" nil)
-  (require 'epa-file)
-  (epa-file-enable)
-  (setq epa-pinentry-mode 'loopback)
-  (setq epg-pinentry-mode 'loopback)
-  (require 'org-crypt)
-  (org-crypt-use-before-save-magic)
-  (pinentry-start))
+(setopt native-comp-compiler-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
+(setopt native-comp-driver-options '("-march=skylake" "-O2" "-g0" "-fno-finite-math-only" "-fno-semantic-interposition" "-flto=auto" "-fuse-linker-plugin"))
 
 ;; Windows Management
 (use-package ace-window
@@ -383,11 +364,6 @@
 ;;   (proof-splash-enable nil)
 ;;   (proof-shell-kill-function-also-kills-associated-buffers t)
 ;;   (proof-multiple-frames-enable nil))
-
-;; Pass
-(use-package pass
-  :defer 3
-  :ensure t)
 
 ;; RSS
 (use-package elfeed
