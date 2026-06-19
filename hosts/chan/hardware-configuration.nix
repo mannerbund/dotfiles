@@ -32,12 +32,6 @@
     };
   };
 
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-    memoryPercent = 100;
-  };
-
   services = {
     upower.enable = true;
     libinput = {
@@ -70,6 +64,8 @@
   };
 
   programs.fuse.userAllowOther = true;
+
+  systemd.oomd.enable = true;
 
   disko.devices = {
     disk = {
