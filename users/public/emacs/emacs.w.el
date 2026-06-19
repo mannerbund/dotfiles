@@ -107,8 +107,8 @@
   ;; Agenda
   (org-modules '(org-habit))
   (org-habit-graph-column 60)
-  (org-agenda-files '("~/Documents/Vault/agenda"
-                      "~/Documents/Vault/journal"))
+  (org-agenda-files "~/Documents/Vault/agenda")
+
   (org-default-notes-file "~/Documents/Vault/agenda/refile.org")
 
   (org-todo-keywords
@@ -213,9 +213,6 @@
   (setq org-capture-templates
         '(("t" "Todo" entry (file "~/Documents/Vault/agenda/refile.org")
            "* TODO %?\n%u\n")
-          ("j" "Journal" plain (function org-journal-find-location)
-           "** %(format-time-string org-journal-time-format)%^{Title}\n%i%?"
-           :jump-to-captured t :immediate-finish t)
           ("n" "Note" entry (file "~/Documents/Vault/agenda/refile.org")
            "* %? :note:\n%u\n")))
 
@@ -224,27 +221,9 @@
   (advice-add #'org-agenda-filter :around #'vertico-enforce-basic-completion)
 
   ;; Custom
-  (defun org-journal-find-location ()
-    (org-journal-new-entry t)
-    (unless (eq org-journal-file-type 'daily)
-      (org-narrow-to-subtree))
-    (goto-char (point-max)))
-
   (defun bh/verify-refile-target ()
     "Exclude todo keywords with a done state from refile targets"
     (not (member (nth 2 (org-heading-components)) org-done-keywords))))
-
-(use-package org-journal
-  :ensure t
-  :bind ("C-c o j" . org-journal-new-entry)
-  :custom
-  (org-journal-dir "~/Documents/Vault/journal")
-  (org-journal-file-format "%Y-%m.org")
-  (org-journal-date-format "%A, %d %B %Y")
-  (org-journal-time-format "%H:%M")
-  (org-journal-file-type 'monthly)
-  (org-journal-enable-cache t)
-  (org-journal-enable-agenda-integration t))
 
 (use-package org-roam
   :ensure t
