@@ -120,31 +120,30 @@
         ;;; early-init.el ends here
       '';
 
-      programs =
-        {
-          info.enable = true;
-          emacs = {
-            enable = true;
-            package = (
-              pkgs.emacsWithPackagesFromUsePackage {
-                package = pkgs.emacs-unstable-pgtk;
-                config = ./emacs.w.el;
-                defaultInitFile = true;
-                extraEmacsPackages = epkgs: [
-                  (epkgs.treesit-grammars.with-grammars (grammars: [
-                    grammars.tree-sitter-python
-                    grammars.tree-sitter-javascript
-                    grammars.tree-sitter-json
-                    grammars.tree-sitter-nix
-                    grammars.tree-sitter-lua
-                    grammars.tree-sitter-markdown
-                    grammars.tree-sitter-markdown-inline
-                  ]))
-                  epkgs.eglot-booster
-                ];
-              }
-            );
-          };
+      programs = {
+        info.enable = true;
+        emacs = {
+          enable = true;
+          package = (
+            pkgs.emacsWithPackagesFromUsePackage {
+              package = pkgs.emacs-git-pgtk;
+              config = ./emacs.w.el;
+              defaultInitFile = true;
+              extraEmacsPackages = epkgs: [
+                (epkgs.treesit-grammars.with-grammars (grammars: [
+                  grammars.tree-sitter-python
+                  grammars.tree-sitter-javascript
+                  grammars.tree-sitter-json
+                  grammars.tree-sitter-nix
+                  grammars.tree-sitter-lua
+                  grammars.tree-sitter-markdown
+                  grammars.tree-sitter-markdown-inline
+                ]))
+                epkgs.eglot-booster
+              ];
+            }
+          );
         };
+      };
     };
 }
