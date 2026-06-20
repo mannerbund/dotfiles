@@ -8,14 +8,12 @@
   environment.systemPackages = [ pkgs.tree ];
 
   home-manager.users.${username} =
-    { lib, config, ... }:
     {
       programs = {
         fzf = {
           enable = true;
-          enableZshIntegration = lib.mkIf config.programs.zsh.enable true;
-          enableFishIntegration = lib.mkIf config.programs.fish.enable true;
-          tmux.enableShellIntegration = lib.mkIf config.programs.tmux.enable true;
+          enableZshIntegration = true;
+          tmux.enableShellIntegration = true;
           defaultOptions = [
             "--layout=reverse"
             "--height 40%"
@@ -29,11 +27,7 @@
           '';
         };
 
-        zsh.shellAliases = lib.mkIf config.programs.zsh.enable {
-          yta = "yt-dlp -xf bestaudio/best";
-          tree = "tree -L 2";
-        };
-        fish.shellAliases = lib.mkIf config.programs.fish.enable {
+        zsh.shellAliases = {
           yta = "yt-dlp -xf bestaudio/best";
           tree = "tree -L 2";
         };

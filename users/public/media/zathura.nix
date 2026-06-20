@@ -18,14 +18,12 @@
     };
 
     programs =
-      let
-        al = {
-          z = "zathura-sandbox";
-        };
-      in
       {
-        zsh.shellAliases = al;
-        fish.shellAliases = al;
+        zsh.initContent = ''
+          z() {
+            setsid zathura "$@" >/dev/null 2>&1 < /dev/null &
+          }
+        '';
         zathura = {
           enable = true;
           options = {

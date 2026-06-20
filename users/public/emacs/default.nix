@@ -121,14 +121,7 @@
       '';
 
       programs =
-        let
-          al = {
-            e = "emacsclient";
-          };
-        in
         {
-          zsh.shellAliases = al;
-          fish.shellAliases = al;
           info.enable = true;
           emacs = {
             enable = true;
