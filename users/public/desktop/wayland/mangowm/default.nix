@@ -124,7 +124,12 @@
           repeat_delay = 200;
           xkb_rules_layout = "us,ru";
           xkb_rules_options = "ctrl:nocaps,grp:toggle";
-          windowrule = "isnamedscratchpad:1,width:1280,height:800,appid:scratch-foot";
+          windowrule = [
+            "isnamedscratchpad:1,width:1280,height:800,appid:scratch-foot"
+          ];
+          layerrule = [
+            "noanim:1,noblur:1,layer_name:selection"
+          ];
           sloppyfocus = 0;
           hotarea_corner = 0;
           exec-once = [
