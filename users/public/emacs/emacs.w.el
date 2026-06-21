@@ -107,8 +107,7 @@
   ;; Agenda
   (org-modules '(org-habit))
   (org-habit-graph-column 60)
-  (org-agenda-files "~/Documents/Vault/agenda")
-
+  (org-agenda-files '("~/Documents/Vault/agenda"))
   (org-default-notes-file "~/Documents/Vault/agenda/refile.org")
 
   (org-todo-keywords
