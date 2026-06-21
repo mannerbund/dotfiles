@@ -19,8 +19,8 @@
         key-bindings = {
           clipboard-copy = "Alt+c XF86Copy";
           clipboard-paste = "Alt+v XF86Paste";
-          scrollback-up-half-page = "Alt+k";
-          scrollback-down-half-page = "Alt+j";
+          scrollback-up-half-page = "Alt+p";
+          scrollback-down-half-page = "Alt+n";
           show-urls-copy = "Alt+y";
         };
         mouse = {
