@@ -138,12 +138,14 @@
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-intel" ];
     loader = {
-      systemd-boot = {
-        enable = true;
-        consoleMode = "max";
-      };
       efi.canTouchEfiVariables = true;
-      systemd-boot.configurationLimit = 8;
+      limine = {
+        enable = true;
+        secureBoot.enable = true;
+        panicOnChecksumMismatch = true;
+        maxGenerations = 8;
+        resolution = "1920x1080x32";
+      };
     };
     initrd = {
       availableKernelModules = [

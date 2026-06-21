@@ -5,9 +5,6 @@
   ...
 }:
 {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   programs.virt-manager.enable = true;
 
   users.groups.libvirtd.members = [ "${username}" ];
