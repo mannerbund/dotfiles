@@ -13,18 +13,15 @@
       systems = [ "x86_64-linux" ];
       perSystem =
         { pkgs, ... }:
+
         {
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
-              pkg-config
-              tinycc
               gcc
               gdb
-              ccls
-            ];
-
-            buildInputs = with pkgs; [
-              sdl3
+              cmake
+              ninja
+              clang-tools
             ];
           };
         };

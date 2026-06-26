@@ -132,6 +132,8 @@
               extraEmacsPackages = epkgs: [
                 (epkgs.treesit-grammars.with-grammars (grammars: [
                   grammars.tree-sitter-python
+                  grammars.tree-sitter-cpp
+                  grammars.tree-sitter-c
                   grammars.tree-sitter-javascript
                   grammars.tree-sitter-json
                   grammars.tree-sitter-nix

@@ -477,13 +477,14 @@
 (setopt major-mode-remap-alist
         '((js-mode . js-ts-mode)
           (js-json-mode . json-ts-mode)
-          (python-mode . python-ts-mode)))
+          (python-mode . python-ts-mode)
+          (c-mode . c-ts-mode)
+          (c++-mode . c++-ts-mode)))
 
 (use-package eglot
   :defer t
-  :hook
-  ((c-mode . eglot-ensure)
-   (c++-mode . eglot-ensure))
+  :hook ((c-ts-mode . eglot-ensure)
+         (c++-ts-mode . eglot-ensure))
   :bind
   (:map eglot-mode-map
         :prefix-map eglot-prefix-map
@@ -502,7 +503,11 @@
   (add-to-list 'eglot-server-programs
                '(nix-ts-mode . ("nixd")))
   (add-to-list 'eglot-server-programs
-               '(python-ts-mode . ("pyright-langserver" "--stdio"))))
+               '(python-ts-mode . ("pyright-langserver" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '(c-ts-mode . ("clangd")))
+  (add-to-list 'eglot-server-programs
+               '(c++-ts-mode . ("clangd" "--clang-tidy" "--completion-style=detailed"))))
 
 (use-package eglot-booster
   :after eglot
