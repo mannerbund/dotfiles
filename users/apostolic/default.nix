@@ -40,6 +40,7 @@ in
     ../public/net/ssh.nix
     ../public/net/syncthing.nix
     ../public/net/transmission.nix
+    ../public/net/amneziavpn.nix
 
     # misc
     ../public/xdg.nix
@@ -49,14 +50,14 @@ in
     ../public/media/mpv.nix
     ../public/media/music.nix
     ../public/media/ncmpcpp.nix
-    ../public/browsers/librewolf.nix
-    ../public/vm.nix
     ../public/media/vesktop.nix
+    ../public/browsers/firefox.nix
+    # ../public/vm.nix
 
     # games
     ../public/games
     ../public/games/steam.nix
-    ../public/games/minecraft.nix
+    # ../public/games/minecraft.nix
   ];
 
   users.users.${username} = {

@@ -7,7 +7,7 @@
   imports = [
     ../../../terminals/foot.nix
     ../../../media/imv.nix
-    ../../dark-theme.nix
+    # ../../dark-theme.nix
     ../waybar.nix
   ];
 
@@ -52,14 +52,10 @@
           fi
         '')
         (writeShellScriptBin "screenshot-save" ''
-          if geometry=$(slurp); then
-            if grim -g "$(slurp)" - | tee "$(xdg-user-dir SCREENSHOTS)/$(date "+%Y-%m-%d_%H-%M-%S_screenshot.png")" | wl-copy; then
-              notify-send -u low "Screenshot saved"
-            else
-              notify-send -u normal "Screenshot failed"
-            fi
+          if grim - | tee "$(xdg-user-dir SCREENSHOTS)/$(date "+%Y-%m-%d_%H-%M-%S_screenshot.png")" | wl-copy; then
+            notify-send -u low "Screenshot saved"
           else
-            notify-send -u critical "Screenshot cancelled"
+            notify-send -u normal "Screenshot failed"
           fi
         '')
       ];

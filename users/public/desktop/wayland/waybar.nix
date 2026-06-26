@@ -59,7 +59,6 @@
               "tray"
               "mpd"
               # "wireplumber"
-              # "niri/language"
               "battery"
               "clock"
             ];

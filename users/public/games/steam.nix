@@ -7,7 +7,7 @@
       directories = [
         ".steam"
         ".local/share/Steam"
-        ".local/share/Paradox Interactive"
+        # ".local/share/Paradox Interactive"
       ];
     };
   };

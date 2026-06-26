@@ -45,8 +45,8 @@
           }
           chain output {
             type filter hook output priority 0; policy accept;
-            tcp dport {80,443,2053,2083,2087,2096,8443} queue num 220 comment "TCP Zapret QNUM"
-            udp dport {443,19294-19344,50000-50100} queue num 220 comment "UDP Zapret QNUM"
+            # tcp dport {80,443,2053,2083,2087,2096,8443} queue num 220 comment "TCP Zapret QNUM"
+            # udp dport {443,19294-19344,50000-50100} queue num 220 comment "UDP Zapret QNUM"
           }
         }
       '';
@@ -90,10 +90,10 @@
         UseDns = true;
       };
     };
-    tailscale = {
-      enable = true;
-      port = 41641;
-    };
+    # tailscale = {
+    #   enable = true;
+    #   port = 41641;
+    # };
 
     dnscrypt-proxy = {
       enable = true;
@@ -123,112 +123,6 @@
           };
         };
         cloaking_rules = pkgs.writeText "cloaking-rules.txt" ''
-          ab.chatgpt.com 45.155.204.190
-          ab.chatgpt.com 37.230.192.51
-          chatgpt.com 45.155.204.190
-          chatgpt.com 37.230.192.51
-          operator.chatgpt.com 45.155.204.190
-          operator.chatgpt.com 37.230.192.51
-          sora.chatgpt.com 45.155.204.190
-          sora.chatgpt.com 37.230.192.51
-          webrtc.chatgpt.com 45.155.204.190
-          webrtc.chatgpt.com 37.230.192.51
-          www.chatgpt.com 45.155.204.190
-          www.chatgpt.com 37.230.192.51
-
-          android.chat.openai.com 45.155.204.190
-          android.chat.openai.com 37.230.192.51
-          api.openai.com 45.155.204.190
-          api.openai.com 37.230.192.51
-          auth.openai.com 45.155.204.190
-          auth.openai.com 37.230.192.51
-          auth0.openai.com 45.155.204.190
-          auth0.openai.com 37.230.192.51
-          blog.openai.com 45.155.204.190
-          blog.openai.com 37.230.192.51
-          cdn.openai.com 45.155.204.190
-          cdn.openai.com 37.230.192.51
-          chat.openai.com 45.155.204.190
-          chat.openai.com 37.230.192.51
-          community.openai.com 45.155.204.190
-          community.openai.com 37.230.192.51
-          help.openai.com 45.155.204.190
-          help.openai.com 37.230.192.51
-          ios.chat.openai.com 45.155.204.190
-          ios.chat.openai.com 37.230.192.51
-          openai.com 45.155.204.190
-          openai.com 37.230.192.51
-          platform.api.openai.com 45.155.204.190
-          platform.api.openai.com 37.230.192.51
-          platform.openai.com 45.155.204.190
-          platform.openai.com 37.230.192.51
-          tcr9i.chat.openai.com 45.155.204.190
-          tcr9i.chat.openai.com 37.230.192.51
-          videos.openai.com 45.155.204.190
-          videos.openai.com 37.230.192.51
-          www.openai.com 45.155.204.190
-          www.openai.com 37.230.192.51
-          arena.openai.com 45.155.204.190
-          arena.openai.com 37.230.192.51
-          beta.api.openai.com 45.155.204.190
-          beta.api.openai.com 37.230.192.51
-          beta.openai.com 45.155.204.190
-          beta.openai.com 37.230.192.51
-          contest.openai.com 45.155.204.190
-          contest.openai.com 37.230.192.51
-          debate-game.openai.com 45.155.204.190
-          debate-game.openai.com 37.230.192.51
-          discuss.openai.com 45.155.204.190
-          discuss.openai.com 37.230.192.51
-          gym.openai.com 45.155.204.190
-          gym.openai.com 37.230.192.51
-          jukebox.openai.com 45.155.204.190
-          jukebox.openai.com 37.230.192.51
-          labs.openai.com 45.155.204.190
-          labs.openai.com 37.230.192.51
-          microscope.openai.com 45.155.204.190
-          microscope.openai.com 37.230.192.51
-          spinningup.openai.com 45.155.204.190
-          spinningup.openai.com 37.230.192.51
-          universe.openai.com 45.155.204.190
-          universe.openai.com 37.230.192.51
-
-          t.me                      149.154.167.220 
-          api.telegram.org          149.154.167.220 
-          aurora-1.web.telegram.org 149.154.167.220 
-          aurora.web.telegram.org   149.154.167.220 
-          flora-1.web.telegram.org  149.154.167.220 
-          flora.web.telegram.org    149.154.167.220 
-          kws1-1.web.telegram.org   149.154.167.220 
-          kws1.web.telegram.org     149.154.167.220 
-          kws2-1.web.telegram.org   149.154.167.220 
-          kws2.web.telegram.org     149.154.167.220 
-          kws4-1.web.telegram.org   149.154.167.220 
-          kws4.web.telegram.org     149.154.167.220 
-          kws5-1.web.telegram.org   149.154.167.220 
-          kws5.web.telegram.org     149.154.167.220 
-          pluto-1.web.telegram.org  149.154.167.220 
-          pluto.web.telegram.org    149.154.167.220 
-          td.telegram.org           149.154.167.220 
-          telegram.dog              149.154.167.220 
-          telegram.me               149.154.167.220 
-          telegram.org              149.154.167.220 
-          telegram.space            149.154.167.220 
-          venus-1.web.telegram.org  149.154.167.220 
-          venus.web.telegram.org    149.154.167.220 
-          vesta-1.web.telegram.org  149.154.167.220 
-          vesta.web.telegram.org    149.154.167.220 
-          web.telegram.org          149.154.167.220 
-          zws1-1.web.telegram.org   149.154.167.220 
-          zws1.web.telegram.org     149.154.167.220 
-          zws2-1.web.telegram.org   149.154.167.220 
-          zws2.web.telegram.org     149.154.167.220 
-          zws4-1.web.telegram.org   149.154.167.220 
-          zws4.web.telegram.org     149.154.167.220 
-          zws5-1.web.telegram.org   149.154.167.220 
-          zws5.web.telegram.org     149.154.167.220 
-          telesco.pe                149.154.167.220 
-          tg.dev                    149.154.167.220 
         '';
       };
     };
