@@ -51,6 +51,7 @@ in
     ../public/media/ncmpcpp.nix
     ../public/browsers/librewolf.nix
     ../public/vm.nix
+    ../public/media/vesktop.nix
 
     # games
     ../public/games
