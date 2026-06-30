@@ -509,10 +509,6 @@
   (add-to-list 'eglot-server-programs
                '(c++-ts-mode . ("clangd" "--clang-tidy" "--completion-style=detailed"))))
 
-(use-package eglot-booster
-  :after eglot
-  :config (eglot-booster-mode))
-
 (use-package apheleia
   :ensure t
   :hook

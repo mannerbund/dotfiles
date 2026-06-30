@@ -44,24 +44,15 @@
             ]
           ))
           graphviz
-          emacs-lsp-booster
           nixd
         ];
       };
-
-      services.gpg-agent.extraConfig = ''
-        allow-emacs-pinentry
-        allow-loopback-pinentry
-      '';
 
       home.file.".emacs.d/early-init.el".text = ''
         ;;; early-init.el --- Early Initialization -*- lexical-binding: t; -*-
         (setq gc-cons-threshold most-positive-fixnum)
         (setq gc-cons-percentage 1.0)
         (setq read-process-output-max (* 1024 1024))
-
-        (setenv "LSP_USE_PLISTS" "true")
-        (setq lsp-use-plists t)
 
         (setq package-quickstart t)
 
@@ -103,20 +94,6 @@
         (set-fontset-font t 'unicode "Noto Sans Mono" nil 'append)
         (dolist (font '("Noto Emoji" "Symbola"))
           (set-fontset-font t 'symbol font nil 'append))
-
-        ;; Wayland Clipboard
-        (setq select-active-regions nil)
-        (setq select-enable-clipboard 't)
-        (setq select-enable-primary nil)
-        (setq interprogram-cut-function #'gui-select-text)
-
-        ;; River
-        (setq default-frame-alist
-          '((undecorated . t)
-          (vertical-scroll-bars . nil)
-          (horizontal-scroll-bars . nil)
-          (menu-bar-lines . 0)
-          (tool-bar-lines . 0)))
         ;;; early-init.el ends here
       '';
 
@@ -141,7 +118,6 @@
                   grammars.tree-sitter-markdown
                   grammars.tree-sitter-markdown-inline
                 ]))
-                epkgs.eglot-booster
               ];
             }
           );
