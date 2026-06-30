@@ -46,7 +46,11 @@
                   url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
                 }
                 {
-                  name = "python313 docs";
+                  name = "cppref";
+                  url = "https://cppreference.com";
+                }
+                {
+                  name = "python313";
                   url = "https://docs.python.org/3.13/index.html";
                 }
                 {

@@ -122,8 +122,7 @@
             stamp = "sdns://AgEAAAAAAAAAAAAOZG5zLm5leHRkbnMuaW8HL2M4ZGYyNw";
           };
         };
-        cloaking_rules = pkgs.writeText "cloaking-rules.txt" ''
-        '';
+        cloaking_rules = pkgs.writeText "cloaking-rules.txt" "";
       };
     };
   };

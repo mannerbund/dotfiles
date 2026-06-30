@@ -51,7 +51,7 @@ in
     ../public/media/music.nix
     ../public/media/ncmpcpp.nix
     ../public/media/vesktop.nix
-    ../public/browsers/firefox.nix
+    ../public/browsers/librewolf.nix
     # ../public/vm.nix
 
     # games
