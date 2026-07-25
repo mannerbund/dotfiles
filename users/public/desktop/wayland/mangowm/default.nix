@@ -36,6 +36,7 @@
       home.packages = with pkgs; [
         libnotify
         wl-clipboard
+        xsel
         grim
         slurp
         brightnessctl
@@ -61,6 +62,7 @@
       ];
 
       home.pointerCursor = {
+        enable = true;
         package = pkgs.adwaita-icon-theme;
         name = "Adwaita";
         size = 24;
@@ -122,6 +124,7 @@
           xkb_rules_options = "ctrl:nocaps,grp:toggle";
           windowrule = [
             "isnamedscratchpad:1,width:1280,height:800,appid:scratch-foot"
+            "isnamedscratchpad:1,width:1280,height:800,appid:scratch-music"
           ];
           layerrule = [
             "noanim:1,noblur:1,layer_name:selection"
@@ -168,10 +171,14 @@
             "SUPER+SHIFT,8,tagsilent,8"
             "SUPER+SHIFT,9,tagsilent,9"
 
+            "SUPER+SHIFT,w,spawn_shell,env DISPLAY=:0 xsel -ob | wl-copy"
+            "SUPER+SHIFT,y,spawn_shell,wl-paste -n | env DISPLAY=:0 xsel -ib"
+
             "SUPER,space,togglefloating"
             "SUPER,f,togglefullscreen"
 
             "SUPER,s,toggle_named_scratchpad,scratch-foot,none,foot -a scratch-foot"
+            "SUPER,m,toggle_named_scratchpad,scratch-music,none,foot -a scratch-music ncmpcpp"
             "SUPER,a,toggle_scratchpad"
             "SUPER+SHIFT,a,minimized"
             "SUPER+CTRL,a,restore_minimized"
