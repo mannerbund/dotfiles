@@ -17,7 +17,7 @@
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               pyright
-              (pkgs.python313.withPackages (
+              (pkgs.python314.withPackages (
                 python-pkgs: with python-pkgs; [
                   ipython
                   black
