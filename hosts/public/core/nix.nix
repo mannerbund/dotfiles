@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ lib, ... }:
 {
   nix = {
     channel.enable = false;
@@ -20,12 +20,7 @@
     };
   };
 
-  nixpkgs = {
-    # overlays = [
-    #   inputs.self.overlays.default
-    # ];
-    config.allowUnfree = true;
-  };
+  nixpkgs.config.allowUnfree = true;
 
   documentation.nixos.enable = lib.mkForce false;
 }
