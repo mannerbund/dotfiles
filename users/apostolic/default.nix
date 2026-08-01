@@ -50,15 +50,14 @@ in
     ../public/media/mpv.nix
     ../public/media/music.nix
     ../public/media/ncmpcpp.nix
-    ../public/media/vesktop.nix
     ../public/browsers/librewolf.nix
-    # ../public/vm.nix
 
     # games
     ../public/games
     ../public/games/steam.nix
-    # ../public/games/minecraft.nix
   ];
+
+  services.getty.autologinUser = "${username}";
 
   users.users.${username} = {
     isNormalUser = true;
@@ -85,7 +84,7 @@ in
             visidata
             gtypist
             localsend
-            kdePackages.marble
+            gimp
           ];
           sessionVariables = {
             LESS = "-R --mouse";
