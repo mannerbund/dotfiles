@@ -186,7 +186,7 @@
   (org-startup-folded 'content)
   (org-startup-with-inline-images t)
   (org-hide-emphasis-markers t)
-  (org-pretty-entities t)
+  (org-pretty-entities nil)
   (org-ellipsis " ┅ ")
   (org-src-fontify-natively t)
   (org-fontify-quote-and-verse-blocks t)

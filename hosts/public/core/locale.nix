@@ -1,5 +1,5 @@
 { lib, ... }:
 {
-  i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
+  i18n.defaultLocale = lib.mkDefault "C.UTF-8";
   time.timeZone = lib.mkDefault "Europe/Moscow";
 }

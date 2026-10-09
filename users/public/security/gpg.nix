@@ -16,8 +16,8 @@
       services.gpg-agent = {
         enable = true;
         enableZshIntegration = true;
-        pinentry.package = pkgs.pinentry-gtk2;
-        pinentry.program = "pinentry-gtk2";
+        pinentry.package = pkgs.pinentry-qt;
+        pinentry.program = "pinentry-qt";
         defaultCacheTtl = 86400;
       };
 

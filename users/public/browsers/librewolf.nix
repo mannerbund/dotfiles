@@ -57,6 +57,10 @@
                   name = "rutracker";
                   url = "https://rutracker.org";
                 }
+                {
+                  name = "transmission";
+                  url = "http://127.0.0.1:9091/transmission/web/";
+                }
               ];
             }
             {

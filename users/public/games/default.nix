@@ -2,7 +2,6 @@
   username,
   ...
 }:
-
 {
   programs.gamemode.enable = true;
   programs.gamescope.enable = true;
@@ -32,6 +31,7 @@
               network
               (rw-bind "${config.home.homeDirectory}/.local/share/Games" "${config.home.homeDirectory}/.local/share/Games")
               (rw-bind "${config.home.homeDirectory}/.local/share/lutris" "${config.home.homeDirectory}/.local/share/lutris")
+              (rw-bind "${config.home.homeDirectory}/.cache/lutris" "${config.home.homeDirectory}/.cache/lutris")
               (rw-bind "/run" "/run")
               (add-pkg-deps [
                 pkgs.gamemode

@@ -7,7 +7,7 @@
   imports = [
     ../../../terminals/foot.nix
     ../../../media/imv.nix
-    # ../../dark-theme.nix
+    ../../../bemenu.nix
     ../waybar.nix
   ];
 
@@ -44,7 +44,7 @@
         (writeShellScriptBin "screenshot-to-clip" ''
           if geometry=$(slurp); then
             if grim -g "$geometry" - | wl-copy; then
-              notify-send -u low "Screenshot saved"
+              notify-send -u low "Screenshot saved to clipboard"
             else
               notify-send -u normal "Screenshot failed"
             fi
@@ -70,19 +70,10 @@
         gtk.enable = true;
       };
 
-      programs = {
-        bemenu = {
-          enable = true;
-          settings = {
-            line-height = 28;
-          };
-        };
-      };
-
       services = {
         gpg-agent = {
-          pinentry.package = lib.mkForce pkgs.wayprompt;
-          pinentry.program = lib.mkForce "pinentry-wayprompt";
+          pinentry.package = lib.mkForce pkgs.pinentry-bemenu;
+          pinentry.program = lib.mkForce "pinentry-bemenu";
         };
         gammastep = {
           enable = true;
@@ -132,7 +123,7 @@
           sloppyfocus = 0;
           hotarea_corner = 0;
           exec-once = [
-            "waybar"
+            # "waybar"
             "gammastep"
           ];
           mousebind = [

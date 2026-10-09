@@ -54,7 +54,6 @@ in
 
     # games
     ../public/games
-    ../public/games/steam.nix
   ];
 
   services.getty.autologinUser = "${username}";
