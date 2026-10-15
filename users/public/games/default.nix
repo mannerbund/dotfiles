@@ -16,6 +16,7 @@
       ...
     }:
     let
+      home = config.home.homeDirectory;
       jail = inputs.jail-nix.lib.extend {
         inherit pkgs;
         additionalCombinators =
@@ -27,17 +28,24 @@
               pulse
               wayland
               xwayland
-              unsafe-dbus
               network
-              (rw-bind "${config.home.homeDirectory}/.local/share/Games" "${config.home.homeDirectory}/.local/share/Games")
-              (rw-bind "${config.home.homeDirectory}/.local/share/lutris" "${config.home.homeDirectory}/.local/share/lutris")
-              (rw-bind "${config.home.homeDirectory}/.cache/lutris" "${config.home.homeDirectory}/.cache/lutris")
-              (rw-bind "/run" "/run")
+              (dbus {
+                own = [ "net.lutris.Lutris" ];
+                talk = [
+                  "org.freedesktop.DBus"
+                  "com.feralinteractive.GameMode"
+                ];
+              })
+              (ro-bind "/sys/class/drm" "/sys/class/drm")
+              (rw-bind "${home}/.local/share/Games" "${home}/.local/share/Games")
+              (rw-bind "${home}/.local/share/lutris" "${home}/.local/share/lutris")
+              (rw-bind "${home}/.cache/lutris" "${home}/.cache/lutris")
               (add-pkg-deps [
                 pkgs.gamemode
                 pkgs.gamescope
                 pkgs.winetricks
                 pkgs.wineWow64Packages.stable
+                pkgs.procps
               ])
             ];
           };
@@ -47,14 +55,12 @@
       home.persistence."/persist" = {
         directories = [
           ".local/share/lutris"
+          ".cache/lutris"
           ".local/share/Games"
-          ".config/StardewValley"
         ];
       };
 
       home.packages = [
-        pkgs.wineWow64Packages.stable
-        pkgs.winetricks
         (jail "jailed-lutris" pkgs.lutris [
           jail.combinators.lutris-permissions
         ])
