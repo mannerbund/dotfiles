@@ -5,10 +5,10 @@
 }:
 {
   imports = [
+    ../status_bars/mangobar.nix
     ../../../terminals/foot.nix
     ../../../media/imv.nix
     ../../../bemenu.nix
-    ../waybar.nix
   ];
 
   fonts = {
@@ -25,6 +25,7 @@
     {
       lib,
       pkgs,
+      config,
       inputs,
       ...
     }:
@@ -41,6 +42,7 @@
         slurp
         brightnessctl
         pwvucontrol
+        swaybg
         (writeShellScriptBin "screenshot-to-clip" ''
           if geometry=$(slurp); then
             if grim -g "$geometry" - | wl-copy; then
@@ -113,17 +115,15 @@
           repeat_delay = 200;
           xkb_rules_layout = "us,ru";
           xkb_rules_options = "ctrl:nocaps,grp:toggle";
-          windowrule = [
-            "isnamedscratchpad:1,width:1280,height:800,appid:scratch-foot"
-            "isnamedscratchpad:1,width:1280,height:800,appid:scratch-music"
+          window_rule = [
+            "is_named_scratchpad:1,width:1280,height:800,is_overlay:1,app_id:scratch-foot"
+            "is_named_scratchpad:1,width:1280,height:800,is_overlay:1,app_id:scratch-music"
           ];
-          layerrule = [
-            "noanim:1,noblur:1,layer_name:selection"
-          ];
-          sloppyfocus = 0;
+          sloppy_focus = 0;
           hotarea_corner = 0;
-          exec-once = [
-            # "waybar"
+          disable_middle_paste = 1;
+          exec_once = [
+            "swaybg -i ${config.home.homeDirectory}/Pictures/Wallpapers/tyrande.jpg"
             "gammastep"
           ];
           mousebind = [

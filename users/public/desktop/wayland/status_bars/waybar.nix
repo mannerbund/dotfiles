@@ -25,7 +25,10 @@
             rev = "084d87401d0a91182c16aa7e5f674a7dde767185";
             hash = "sha256-POvwObPOp6O14n6KYWNLp2Y3paunA5f8U1NCaodNFcc=";
           };
-          buildInputs = oldAttrs.buildInputs ++ [ pkgs.modemmanager ];
+          buildInputs = oldAttrs.buildInputs ++ [
+            pkgs.modemmanager
+            pkgs.catch2_3
+          ];
           mesonFlags = oldAttrs.mesonFlags ++ [
             "-Dcava=disabled"
             "-Dmango=true"
