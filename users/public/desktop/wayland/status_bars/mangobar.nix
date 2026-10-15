@@ -29,8 +29,8 @@
             "clock#time"
           ];
           tray = {
-            icon-size= 25;
-            spacing= 10;
+            icon-size = 25;
+            spacing = 10;
           };
           network = {
             format = "{icon} {ifname}";
